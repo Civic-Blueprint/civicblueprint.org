@@ -11,14 +11,14 @@ export function Hero() {
       <div className="container-shell relative">
         <div className="max-w-5xl">
           <p className="section-eyebrow mb-4">An open analytical project</p>
-          <h1 className="mb-6 max-w-4xl font-display text-[var(--step-4)] leading-[1.05] tracking-tight text-ink">
-            Building a public blueprint for systems that are more capable, more
-            humane, and harder to capture.
-          </h1>
-          <p className="mb-8 max-w-3xl text-[var(--step-2)] leading-snug text-slate">
+          <h1 className="section-title mb-5 text-ink">
             If we wanted a society that was more capable, more humane, and more
             accountable, what would have to change first?
-          </p>
+          </h1>
+          <h2 className="section-lead mb-8 leading-snug text-slate">
+            Building a public blueprint for systems that are more capable, more
+            humane, and harder to capture.
+          </h2>
           <p className="mb-10 reading-width text-[var(--step-0)] leading-relaxed text-slate">
             Civic Blueprint is an open attempt to understand why critical
             systems keep failing, what makes reform so difficult, and where
