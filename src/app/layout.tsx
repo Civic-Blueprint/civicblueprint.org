@@ -16,7 +16,7 @@ const sourceSerif = Source_Serif_4({
 export const metadata: Metadata = {
   title: "Civic Blueprint | A public framework for redesigning broken systems",
   description:
-    "Civic Blueprint is an open project for understanding how critical systems fail and how they might be redesigned.",
+    "Civic Blueprint is an open project for understanding how critical systems fail and how they might be redesigned. Read the first proof-of-usefulness memo — housing permitting and AI governance through one framework — explore the work, and challenge it.",
   icons: {
     icon: "/logo.png",
   },

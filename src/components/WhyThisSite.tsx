@@ -3,23 +3,29 @@ export function WhyThisSite() {
     <section id="start-here" className="section-shell">
       <div className="container-shell">
         <p className="section-eyebrow mb-4">Site purpose</p>
-        <h2 className="mb-5 font-display text-4xl text-ink">
-          Why This Site Exists
-        </h2>
-        <p className="mb-5 reading-width text-lg text-slate">
+        <h2 className="section-title mb-5 text-ink">Why This Site Exists</h2>
+        <p className="mb-5 reading-width text-[var(--step-0)] leading-relaxed text-slate">
           The working documents live in GitHub. That is useful for drafting and
-          version history, but it is not a reasonable front door for many of the
-          people this project most needs.
+          version history, and structured contribution.
         </p>
-        <ul className="mb-5 list-disc space-y-2 pl-6 text-slate">
-          <li>Domain experts</li>
-          <li>Public-interest operators</li>
-          <li>Policy-adjacent builders</li>
-          <li>Researchers with strong disagreement</li>
+        <p className="mb-5 reading-width text-[var(--step-0)] leading-relaxed text-slate">
+          It is not a reasonable front door for many of the people this project
+          most needs:
+        </p>
+        <ul className="mb-5 list-disc space-y-2 pl-6 text-[var(--step-0)] text-slate">
+          <li>domain experts</li>
+          <li>public-interest operators</li>
+          <li>policy-adjacent builders</li>
+          <li>researchers with strong disagreement</li>
         </ul>
-        <p className="reading-width text-slate">
+        <p className="mb-5 reading-width text-[var(--step-0)] leading-relaxed text-slate">
           This site exists to make the work legible enough for serious outsiders
-          to challenge it without first learning repository structure.
+          to challenge it without first learning a repository structure.
+        </p>
+        <p className="reading-width text-[var(--step-0)] leading-relaxed text-slate">
+          The goal of this phase is not applause, branding, or broad awareness.
+          It is to bring the framework into contact with serious outside
+          critique, domain expertise, and evidence it does not yet have.
         </p>
       </div>
     </section>

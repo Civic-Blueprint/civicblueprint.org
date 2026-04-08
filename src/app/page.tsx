@@ -1,5 +1,4 @@
 import { Closing } from "@/components/Closing";
-import { CoreClaim } from "@/components/CoreClaim";
 import { Footer } from "@/components/Footer";
 import { FrameworkOverview } from "@/components/FrameworkOverview";
 import { Hero } from "@/components/Hero";
@@ -19,7 +18,6 @@ export default function Home() {
         <Hero />
         <QuickContext />
         <WhyThisExists />
-        <CoreClaim />
         <MemoFeature />
         <FrameworkOverview />
         <WhyThisSite />

@@ -2,22 +2,22 @@ const frameworkCards = [
   {
     title: "Principles",
     description:
-      "Commitments around dignity, access to essential needs, accountable power, democratic AI oversight, and openness to challenge.",
+      "`PRINCIPLES.md` defines the project's commitments: dignity, access to essential needs, accountable power, democratic oversight of AI, public-interest governance of critical systems, and openness to challenge.",
   },
   {
     title: "Problem Map",
     description:
-      "Where systems are stuck, why they remain stuck, who benefits from dysfunction, and how recursive failure spreads across domains.",
+      "`PROBLEM_MAP.md` describes where systems are stuck, why they stay stuck, who benefits from the dysfunction, and how recursive failure can spread across domains.",
   },
   {
     title: "Systems Framework",
     description:
-      "Application of the diagnosis across fourteen domains with attention to bottlenecks, dependencies, leverage, and sequence.",
+      "`SYSTEMS_FRAMEWORK.md` applies that diagnosis across fourteen domains — including housing, AI governance, healthcare, infrastructure, democratic process, and institutional capacity. It focuses on bottlenecks, dependencies, leverage, failure modes, and sequence.",
   },
   {
     title: "Process",
     description:
-      "A review method designed for adversarial critique, coherence checks, and historical challenge instead of fixed doctrine.",
+      "The project also publishes its review methods. Its claims are meant to face adversarial review, coherence checks, and historical challenge rather than being treated as final answers.",
   },
 ];
 

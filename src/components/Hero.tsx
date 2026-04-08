@@ -42,14 +42,6 @@ export function Hero() {
             Start with one concrete example, then decide whether the broader
             framework is worth your time.
           </p>
-          <div className="blueprint-panel max-w-3xl px-5 py-5 md:px-6 md:py-6">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.12em] text-muted">
-              Epistemic posture
-            </p>
-            <p className="text-[var(--step-0)] leading-relaxed text-slate">
-              A working framework, not settled truth. Designed to be challenged.
-            </p>
-          </div>
         </div>
       </div>
     </section>
