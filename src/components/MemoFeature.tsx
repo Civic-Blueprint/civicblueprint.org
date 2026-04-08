@@ -9,20 +9,20 @@ export function MemoFeature() {
           <p className="section-eyebrow mb-3">
             Start With One Concrete Example
           </p>
-          <h2 className="mb-4 font-display text-4xl text-ink">
+          <h2 className="section-title mb-4 text-ink">
             The fastest way to evaluate this project is to test one memo.
           </h2>
-          <p className="reading-width text-lg text-slate">
+          <p className="section-lead">
             Instead of reading every document, start with a paired test case:
             housing permitting and AI governance. The question is whether one
             framework can generate better strategic insight across both domains.
           </p>
         </div>
-        <article className="blueprint-panel corner-marks p-8">
+        <article className="blueprint-panel corner-marks p-7 md:p-8">
           <p className="mb-2 text-sm font-semibold uppercase tracking-[0.14em] text-muted">
             Featured Artifact
           </p>
-          <h3 className="mb-4 font-display text-3xl text-ink">
+          <h3 className="mb-4 max-w-[22ch] font-display text-3xl leading-tight text-ink">
             Two Test Cases, One Framework
           </h3>
           <ul className="mb-6 list-disc space-y-2 pl-5 text-slate">
@@ -40,7 +40,7 @@ export function MemoFeature() {
               <li>Does this outperform standard issue analysis?</li>
             </ul>
           </div>
-          <p className="mb-6 text-slate">
+          <p className="mb-6 max-w-[52ch] text-[var(--step-0)] leading-relaxed text-slate">
             Does this framework reveal leverage that issue-specific analysis
             misses, or is it overstating its case?
           </p>

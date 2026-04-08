@@ -14,6 +14,15 @@
   --font-display: var(--font-source-serif);
 }
 
+:root {
+  --step--1: clamp(0.86rem, 0.82rem + 0.2vw, 0.95rem);
+  --step-0: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --step-1: clamp(1.2rem, 1.05rem + 0.6vw, 1.45rem);
+  --step-2: clamp(1.5rem, 1.2rem + 1.1vw, 2rem);
+  --step-3: clamp(2rem, 1.4rem + 2vw, 3rem);
+  --step-4: clamp(2.4rem, 1.5rem + 3vw, 3.85rem);
+}
+
 *,
 *::before,
 *::after {
@@ -52,7 +61,7 @@ a {
 }
 
 .reading-width {
-  max-width: 75ch;
+  max-width: 70ch;
 }
 
 .section-eyebrow {
@@ -61,6 +70,20 @@ a {
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+.section-title {
+  font-family: var(--font-source-serif), Georgia, serif;
+  font-size: var(--step-3);
+  letter-spacing: -0.012em;
+  line-height: 1.12;
+}
+
+.section-lead {
+  color: #334155;
+  font-size: var(--step-1);
+  line-height: 1.5;
+  max-width: 65ch;
 }
 
 .blueprint-grid {
@@ -102,7 +125,8 @@ a {
   display: inline-flex;
   font-weight: 600;
   justify-content: center;
-  padding: 0.75rem 1.25rem;
+  min-height: 2.75rem;
+  padding: 0.72rem 1.28rem;
   transition: background-color 0.15s ease;
 }
 
@@ -127,7 +151,8 @@ a {
   display: inline-flex;
   font-weight: 600;
   justify-content: center;
-  padding: 0.75rem 1.25rem;
+  min-height: 2.75rem;
+  padding: 0.72rem 1.28rem;
   transition: background-color 0.15s ease;
 }
 
@@ -138,6 +163,7 @@ a {
 
 .text-link {
   color: #123e7c;
+  font-weight: 500;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -177,5 +203,9 @@ a {
   .section-shell {
     padding-bottom: 5.75rem;
     padding-top: 5.75rem;
+  }
+
+  .section-eyebrow {
+    font-size: 0.78rem;
   }
 }

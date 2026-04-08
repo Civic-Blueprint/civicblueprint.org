@@ -26,20 +26,22 @@ export function FrameworkOverview() {
     <section id="framework" className="section-shell">
       <div className="container-shell">
         <p className="section-eyebrow mb-4">Framework overview</p>
-        <h2 className="mb-5 font-display text-4xl text-ink">
+        <h2 className="section-title mb-5 text-ink">
           What The Framework Currently Says
         </h2>
-        <p className="mb-8 reading-width text-lg text-slate">
+        <p className="section-lead mb-8">
           The current framework has three analytical layers and one process
           layer.
         </p>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-5 md:grid-cols-2">
           {frameworkCards.map((card) => (
             <article key={card.title} className="blueprint-panel p-7">
               <h3 className="mb-3 font-display text-2xl text-ink">
                 {card.title}
               </h3>
-              <p className="text-slate">{card.description}</p>
+              <p className="text-[var(--step-0)] leading-relaxed text-slate">
+                {card.description}
+              </p>
               <a href="#" className="mt-4 inline-block text-link">
                 Read more
               </a>

@@ -4,10 +4,10 @@ export function Closing() {
       <div className="container-shell">
         <div className="blueprint-panel p-8 md:p-10">
           <p className="section-eyebrow mb-3">Closing prompt</p>
-          <p className="mb-4 text-lg text-slate">
+          <p className="mb-4 text-[var(--step-1)] text-slate">
             Civic Blueprint is not asking for loyalty.
           </p>
-          <h2 className="mb-8 max-w-3xl font-display text-4xl text-ink">
+          <h2 className="mb-8 max-w-[22ch] font-display text-[var(--step-3)] leading-tight text-ink">
             Does this framework help serious people see something important more
             clearly, or not?
           </h2>
