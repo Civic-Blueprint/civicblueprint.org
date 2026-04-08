@@ -5,8 +5,17 @@ export function WhyThisSite() {
         <p className="section-eyebrow mb-4">Site purpose</p>
         <h2 className="section-title mb-5 text-ink">Why This Site Exists</h2>
         <p className="mb-5 reading-width text-[var(--step-0)] leading-relaxed text-slate">
-          The working documents live in GitHub. That is useful for drafting and
-          version history, and structured contribution.
+          The working documents live in{" "}
+          <a
+            href="https://github.com/Civic-Blueprint/project-2028"
+            className="text-link"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
+          . That is useful for drafting and version history, and structured
+          contribution.
         </p>
         <p className="mb-5 reading-width text-[var(--step-0)] leading-relaxed text-slate">
           It is not a reasonable front door for many of the people this project

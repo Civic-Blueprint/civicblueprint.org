@@ -72,10 +72,20 @@ export function MemoFeature() {
             misses, that is a better basis for deeper engagement.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a href="#" className="primary-button w-full sm:w-auto">
+            <a
+              href="https://github.com/Civic-Blueprint/project-2028/blob/main/agent/exchanges/proof-of-usefulness-housing-vs-ai.md"
+              className="primary-button w-full sm:w-auto"
+              target="_blank"
+              rel="noreferrer"
+            >
               Read the memo
             </a>
-            <a href="#framework" className="secondary-button w-full sm:w-auto">
+            <a
+              href="https://github.com/Civic-Blueprint/project-2028/blob/main/SYSTEMS_FRAMEWORK.md"
+              className="secondary-button w-full sm:w-auto"
+              target="_blank"
+              rel="noreferrer"
+            >
               See the source framework
             </a>
           </div>

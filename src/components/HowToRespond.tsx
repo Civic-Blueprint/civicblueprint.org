@@ -3,7 +3,10 @@ const responseOptions = [
   { title: "Share domain expertise", href: "#" },
   { title: "Point to a historical case", href: "#" },
   { title: "Suggest a missing perspective", href: "#" },
-  { title: "Read the contribution guide", href: "#" },
+  {
+    title: "Read the contribution guide",
+    href: "https://github.com/Civic-Blueprint/project-2028/blob/main/CONTRIBUTING.md",
+  },
 ];
 
 export function HowToRespond() {
@@ -25,6 +28,8 @@ export function HowToRespond() {
               key={option.title}
               className="group blueprint-panel block cursor-pointer border-l-[3px] border-l-blueprint-navy p-7 transition duration-200 hover:-translate-y-0.5 hover:border-blueprint-technical"
               href={option.href}
+              target={option.href.startsWith("http") ? "_blank" : undefined}
+              rel={option.href.startsWith("http") ? "noreferrer" : undefined}
             >
               <div className="flex items-start justify-between gap-3">
                 <h3 className="max-w-[16ch] font-display text-2xl leading-tight text-ink">

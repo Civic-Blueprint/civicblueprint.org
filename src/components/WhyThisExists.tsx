@@ -25,7 +25,15 @@ export function WhyThisExists() {
           understanding them changes what reform looks like.
         </p>
         <p className="reading-width text-[var(--step-0)] leading-relaxed text-slate">
-          For readers who want the full working documents, the repository
+          For readers who want the full working documents, the{" "}
+          <a
+            href="https://github.com/Civic-Blueprint/project-2028"
+            className="text-link"
+            target="_blank"
+            rel="noreferrer"
+          >
+            repository
+          </a>{" "}
           remains the source of record.
         </p>
       </div>
