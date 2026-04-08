@@ -244,6 +244,7 @@ The artifact should answer:
 - what the standard framing of each problem usually emphasizes
 - what the Civic Blueprint framework sees that the standard framings miss
 - what the two cases reveal when read together that neither reveals alone
+- what strategic direction the framework is actually testing, rather than only what patterns it observes
 - where the framework may be wrong or incomplete in each domain
 - what kinds of domain expertise would most improve the analysis
 
@@ -282,11 +283,15 @@ Recommended outline:
 
 5. **What this framework adds** (combined across both cases)
 
-6. **Where the framework may be wrong** (on housing, on AI, on the comparison itself)
+6. **Where the framework is pointing**
+   - Make the directional claim explicit
+   - Explain what the reader is actually being asked to pressure-test
 
-7. **What would change our mind**
+7. **Where the framework may be wrong** (on housing, on AI, on the comparison itself)
 
-8. **What useful feedback would look like**
+8. **What would change our mind**
+
+9. **What useful feedback would look like**
    - practitioner critique
    - counterexamples
    - historical parallels
@@ -302,7 +307,7 @@ Suggested funnel:
 1. Read the homepage summary.
 2. Read the proof-of-usefulness artifact or a short "Start Here" guide.
 3. Choose one action:
-   - challenge a claim
+   - challenge the directional claim
    - share domain expertise
    - point to a historical case
    - suggest a missing perspective

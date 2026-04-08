@@ -126,9 +126,12 @@ AI governance is arguably the most urgent systemic challenge right now. Housing 
 - Where does institutional capacity show up as execution failure?
 - Where does it show up as governance lag?
 - What does the timescale difference between the two tell us about reform design?
+- Is the framework actually pointing toward a better strategic direction than standard issue-specific analysis does?
 - Where might the framework be overstating its case in each domain?
 
-If the memo adds nothing to either conversation, the project needs to know that. If it clarifies something that single-domain analysis misses, that is a better basis for deeper engagement.
+The memo is not just asking whether the comparison is interesting. It is asking whether the framework's directional claim holds up: that upstream institutional competence, matched to the speed and structure of the domain, may be one of the strongest places to look for real leverage.
+
+If that claim adds nothing to either conversation, the project needs to know that. If it clarifies something that single-domain analysis misses, that is a better basis for deeper engagement.
 
 Primary link text:
 
@@ -150,7 +153,7 @@ The most useful input includes:
 - historical parallels that support or challenge the framework's causal claims
 - implementation critique about sequencing, incentives, staffing, and execution
 - missing perspectives, especially from outside US and Western policy frames
-- direct disagreement with major claims, including the institutional-capacity hypothesis
+- direct disagreement with major claims, including the institutional-capacity hypothesis and the memo's directional claim about leverage
 
 Helpful feedback is specific. "This feels right" is less useful than "this causal link is weak because permitting delays in this case came from infrastructure finance, not zoning."
 
@@ -162,7 +165,7 @@ If you think the framework is useful, incomplete, or wrong, say so directly.
 
 Suggested response paths:
 
-- Challenge a claim
+- Challenge the directional claim
 - Share domain expertise
 - Point to a historical case
 - Suggest a missing perspective
