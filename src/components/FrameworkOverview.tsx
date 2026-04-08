@@ -30,8 +30,7 @@ export function FrameworkOverview() {
           What The Framework Currently Says
         </h2>
         <p className="section-lead mb-8">
-          The current framework has three analytical layers and one process
-          layer.
+          The current framework has three main layers and one process layer.
         </p>
         <div className="balanced-grid grid gap-5 md:grid-cols-2">
           {frameworkCards.map((card) => (
