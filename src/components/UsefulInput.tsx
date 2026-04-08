@@ -21,7 +21,7 @@ export function UsefulInput() {
           Helpful feedback is specific. Critique tied to causal claims,
           implementation details, or competing explanations is the most useful.
         </p>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="balanced-grid grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {usefulInputItems.map((item) => (
             <article key={item} className="blueprint-card p-6">
               <p className="text-[var(--step-0)] leading-relaxed text-slate">

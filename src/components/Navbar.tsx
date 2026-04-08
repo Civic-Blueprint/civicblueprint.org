@@ -24,11 +24,11 @@ export function Navbar() {
           </span>
         </a>
         <nav aria-label="Primary" className="w-full md:w-auto">
-          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate md:justify-end">
+          <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.78rem] text-slate sm:text-sm md:justify-end">
             {navItems.map((item) => (
               <li key={item.label}>
                 <a
-                  className="border-b border-transparent pb-0.5 font-medium text-slate transition-colors hover:border-blueprint-navy hover:text-blueprint-navy focus-visible:border-blueprint-navy focus-visible:text-blueprint-navy"
+                  className="border-b border-transparent py-1 font-medium text-slate transition-colors hover:border-blueprint-navy hover:text-blueprint-navy focus-visible:border-blueprint-navy focus-visible:text-blueprint-navy"
                   href={item.href}
                 >
                   {item.label}

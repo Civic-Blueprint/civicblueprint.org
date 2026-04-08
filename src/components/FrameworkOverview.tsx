@@ -33,7 +33,7 @@ export function FrameworkOverview() {
           The current framework has three analytical layers and one process
           layer.
         </p>
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="balanced-grid grid gap-5 md:grid-cols-2">
           {frameworkCards.map((card) => (
             <article key={card.title} className="blueprint-panel p-7">
               <h3 className="mb-3 font-display text-2xl text-ink">

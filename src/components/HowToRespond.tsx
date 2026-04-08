@@ -14,7 +14,7 @@ export function HowToRespond() {
           If you think the framework is useful, incomplete, or wrong, say so
           directly.
         </p>
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="balanced-grid grid gap-5 md:grid-cols-3">
           {responseOptions.map((option) => (
             <a
               key={option.title}

@@ -58,6 +58,7 @@ a {
   border-top: 1px solid #c7d2e3;
   padding-bottom: 4.5rem;
   padding-top: 4.5rem;
+  scroll-margin-top: 5.5rem;
 }
 
 .reading-width {
@@ -128,6 +129,7 @@ a {
   min-height: 2.75rem;
   padding: 0.72rem 1.28rem;
   transition: background-color 0.15s ease;
+  white-space: nowrap;
 }
 
 .primary-button:hover,
@@ -154,6 +156,7 @@ a {
   min-height: 2.75rem;
   padding: 0.72rem 1.28rem;
   transition: background-color 0.15s ease;
+  white-space: nowrap;
 }
 
 .secondary-button:hover,
@@ -199,6 +202,10 @@ a {
   right: -7px;
 }
 
+.balanced-grid > * {
+  height: 100%;
+}
+
 @media (min-width: 768px) {
   .section-shell {
     padding-bottom: 5.75rem;
@@ -207,5 +214,22 @@ a {
 
   .section-eyebrow {
     font-size: 0.78rem;
+  }
+
+  .primary-button,
+  .secondary-button {
+    min-height: 3rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-shell {
+    padding-bottom: 3.75rem;
+    padding-top: 3.75rem;
+  }
+
+  .corner-marks::before,
+  .corner-marks::after {
+    display: none;
   }
 }

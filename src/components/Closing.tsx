@@ -2,7 +2,7 @@ export function Closing() {
   return (
     <section className="section-shell">
       <div className="container-shell">
-        <div className="blueprint-panel p-8 md:p-10">
+        <div className="blueprint-panel max-w-4xl p-8 md:p-10">
           <p className="section-eyebrow mb-3">Closing prompt</p>
           <p className="mb-4 text-[var(--step-1)] text-slate">
             Civic Blueprint is not asking for loyalty.
