@@ -1,8 +1,8 @@
 const contextCards = [
-  "Systems are failing in predictable ways.",
+  "Critical systems are failing in ways people can already feel.",
   "AI is accelerating faster than governance.",
-  "These problems are connected upstream.",
-  "This project tests whether that changes reform strategy.",
+  "Many of these failures share the same underlying causes.",
+  "If the diagnosis is right, we may be trying to fix the wrong things first.",
 ];
 
 export function QuickContext() {

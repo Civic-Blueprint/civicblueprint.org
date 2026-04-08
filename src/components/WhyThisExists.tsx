@@ -15,13 +15,13 @@ export function WhyThisExists() {
         </p>
         <p className="mb-5 reading-width text-[var(--step-0)] leading-relaxed text-slate">
           These problems are usually treated as separate policy debates. The
-          Civic Blueprint framework argues they are connected — often through
-          the same upstream failures in institutional capacity, democratic
+          argument here is that they are connected — often through the same
+          upstream failures in institutional capacity, democratic
           accountability, and the ability of public systems to execute at the
           speed the moment demands.
         </p>
         <p className="mb-5 reading-width text-[var(--step-0)] leading-relaxed text-slate">
-          Civic Blueprint exists to map those connections and test whether
+          This project exists to map those connections and test whether
           understanding them changes what reform looks like.
         </p>
         <p className="reading-width text-[var(--step-0)] leading-relaxed text-slate">
