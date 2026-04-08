@@ -16,8 +16,8 @@ export function Hero() {
             accountable, what would have to change first?
           </h1>
           <h2 className="section-lead mb-8 leading-snug text-slate text-wrap-balance">
-            An open framework for understanding why critical systems fail -- and
-            what better design might actually change.
+            Better systems are possible -- and building them is a shared civic
+            responsibility.
           </h2>
           <p className="mb-10 reading-width text-[var(--step-0)] leading-relaxed text-slate">
             Civic Blueprint is an open attempt to understand why critical

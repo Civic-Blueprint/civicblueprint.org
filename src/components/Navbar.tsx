@@ -13,11 +13,10 @@ export function Navbar() {
       <div className="container-shell flex flex-wrap items-center justify-between gap-y-3 py-4">
         <a href="#" className="flex items-center gap-3">
           <Image
-            src="/logo.png"
+            src="/logo-transparent.png"
             alt="Civic Blueprint logo"
-            width={40}
-            height={40}
-            className="rounded-lg"
+            width={56}
+            height={55}
             priority
           />
           <span className="text-sm font-semibold tracking-wide text-ink">
