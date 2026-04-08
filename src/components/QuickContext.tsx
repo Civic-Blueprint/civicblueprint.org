@@ -9,9 +9,13 @@ export function QuickContext() {
   return (
     <section className="section-shell">
       <div className="container-shell">
+        <p className="section-eyebrow mb-4">Quick context</p>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {contextCards.map((card) => (
+          {contextCards.map((card, index) => (
             <article key={card} className="blueprint-card p-6">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted">
+                Signal {index + 1}
+              </p>
               <p className="text-base text-slate">{card}</p>
             </article>
           ))}

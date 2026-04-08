@@ -2,6 +2,7 @@ export function WhyThisSite() {
   return (
     <section id="start-here" className="section-shell">
       <div className="container-shell">
+        <p className="section-eyebrow mb-4">Site purpose</p>
         <h2 className="mb-5 font-display text-4xl text-ink">
           Why This Site Exists
         </h2>

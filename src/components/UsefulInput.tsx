@@ -10,11 +10,16 @@ export function UsefulInput() {
   return (
     <section className="section-shell">
       <div className="container-shell">
+        <p className="section-eyebrow mb-4">Feedback quality bar</p>
         <h2 className="mb-5 font-display text-4xl text-ink">
           What Kind Of Input Is Most Useful
         </h2>
-        <p className="mb-8 text-xl font-semibold text-blueprint-navy">
+        <p className="mb-3 text-xl font-semibold text-blueprint-navy">
           Encouragement is not the goal. Pressure is.
+        </p>
+        <p className="mb-8 reading-width text-base text-muted">
+          Helpful feedback is specific. Critique tied to causal claims,
+          implementation details, or competing explanations is the most useful.
         </p>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {usefulInputItems.map((item) => (

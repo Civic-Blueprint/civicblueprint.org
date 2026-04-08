@@ -31,6 +31,7 @@ body {
   color: #111827;
   font-family: var(--font-public-sans), Arial, Helvetica, sans-serif;
   line-height: 1.6;
+  text-wrap: pretty;
 }
 
 a {
@@ -46,12 +47,20 @@ a {
 
 .section-shell {
   border-top: 1px solid #c7d2e3;
-  padding-bottom: 5rem;
-  padding-top: 5rem;
+  padding-bottom: 4.5rem;
+  padding-top: 4.5rem;
 }
 
 .reading-width {
   max-width: 75ch;
+}
+
+.section-eyebrow {
+  color: #123e7c;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
 }
 
 .blueprint-grid {
@@ -66,6 +75,23 @@ a {
   border: 1px solid #c7d2e3;
   border-radius: 0.85rem;
   box-shadow: 0 1px 2px rgba(17, 24, 39, 0.05);
+}
+
+.blueprint-panel {
+  background: #ffffff;
+  border: 1px solid #c7d2e3;
+  border-radius: 1rem;
+  position: relative;
+}
+
+.blueprint-panel::before {
+  background: linear-gradient(to right, #123e7c, rgba(18, 62, 124, 0));
+  content: "";
+  height: 1px;
+  left: 1rem;
+  position: absolute;
+  right: 1rem;
+  top: 0.9rem;
 }
 
 .primary-button {
@@ -83,6 +109,13 @@ a {
 .primary-button:hover,
 .primary-button:focus-visible {
   background: #2b5a96;
+}
+
+.primary-button:focus-visible,
+.secondary-button:focus-visible,
+.text-link:focus-visible {
+  outline: 2px solid #2b5a96;
+  outline-offset: 2px;
 }
 
 .secondary-button {
@@ -138,4 +171,11 @@ a {
   border-width: 0 2px 2px 0;
   bottom: -7px;
   right: -7px;
+}
+
+@media (min-width: 768px) {
+  .section-shell {
+    padding-bottom: 5.75rem;
+    padding-top: 5.75rem;
+  }
 }

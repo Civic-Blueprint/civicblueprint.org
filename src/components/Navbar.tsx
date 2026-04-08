@@ -10,7 +10,7 @@ const navItems = [
 export function Navbar() {
   return (
     <header className="sticky top-0 z-20 border-b border-blueprint-line bg-blueprint-surface/95 backdrop-blur">
-      <div className="container-shell flex items-center justify-between py-4">
+      <div className="container-shell flex flex-wrap items-center justify-between gap-y-3 py-4">
         <a href="#" className="flex items-center gap-3">
           <Image
             src="/logo.png"
@@ -23,11 +23,14 @@ export function Navbar() {
             CIVIC BLUEPRINT
           </span>
         </a>
-        <nav aria-label="Primary">
-          <ul className="flex items-center gap-5 text-sm text-slate">
+        <nav aria-label="Primary" className="w-full md:w-auto">
+          <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-slate md:justify-end">
             {navItems.map((item) => (
               <li key={item.label}>
-                <a className="text-link no-underline" href={item.href}>
+                <a
+                  className="border-b border-transparent pb-0.5 font-medium text-slate transition-colors hover:border-blueprint-navy hover:text-blueprint-navy focus-visible:border-blueprint-navy focus-visible:text-blueprint-navy"
+                  href={item.href}
+                >
                   {item.label}
                 </a>
               </li>
