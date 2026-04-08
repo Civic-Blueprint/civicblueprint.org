@@ -17,7 +17,7 @@ export function Closing() {
           <p className="mb-8 max-w-3xl text-[var(--step-0)] leading-relaxed text-slate">
             This site exists to make that question easier to answer in public.
           </p>
-          <a href="#memo" className="primary-button">
+          <a href="#memo" className="primary-button w-full sm:w-auto">
             Read the memo
           </a>
         </div>

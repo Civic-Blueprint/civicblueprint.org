@@ -176,6 +176,17 @@ a {
   color: #2b5a96;
 }
 
+.doc-ref {
+  background: #e5e7eb;
+  border-radius: 9999px;
+  color: #334155;
+  font-family: var(--font-public-sans), Arial, Helvetica, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.15rem 0.4rem;
+}
+
 .corner-marks {
   position: relative;
 }

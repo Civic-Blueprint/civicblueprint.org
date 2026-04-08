@@ -1,18 +1,21 @@
 const frameworkCards = [
   {
     title: "Principles",
+    source: "PRINCIPLES.md",
     description:
-      "`PRINCIPLES.md` defines the project's commitments: dignity, access to essential needs, accountable power, democratic oversight of AI, public-interest governance of critical systems, and openness to challenge.",
+      "defines the project's commitments: dignity, access to essential needs, accountable power, democratic oversight of AI, public-interest governance of critical systems, and openness to challenge.",
   },
   {
     title: "Problem Map",
+    source: "PROBLEM_MAP.md",
     description:
-      "`PROBLEM_MAP.md` describes where systems are stuck, why they stay stuck, who benefits from the dysfunction, and how recursive failure can spread across domains.",
+      "describes where systems are stuck, why they stay stuck, who benefits from the dysfunction, and how recursive failure can spread across domains.",
   },
   {
     title: "Systems Framework",
+    source: "SYSTEMS_FRAMEWORK.md",
     description:
-      "`SYSTEMS_FRAMEWORK.md` applies that diagnosis across fourteen domains — including housing, AI governance, healthcare, infrastructure, democratic process, and institutional capacity. It focuses on bottlenecks, dependencies, leverage, failure modes, and sequence.",
+      "applies that diagnosis across fourteen domains — including housing, AI governance, healthcare, infrastructure, democratic process, and institutional capacity. It focuses on bottlenecks, dependencies, leverage, failure modes, and sequence.",
   },
   {
     title: "Process",
@@ -39,6 +42,11 @@ export function FrameworkOverview() {
                 {card.title}
               </h3>
               <p className="text-[var(--step-0)] leading-relaxed text-slate">
+                {card.source ? (
+                  <>
+                    <code className="doc-ref">{card.source}</code>{" "}
+                  </>
+                ) : null}
                 {card.description}
               </p>
               <a href="#" className="mt-4 inline-block text-link">

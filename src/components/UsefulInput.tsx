@@ -1,9 +1,9 @@
 const usefulInputItems = [
-  "domain expertise from people who know how a system actually works",
-  "historical parallels that support or challenge the framework's causal claims",
-  "implementation critique about sequencing, incentives, staffing, and execution",
-  "missing perspectives, especially from outside US and Western policy frames",
-  "direct disagreement with major claims, including the institutional-capacity hypothesis and the memo's directional claim about leverage",
+  "Domain expertise from people who know how a system actually works.",
+  "Historical parallels that support or challenge the framework's causal claims.",
+  "Implementation critique about sequencing, incentives, staffing, and execution.",
+  "Missing perspectives, especially from outside US and Western policy frames.",
+  "Direct disagreement with major claims, including the institutional-capacity hypothesis and the memo's directional claim about leverage.",
 ];
 
 export function UsefulInput() {

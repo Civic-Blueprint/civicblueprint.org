@@ -11,13 +11,13 @@ export function Hero() {
       <div className="container-shell relative">
         <div className="max-w-5xl">
           <p className="section-eyebrow mb-4">An open analytical project</p>
-          <h1 className="section-title mb-5 text-ink">
+          <h1 className="section-title mb-5 text-ink text-wrap-balance">
             If we wanted a society that was more capable, more humane, and more
             accountable, what would have to change first?
           </h1>
-          <h2 className="section-lead mb-8 leading-snug text-slate">
-            Building a public blueprint for systems that are more capable, more
-            humane, and harder to capture.
+          <h2 className="section-lead mb-8 leading-snug text-slate text-wrap-balance">
+            An open framework for understanding why critical systems fail -- and
+            what better design might actually change.
           </h2>
           <p className="mb-10 reading-width text-[var(--step-0)] leading-relaxed text-slate">
             Civic Blueprint is an open attempt to understand why critical
@@ -27,14 +27,14 @@ export function Hero() {
             working set of claims that needs outside pressure, domain expertise,
             and evidence strong enough to prove parts of it wrong.
           </p>
-          <div className="mb-4 flex flex-wrap items-center gap-3 sm:gap-4">
-            <a href="#memo" className="primary-button">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+            <a href="#memo" className="primary-button w-full sm:w-auto">
               Read the first memo
             </a>
-            <a href="#start-here" className="secondary-button">
+            <a href="#start-here" className="secondary-button w-full sm:w-auto">
               Start here
             </a>
-            <a href="#contribute" className="secondary-button">
+            <a href="#contribute" className="secondary-button w-full sm:w-auto">
               Challenge this work
             </a>
           </div>

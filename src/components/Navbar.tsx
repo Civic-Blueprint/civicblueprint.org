@@ -15,8 +15,9 @@ export function Navbar() {
           <Image
             src="/logo.png"
             alt="Civic Blueprint logo"
-            width={36}
-            height={36}
+            width={40}
+            height={40}
+            className="rounded-lg"
             priority
           />
           <span className="text-sm font-semibold tracking-wide text-ink">

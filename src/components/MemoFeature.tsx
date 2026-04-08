@@ -71,11 +71,11 @@ export function MemoFeature() {
             to know that. If it clarifies something that single-domain analysis
             misses, that is a better basis for deeper engagement.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <a href="#" className="primary-button">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a href="#" className="primary-button w-full sm:w-auto">
               Read the memo
             </a>
-            <a href="#framework" className="secondary-button">
+            <a href="#framework" className="secondary-button w-full sm:w-auto">
               See the source framework
             </a>
           </div>
