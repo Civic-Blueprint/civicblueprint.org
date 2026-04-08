@@ -225,68 +225,73 @@ Must include:
 
 ## Recommended First Proof-of-Usefulness Artifact
 
-Phase 1 should start with one concrete policy bottleneck that is legible, consequential, and structurally connected to the framework's main hypotheses.
+Phase 1 should start with one artifact that demonstrates the framework's cross-domain analytical method on problems that are concrete, consequential, and structurally connected to the framework's main hypotheses.
 
-Recommended first topic:
+Recommended first artifact:
 
-**Housing permitting as a test case for institutional capacity and recursive uplift**
+**Two test cases, one framework: what housing permitting and AI governance reveal about institutional capacity**
 
-Why this topic is the strongest Phase 1 candidate:
+This recommendation originated from an internal exchange (`project-2028/agent/exchanges/proof-of-usefulness-housing-vs-ai.md`) that debated whether housing or AI should lead. The three-round exchange concluded that a comparative artifact — showing the framework operating on both domains and comparing what the paired cases reveal — would be stronger than either single-domain memo because:
 
-- it is concrete and legible to non-specialists
-- it directly connects to the Systems Framework's first-move hypotheses around institutional capacity, permitting reform, infrastructure, and housing
-- it allows the project to show cross-domain reasoning rather than a single-issue take
-- it is easier to compare against standard policy discourse than a more abstract topic like "institutional legitimacy"
+- it directly answers the newcomer's most likely question ("Why start with housing when AI is the urgent issue?")
+- it demonstrates the framework's cross-domain method rather than a single-issue take
+- it shows the same upstream dependency (institutional capacity) producing different failure modes at different timescales
+- it avoids both the "polished near-miss" risk of a housing-only memo and the "topical but generic" risk of an AI-only memo
 
 The artifact should answer:
 
-- what the standard framing of the problem usually emphasizes
-- what the Civic Blueprint framework sees that the standard framing misses
-- which dependencies matter most
-- where the framework may be wrong or incomplete
+- why AI governance and housing permitting are paired rather than presented separately
+- what the standard framing of each problem usually emphasizes
+- what the Civic Blueprint framework sees that the standard framings miss
+- what the two cases reveal when read together that neither reveals alone
+- where the framework may be wrong or incomplete in each domain
 - what kinds of domain expertise would most improve the analysis
 
 Recommended format:
 
-- 1,500-3,000 word memo
-- one simple dependency diagram
-- a short "What this framework adds" section
-- a short "What would change our mind" section
+- approximately 3,000–3,500 words
+- structured as: opening question, housing case, AI case, comparison, combined strengths and weaknesses, feedback invitation
+- a short "What this framework adds" section covering both domains
+- a short "What would change our mind" section covering both domains
 
 ## Proof-of-Usefulness Outline
 
-The first artifact should be structured so a serious reader can quickly compare Civic Blueprint's framing to standard discourse.
+The first artifact should be structured so a serious reader can quickly see the framework operating on two domains and compare the results.
 
 Recommended outline:
 
-1. **The familiar problem statement**
-   - How housing permitting is usually framed
-   - What those framings get right
+1. **Why start here?**
+   - Name AI as the dominant governance concern
+   - Explain why the project pairs it with a concrete, local case
+   - Preview what the comparison reveals
 
-2. **What the standard framing misses**
-   - the institutional capacity layer
-   - the infrastructure and permitting layer
-   - the democratic process layer
-   - the trust and legitimacy layer
+2. **Case 1: Housing permitting**
+   - The familiar framing and what it gets right
+   - What the framework adds: institutional capacity, infrastructure coordination, trust and legitimacy, democratic-process mismatch
+   - Upstream dependencies and downstream effects
 
-3. **Dependency walk-through**
-   - show how the problem is connected to upstream and downstream systems
-   - identify where the bottlenecks are structural rather than merely ideological
+3. **Case 2: AI governance**
+   - The familiar framing and what it gets right
+   - What the framework adds: governance-speed gap, self-reinforcing concentration, dual character (risk and tool), specific capture risks
+   - Upstream dependencies and downstream effects
 
-4. **Why this matters strategically**
-   - explain why this case is useful as an early demonstration of competence
-   - connect it to the Systems Framework's current first-move hypotheses without overstating certainty
+4. **What the two cases reveal together**
+   - Same upstream variable, radically different timescales
+   - Cross-domain reasoning as the distinctive contribution
+   - Urgency and demonstrability as different variables
 
-5. **Where the framework may be wrong**
-   - assumptions that need challenge
-   - missing evidence
-   - missing perspectives
+5. **What this framework adds** (combined across both cases)
 
-6. **What useful feedback would look like**
+6. **Where the framework may be wrong** (on housing, on AI, on the comparison itself)
+
+7. **What would change our mind**
+
+8. **What useful feedback would look like**
    - practitioner critique
    - counterexamples
    - historical parallels
    - alternative causal models
+   - assessment of the comparison itself
 
 ## Contribution Funnel
 
@@ -382,12 +387,12 @@ These are important, but they should not block Phase 1:
 - interactive dependency graph exploration
 - broader public storytelling and campaign-style outreach
 - live events, office hours, or community channels beyond the minimum viable contribution path
-- multiple proof-of-usefulness artifacts
+- additional single-domain proof-of-usefulness artifacts beyond the comparative memo
 
 ## Immediate Next Actions
 
-1. Decide the exact first proof-of-usefulness topic and outline.
-2. Draft homepage copy around the question: "What is this, and why should a serious outsider spend time on it?"
+1. ~~Decide the exact first proof-of-usefulness topic and outline.~~ Decided: comparative housing + AI artifact. See `docs/PROOF_OF_USEFULNESS_MEMO_01.md`.
+2. ~~Draft homepage copy around the question: "What is this, and why should a serious outsider spend time on it?"~~ See `docs/HOMEPAGE_COPY_DRAFT.md`.
 3. Decide the minimum contribution channel for non-GitHub users.
 4. Choose a lightweight site stack.
 5. Ship the smallest usable version and learn from real responses.
