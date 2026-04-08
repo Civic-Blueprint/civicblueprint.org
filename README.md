@@ -26,6 +26,26 @@ Open [http://localhost:3000](http://localhost:3000).
 npm run build
 ```
 
+### Visual snapshots (Playwright)
+
+Homepage screenshots are checked with [Playwright](https://playwright.dev/) at three widths (1440, 768, 390). Start the dev server first, then regenerate baselines after visual changes:
+
+```bash
+npm run dev
+# in another terminal:
+npm run test:e2e:update
+```
+
+To run the visual tests without updating snapshots:
+
+```bash
+npm run test:e2e
+```
+
+Set `PLAYWRIGHT_BASE_URL` if the app is not on `http://localhost:3000`.
+
+Baseline PNGs live under `e2e/home.visual.spec.ts-snapshots/` (platform-specific suffix, e.g. `-chromium-darwin`).
+
 ## Current docs
 
 - `docs/WEBSITE_PHASE_1_BRIEF.md` — Phase 1 scope, audience, and launch plan
