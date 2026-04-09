@@ -103,3 +103,10 @@ export STAGING_REVIEWER_USERNAME=Roustalski
 export PRODUCTION_REVIEWER_TEAM_SLUG=platform
 export STAGING_REVIEWER_TEAM_SLUG=platform
 ```
+
+Self-review settings (defaults are `false` to avoid single-reviewer deadlocks):
+
+```bash
+export PRODUCTION_PREVENT_SELF_REVIEW=false
+export STAGING_PREVENT_SELF_REVIEW=false
+```

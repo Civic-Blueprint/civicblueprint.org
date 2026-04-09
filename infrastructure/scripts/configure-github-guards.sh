@@ -19,6 +19,8 @@ PRODUCTION_REVIEWER_USERNAME="${PRODUCTION_REVIEWER_USERNAME:-}"
 STAGING_REVIEWER_USERNAME="${STAGING_REVIEWER_USERNAME:-}"
 PRODUCTION_REVIEWER_TEAM_SLUG="${PRODUCTION_REVIEWER_TEAM_SLUG:-}"
 STAGING_REVIEWER_TEAM_SLUG="${STAGING_REVIEWER_TEAM_SLUG:-}"
+PRODUCTION_PREVENT_SELF_REVIEW="${PRODUCTION_PREVENT_SELF_REVIEW:-false}"
+STAGING_PREVENT_SELF_REVIEW="${STAGING_PREVENT_SELF_REVIEW:-false}"
 
 resolve_user_id() {
   local username="${1:-}"
@@ -79,6 +81,8 @@ STAGING_REVIEWERS="$(build_reviewers_json "$STAGING_REVIEWER_TEAM_ID" "$STAGING_
 echo "Resolved reviewer configuration:"
 echo "  production -> team_id=${PRODUCTION_REVIEWER_TEAM_ID:-none}, user_id=${PRODUCTION_REVIEWER_USER_ID:-none}"
 echo "  staging    -> team_id=${STAGING_REVIEWER_TEAM_ID:-none}, user_id=${STAGING_REVIEWER_USER_ID:-none}"
+echo "  production prevent_self_review=${PRODUCTION_PREVENT_SELF_REVIEW}"
+echo "  staging    prevent_self_review=${STAGING_PREVENT_SELF_REVIEW}"
 
 echo "Applying branch protection to ${OWNER}/${REPO}:${MAIN_BRANCH}"
 cat > /tmp/main-branch-protection.json <<EOF
@@ -114,7 +118,7 @@ echo "Configuring production environment protection"
 cat > /tmp/production-environment.json <<EOF
 {
   "wait_timer": 0,
-  "prevent_self_review": true,
+  "prevent_self_review": ${PRODUCTION_PREVENT_SELF_REVIEW},
   "deployment_branch_policy": {
     "protected_branches": true,
     "custom_branch_policies": false
@@ -132,7 +136,7 @@ echo "Configuring staging environment protection"
 cat > /tmp/staging-environment.json <<EOF
 {
   "wait_timer": 0,
-  "prevent_self_review": true,
+  "prevent_self_review": ${STAGING_PREVENT_SELF_REVIEW},
   "reviewers": ${STAGING_REVIEWERS}
 }
 EOF
