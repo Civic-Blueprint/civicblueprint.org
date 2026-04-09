@@ -11,7 +11,9 @@ AWS CDK infrastructure for deploying `website/` to AWS and connecting DNS.
   - `staging.civicblueprint.org`
 - Staging static site stack (S3 + CloudFront + Route 53 alias)
 - Production static site stack (S3 + CloudFront + Route 53 apex + www aliases)
-- GitHub OIDC provider and deploy role for GitHub Actions
+- GitHub OIDC provider and two deploy roles for GitHub Actions:
+  - `GitHubStagingDeployRoleArn`
+  - `GitHubProdDeployRoleArn`
 
 ## Configuration
 
@@ -67,3 +69,37 @@ The workflow at `.github/workflows/deploy.yml` expects these environment-level s
 - `CF_DISTRIBUTION_ID`
 
 Use `staging` and `production` GitHub Environments to scope each set of values separately.
+
+## Branch protection and environment approvals
+
+Use this helper to configure GitHub protections:
+
+```bash
+cd infrastructure
+chmod +x scripts/configure-github-guards.sh
+./scripts/configure-github-guards.sh
+```
+
+The script configures:
+
+- Branch protection on `main` (1 approval, stale dismissal, code owner reviews, conversation resolution, force-push/delete disabled)
+- `production` environment protection with required reviewer support and protected-branch deploy policy
+- `staging` environment protection with optional reviewers
+
+Optional reviewer IDs:
+
+```bash
+export PRODUCTION_REVIEWER_TEAM_ID=123456
+export PRODUCTION_REVIEWER_USER_ID=12345678
+export STAGING_REVIEWER_TEAM_ID=123456
+export STAGING_REVIEWER_USER_ID=12345678
+```
+
+Optional name-based lookup (script resolves IDs automatically):
+
+```bash
+export PRODUCTION_REVIEWER_USERNAME=Roustalski
+export STAGING_REVIEWER_USERNAME=Roustalski
+export PRODUCTION_REVIEWER_TEAM_SLUG=platform
+export STAGING_REVIEWER_TEAM_SLUG=platform
+```

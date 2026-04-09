@@ -86,6 +86,11 @@ Required environment secrets (per GitHub Environment):
 - `S3_BUCKET_NAME`
 - `CF_DISTRIBUTION_ID`
 
+Set `AWS_DEPLOY_ROLE_ARN` per environment from CDK outputs:
+
+- `staging` -> `GitHubStagingDeployRoleArn`
+- `production` -> `GitHubProdDeployRoleArn`
+
 ## Current docs
 
 - `docs/WEBSITE_PHASE_1_BRIEF.md` - Phase 1 scope, audience, and launch plan

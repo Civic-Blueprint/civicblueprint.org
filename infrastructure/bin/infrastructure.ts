@@ -45,7 +45,10 @@ const githubOidcStack = new GitHubOidcStack(app, "CivicBlueprintGitHubOidc", {
   env,
   githubOrg: config.githubOrg,
   githubRepo: config.githubRepo,
-  siteBucket: productionSiteStack.bucket,
-  distribution: productionSiteStack.distribution,
+  productionSiteBucket: productionSiteStack.bucket,
+  productionDistribution: productionSiteStack.distribution,
+  stagingSiteBucket: stagingSiteStack.bucket,
+  stagingDistribution: stagingSiteStack.distribution,
 });
+githubOidcStack.addDependency(stagingSiteStack);
 githubOidcStack.addDependency(productionSiteStack);

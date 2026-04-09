@@ -4,13 +4,25 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "website/**"
+      - "infrastructure/**"
+      - ".github/workflows/deploy.yml"
   pull_request:
     branches:
       - main
+    paths:
+      - "website/**"
+      - "infrastructure/**"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
 
 permissions:
-  id-token: write
   contents: read
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -31,13 +43,17 @@ jobs:
         with:
           name: static-site
           path: website/out/
+          retention-days: 1
 
   deploy-staging:
     needs: build
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false
     runs-on: ubuntu-latest
     environment:
-      name: ${{ 'staging' }}
+      name: staging
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -47,15 +63,19 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
           aws-region: us-east-1
+          role-session-name: gh-actions-staging-deploy
       - run: aws s3 sync out/ s3://${{ secrets.S3_BUCKET_NAME }} --delete
       - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/*"
 
   deploy-prod:
     needs: build
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     environment:
-      name: ${{ 'production' }}
+      name: production
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -65,5 +85,6 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
           aws-region: us-east-1
+          role-session-name: gh-actions-prod-deploy
       - run: aws s3 sync out/ s3://${{ secrets.S3_BUCKET_NAME }} --delete
       - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/*"
