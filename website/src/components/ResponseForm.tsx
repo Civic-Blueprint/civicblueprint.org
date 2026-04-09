@@ -228,19 +228,19 @@ export function ResponseForm() {
             {submitState === "submitting" ? "Submitting..." : "Submit response"}
           </button>
           {submitState === "success" ? (
-            <p className="text-sm text-emerald-700">
-              Your response has been recorded. Thank you.{" "}
+            <div className="space-y-2 text-sm text-emerald-700">
+              <p>Your response has been recorded. Thank you.</p>
               {createdIssueUrl !== null ? (
                 <a
                   href={createdIssueUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline"
+                  className="secondary-button text-sm"
                 >
-                  View the created GitHub issue.
+                  View the created GitHub issue
                 </a>
               ) : null}
-            </p>
+            </div>
           ) : null}
         </div>
 
