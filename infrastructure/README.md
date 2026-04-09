@@ -12,11 +12,11 @@ AWS CDK infrastructure for deploying `website/` to AWS and connecting DNS.
 - Staging static site stack (S3 + CloudFront + Route 53 alias)
 - Production static site stack (S3 + CloudFront + Route 53 apex + www aliases)
 - Submission API stack (API Gateway HTTP API + Lambda + GitHub issue creation)
-- GitHub OIDC provider and two deploy roles for GitHub Actions:
+- GitHub OIDC staging stack (`CivicBlueprintGitHubOidcStaging`) with deploy roles for GitHub Actions:
   - `GitHubStagingDeployRoleArn`
-  - `GitHubProdDeployRoleArn`
-- GitHub OIDC provider and two infrastructure deploy roles for GitHub Actions:
   - `GitHubInfrastructureStagingDeployRoleArn`
+- GitHub OIDC production stack (`CivicBlueprintGitHubOidcProduction`) with deploy roles for GitHub Actions:
+  - `GitHubProdDeployRoleArn`
   - `GitHubInfrastructureProductionDeployRoleArn`
 
 ## Configuration
@@ -113,6 +113,41 @@ For Slack alert delivery in infrastructure deploy workflow, configure GitHub env
   - `SLACK_CHANNEL_ID`
 
 Use required reviewers on `production` to enforce deployment approval before production infra changes apply.
+
+### OIDC stack split migration
+
+The OIDC roles are intentionally split across two stacks to isolate staging from production dependency graphs:
+
+- `CivicBlueprintGitHubOidcStaging`
+- `CivicBlueprintGitHubOidcProduction`
+
+One-time migration sequence (run from `infrastructure/` with `AWS_PROFILE=cb-stalski`):
+
+1. Deploy the legacy monolithic OIDC stack with `RemovalPolicy.RETAIN` applied to IAM roles:
+
+   ```bash
+   AWS_PROFILE=cb-stalski npx cdk deploy CivicBlueprintGitHubOidc --require-approval never
+   ```
+
+2. Destroy the legacy stack so roles become unmanaged but preserved:
+
+   ```bash
+   AWS_PROFILE=cb-stalski npx cdk destroy CivicBlueprintGitHubOidc --force
+   ```
+
+3. Deploy both split stacks and import the existing retained roles:
+
+   ```bash
+   AWS_PROFILE=cb-stalski npx cdk deploy CivicBlueprintGitHubOidcStaging CivicBlueprintGitHubOidcProduction \
+     --import-existing-resources --require-approval never
+   ```
+
+4. Remove temporary retain policy in code and deploy both split stacks again:
+
+   ```bash
+   AWS_PROFILE=cb-stalski npx cdk deploy CivicBlueprintGitHubOidcStaging CivicBlueprintGitHubOidcProduction \
+     --require-approval never
+   ```
 
 ### Cross-repo dispatch auth (project-2028 -> civicblueprint.org)
 

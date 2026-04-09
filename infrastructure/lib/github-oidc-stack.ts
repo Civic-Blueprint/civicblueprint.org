@@ -9,17 +9,14 @@ type DeployEnvironment = "production" | "staging";
 export interface GitHubOidcStackProps extends StackProps {
   githubOrg: string;
   githubRepo: string;
-  productionSiteBucket: Bucket;
-  productionDistribution: Distribution;
-  stagingSiteBucket: Bucket;
-  stagingDistribution: Distribution;
+  environment: DeployEnvironment;
+  siteBucket: Bucket;
+  siteDistribution: Distribution;
 }
 
 export class GitHubOidcStack extends Stack {
-  public readonly productionDeployRole: Role;
-  public readonly stagingDeployRole: Role;
-  public readonly infrastructureProductionDeployRole: Role;
-  public readonly infrastructureStagingDeployRole: Role;
+  public readonly deployRole: Role;
+  public readonly infrastructureDeployRole: Role;
 
   constructor(scope: Construct, id: string, props: GitHubOidcStackProps) {
     super(scope, id, props);
@@ -27,129 +24,103 @@ export class GitHubOidcStack extends Stack {
     // Reuse the account-level GitHub OIDC provider if it already exists.
     const oidcProviderArn = `arn:aws:iam::${this.account}:oidc-provider/token.actions.githubusercontent.com`;
 
-    const staticDeployTargets: Array<{
-      environment: DeployEnvironment;
-      roleId: string;
-      roleName: string;
-      description: string;
-      bucket: Bucket;
-      distribution: Distribution;
-      outputId: string;
-      trustedEnvironmentName: string;
-    }> = [
-      {
-        environment: "production",
+    const staticDeployRole = this.createEnvironmentDeployRole(
+      this.getStaticSiteRoleTarget(props.environment),
+      oidcProviderArn,
+      props.githubOrg,
+      props.githubRepo,
+    );
+    this.attachStaticSitePolicies(
+      staticDeployRole,
+      props.siteBucket,
+      props.siteDistribution,
+    );
+    this.deployRole = staticDeployRole;
+
+    new CfnOutput(this, this.getStaticSiteRoleOutputId(props.environment), {
+      value: staticDeployRole.roleArn,
+    });
+
+    const infrastructureDeployRole = this.createEnvironmentDeployRole(
+      this.getInfrastructureRoleTarget(props.environment),
+      oidcProviderArn,
+      props.githubOrg,
+      props.githubRepo,
+    );
+    this.attachInfrastructureDeployPolicies(infrastructureDeployRole);
+    this.infrastructureDeployRole = infrastructureDeployRole;
+
+    new CfnOutput(this, this.getInfrastructureRoleOutputId(props.environment), {
+      value: infrastructureDeployRole.roleArn,
+    });
+  }
+
+  private getStaticSiteRoleTarget(environment: DeployEnvironment): {
+    roleId: string;
+    roleName: string;
+    description: string;
+    trustedEnvironmentName: string;
+  } {
+    if (environment === "production") {
+      return {
         roleId: "GitHubActionsProdDeployRole",
         roleName: "github-actions-prod-deploy-role",
         description:
           "GitHub Actions role for production deploy to S3 and CloudFront invalidation.",
-        bucket: props.productionSiteBucket,
-        distribution: props.productionDistribution,
-        outputId: "GitHubProdDeployRoleArn",
         trustedEnvironmentName: "production",
-      },
-      {
-        environment: "staging",
-        roleId: "GitHubActionsStagingDeployRole",
-        roleName: "github-actions-staging-deploy-role",
-        description:
-          "GitHub Actions role for staging deploy to S3 and CloudFront invalidation.",
-        bucket: props.stagingSiteBucket,
-        distribution: props.stagingDistribution,
-        outputId: "GitHubStagingDeployRoleArn",
-        trustedEnvironmentName: "staging",
-      },
-    ];
-
-    const rolesByEnvironment = new Map<DeployEnvironment, Role>();
-    for (const target of staticDeployTargets) {
-      const role = this.createEnvironmentDeployRole(
-        {
-          roleId: target.roleId,
-          roleName: target.roleName,
-          description: target.description,
-          trustedEnvironmentName: target.trustedEnvironmentName,
-        },
-        oidcProviderArn,
-        props.githubOrg,
-        props.githubRepo,
-      );
-      rolesByEnvironment.set(target.environment, role);
-      this.attachStaticSitePolicies(role, target.bucket, target.distribution);
-
-      new CfnOutput(this, target.outputId, {
-        value: role.roleArn,
-      });
+      };
     }
 
-    const productionRole = rolesByEnvironment.get("production");
-    const stagingRole = rolesByEnvironment.get("staging");
-    if (!productionRole || !stagingRole) {
-      throw new Error("Missing expected GitHub OIDC deploy role.");
-    }
+    return {
+      roleId: "GitHubActionsStagingDeployRole",
+      roleName: "github-actions-staging-deploy-role",
+      description:
+        "GitHub Actions role for staging deploy to S3 and CloudFront invalidation.",
+      trustedEnvironmentName: "staging",
+    };
+  }
 
-    this.productionDeployRole = productionRole;
-    this.stagingDeployRole = stagingRole;
-
-    const infrastructureTargets: Array<{
-      environment: DeployEnvironment;
-      roleId: string;
-      roleName: string;
-      description: string;
-      outputId: string;
-    }> = [
-      {
-        environment: "staging",
-        roleId: "GitHubActionsInfrastructureStagingDeployRole",
-        roleName: "github-actions-infrastructure-staging-deploy-role",
-        description:
-          "GitHub Actions role for staging infrastructure CDK deploy workflow.",
-        outputId: "GitHubInfrastructureStagingDeployRoleArn",
-      },
-      {
-        environment: "production",
+  private getInfrastructureRoleTarget(environment: DeployEnvironment): {
+    roleId: string;
+    roleName: string;
+    description: string;
+    trustedEnvironmentName: string;
+  } {
+    if (environment === "production") {
+      return {
         roleId: "GitHubActionsInfrastructureProductionDeployRole",
         roleName: "github-actions-infrastructure-production-deploy-role",
         description:
           "GitHub Actions role for production infrastructure CDK deploy workflow.",
-        outputId: "GitHubInfrastructureProductionDeployRoleArn",
-      },
-    ];
-
-    const infrastructureRolesByEnvironment = new Map<DeployEnvironment, Role>();
-    for (const target of infrastructureTargets) {
-      const role = this.createEnvironmentDeployRole(
-        {
-          roleId: target.roleId,
-          roleName: target.roleName,
-          description: target.description,
-          trustedEnvironmentName: target.environment,
-        },
-        oidcProviderArn,
-        props.githubOrg,
-        props.githubRepo,
-      );
-
-      infrastructureRolesByEnvironment.set(target.environment, role);
-      this.attachInfrastructureDeployPolicies(role);
-
-      new CfnOutput(this, target.outputId, {
-        value: role.roleArn,
-      });
+        trustedEnvironmentName: "production",
+      };
     }
 
-    const infrastructureStagingRole =
-      infrastructureRolesByEnvironment.get("staging");
-    const infrastructureProductionRole =
-      infrastructureRolesByEnvironment.get("production");
-    if (!infrastructureStagingRole || !infrastructureProductionRole) {
-      throw new Error(
-        "Missing expected GitHub OIDC infrastructure deploy role.",
-      );
+    return {
+      roleId: "GitHubActionsInfrastructureStagingDeployRole",
+      roleName: "github-actions-infrastructure-staging-deploy-role",
+      description:
+        "GitHub Actions role for staging infrastructure CDK deploy workflow.",
+      trustedEnvironmentName: "staging",
+    };
+  }
+
+  private getStaticSiteRoleOutputId(environment: DeployEnvironment): string {
+    if (environment === "production") {
+      return "GitHubProdDeployRoleArn";
     }
 
-    this.infrastructureStagingDeployRole = infrastructureStagingRole;
-    this.infrastructureProductionDeployRole = infrastructureProductionRole;
+    return "GitHubStagingDeployRoleArn";
+  }
+
+  private getInfrastructureRoleOutputId(
+    environment: DeployEnvironment,
+  ): string {
+    if (environment === "production") {
+      return "GitHubInfrastructureProductionDeployRoleArn";
+    }
+
+    return "GitHubInfrastructureStagingDeployRoleArn";
   }
 
   private createEnvironmentDeployRole(

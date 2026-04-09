@@ -76,14 +76,30 @@ const monitoringStack = new MonitoringStack(app, "CivicBlueprintMonitoring", {
 });
 monitoringStack.addDependency(submissionApiStack);
 
-const githubOidcStack = new GitHubOidcStack(app, "CivicBlueprintGitHubOidc", {
-  env,
-  githubOrg: config.githubOrg,
-  githubRepo: config.githubRepo,
-  productionSiteBucket: productionSiteStack.bucket,
-  productionDistribution: productionSiteStack.distribution,
-  stagingSiteBucket: stagingSiteStack.bucket,
-  stagingDistribution: stagingSiteStack.distribution,
-});
-githubOidcStack.addDependency(stagingSiteStack);
-githubOidcStack.addDependency(productionSiteStack);
+const stagingGithubOidcStack = new GitHubOidcStack(
+  app,
+  "CivicBlueprintGitHubOidcStaging",
+  {
+    env,
+    githubOrg: config.githubOrg,
+    githubRepo: config.githubRepo,
+    environment: "staging",
+    siteBucket: stagingSiteStack.bucket,
+    siteDistribution: stagingSiteStack.distribution,
+  },
+);
+stagingGithubOidcStack.addDependency(stagingSiteStack);
+
+const productionGithubOidcStack = new GitHubOidcStack(
+  app,
+  "CivicBlueprintGitHubOidcProduction",
+  {
+    env,
+    githubOrg: config.githubOrg,
+    githubRepo: config.githubRepo,
+    environment: "production",
+    siteBucket: productionSiteStack.bucket,
+    siteDistribution: productionSiteStack.distribution,
+  },
+);
+productionGithubOidcStack.addDependency(productionSiteStack);
