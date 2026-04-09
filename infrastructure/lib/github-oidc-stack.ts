@@ -1,9 +1,5 @@
 import { CfnOutput, Stack, StackProps } from "aws-cdk-lib";
-import {
-  FederatedPrincipal,
-  PolicyStatement,
-  Role,
-} from "aws-cdk-lib/aws-iam";
+import { FederatedPrincipal, PolicyStatement, Role } from "aws-cdk-lib/aws-iam";
 import { Distribution } from "aws-cdk-lib/aws-cloudfront";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
@@ -22,6 +18,8 @@ export interface GitHubOidcStackProps extends StackProps {
 export class GitHubOidcStack extends Stack {
   public readonly productionDeployRole: Role;
   public readonly stagingDeployRole: Role;
+  public readonly infrastructureProductionDeployRole: Role;
+  public readonly infrastructureStagingDeployRole: Role;
 
   constructor(scope: Construct, id: string, props: GitHubOidcStackProps) {
     super(scope, id, props);
@@ -29,7 +27,7 @@ export class GitHubOidcStack extends Stack {
     // Reuse the account-level GitHub OIDC provider if it already exists.
     const oidcProviderArn = `arn:aws:iam::${this.account}:oidc-provider/token.actions.githubusercontent.com`;
 
-    const deployTargets: Array<{
+    const staticDeployTargets: Array<{
       environment: DeployEnvironment;
       roleId: string;
       roleName: string;
@@ -37,6 +35,7 @@ export class GitHubOidcStack extends Stack {
       bucket: Bucket;
       distribution: Distribution;
       outputId: string;
+      trustedEnvironmentName: string;
     }> = [
       {
         environment: "production",
@@ -47,6 +46,7 @@ export class GitHubOidcStack extends Stack {
         bucket: props.productionSiteBucket,
         distribution: props.productionDistribution,
         outputId: "GitHubProdDeployRoleArn",
+        trustedEnvironmentName: "production",
       },
       {
         environment: "staging",
@@ -57,19 +57,25 @@ export class GitHubOidcStack extends Stack {
         bucket: props.stagingSiteBucket,
         distribution: props.stagingDistribution,
         outputId: "GitHubStagingDeployRoleArn",
+        trustedEnvironmentName: "staging",
       },
     ];
 
     const rolesByEnvironment = new Map<DeployEnvironment, Role>();
-    for (const target of deployTargets) {
+    for (const target of staticDeployTargets) {
       const role = this.createEnvironmentDeployRole(
-        target,
+        {
+          roleId: target.roleId,
+          roleName: target.roleName,
+          description: target.description,
+          trustedEnvironmentName: target.trustedEnvironmentName,
+        },
         oidcProviderArn,
         props.githubOrg,
         props.githubRepo,
       );
       rolesByEnvironment.set(target.environment, role);
-      this.attachEnvironmentPolicies(role, target.bucket, target.distribution);
+      this.attachStaticSitePolicies(role, target.bucket, target.distribution);
 
       new CfnOutput(this, target.outputId, {
         value: role.roleArn,
@@ -84,14 +90,74 @@ export class GitHubOidcStack extends Stack {
 
     this.productionDeployRole = productionRole;
     this.stagingDeployRole = stagingRole;
-  }
 
-  private createEnvironmentDeployRole(
-    target: {
+    const infrastructureTargets: Array<{
       environment: DeployEnvironment;
       roleId: string;
       roleName: string;
       description: string;
+      outputId: string;
+    }> = [
+      {
+        environment: "staging",
+        roleId: "GitHubActionsInfrastructureStagingDeployRole",
+        roleName: "github-actions-infrastructure-staging-deploy-role",
+        description:
+          "GitHub Actions role for staging infrastructure CDK deploy workflow.",
+        outputId: "GitHubInfrastructureStagingDeployRoleArn",
+      },
+      {
+        environment: "production",
+        roleId: "GitHubActionsInfrastructureProductionDeployRole",
+        roleName: "github-actions-infrastructure-production-deploy-role",
+        description:
+          "GitHub Actions role for production infrastructure CDK deploy workflow.",
+        outputId: "GitHubInfrastructureProductionDeployRoleArn",
+      },
+    ];
+
+    const infrastructureRolesByEnvironment = new Map<DeployEnvironment, Role>();
+    for (const target of infrastructureTargets) {
+      const role = this.createEnvironmentDeployRole(
+        {
+          roleId: target.roleId,
+          roleName: target.roleName,
+          description: target.description,
+          trustedEnvironmentName: target.environment,
+        },
+        oidcProviderArn,
+        props.githubOrg,
+        props.githubRepo,
+      );
+
+      infrastructureRolesByEnvironment.set(target.environment, role);
+      this.attachInfrastructureDeployPolicies(role);
+
+      new CfnOutput(this, target.outputId, {
+        value: role.roleArn,
+      });
+    }
+
+    const infrastructureStagingRole =
+      infrastructureRolesByEnvironment.get("staging");
+    const infrastructureProductionRole =
+      infrastructureRolesByEnvironment.get("production");
+    if (!infrastructureStagingRole || !infrastructureProductionRole) {
+      throw new Error(
+        "Missing expected GitHub OIDC infrastructure deploy role.",
+      );
+    }
+
+    this.infrastructureStagingDeployRole = infrastructureStagingRole;
+    this.infrastructureProductionDeployRole = infrastructureProductionRole;
+  }
+
+  private createEnvironmentDeployRole(
+    target: {
+      roleId: string;
+      roleName: string;
+      description: string;
+      trustedEnvironmentName: string;
     },
     oidcProviderArn: string,
     githubOrg: string,
@@ -107,7 +173,7 @@ export class GitHubOidcStack extends Stack {
             "token.actions.githubusercontent.com:repository": `${githubOrg}/${githubRepo}`,
           },
           StringLike: {
-            "token.actions.githubusercontent.com:sub": `repo:${githubOrg}/${githubRepo}:environment:${target.environment}`,
+            "token.actions.githubusercontent.com:sub": `repo:${githubOrg}/${githubRepo}:environment:${target.trustedEnvironmentName}`,
           },
         },
         "sts:AssumeRoleWithWebIdentity",
@@ -116,7 +182,7 @@ export class GitHubOidcStack extends Stack {
     });
   }
 
-  private attachEnvironmentPolicies(
+  private attachStaticSitePolicies(
     role: Role,
     bucket: Bucket,
     distribution: Distribution,
@@ -141,6 +207,31 @@ export class GitHubOidcStack extends Stack {
         resources: [
           `arn:aws:cloudfront::${this.account}:distribution/${distribution.distributionId}`,
         ],
+      }),
+    );
+  }
+
+  private attachInfrastructureDeployPolicies(role: Role): void {
+    role.addToPolicy(
+      new PolicyStatement({
+        actions: ["cloudformation:*"],
+        resources: ["*"],
+      }),
+    );
+
+    role.addToPolicy(
+      new PolicyStatement({
+        actions: [
+          "s3:*",
+          "cloudfront:*",
+          "route53:*",
+          "acm:*",
+          "iam:*",
+          "lambda:*",
+          "logs:*",
+          "ssm:GetParameter",
+        ],
+        resources: ["*"],
       }),
     );
   }

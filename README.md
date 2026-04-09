@@ -95,13 +95,25 @@ npx cdk deploy --all
 
 ## CI/CD
 
-GitHub Actions workflow: `.github/workflows/deploy.yml`
+Workflows:
+
+- `.github/workflows/deploy.yml` - website static build/deploy only
+- `.github/workflows/infrastructure-ci.yml` - infrastructure build/synth validation
+- `.github/workflows/infrastructure-deploy.yml` - CDK infrastructure deploys to staging then production
+
+Website deploy behavior (`deploy.yml`):
 
 - Pull requests to `main` deploy to the `staging` GitHub environment
 - Pushes to `main` deploy to the `production` GitHub environment
-- `repository_dispatch` event type `content-updated` now deploys to `staging` first, then requires `production` environment approval before production deploy
+- `repository_dispatch` event type `content-updated` deploys to `staging` first, then requires `production` environment approval before production deploy
 - AWS auth uses OIDC via `aws-actions/configure-aws-credentials`
 - No long-lived AWS keys are committed
+
+Infrastructure deploy behavior (`infrastructure-deploy.yml`):
+
+- Pushes to `main` with `infrastructure/**` changes deploy infra automatically
+- Deploy order is `staging` then `production`
+- `production` must be approved via GitHub Environment protection rules
 
 Required environment secrets (per GitHub Environment):
 
@@ -113,6 +125,11 @@ Set `AWS_DEPLOY_ROLE_ARN` per environment from CDK outputs:
 
 - `staging` -> `GitHubStagingDeployRoleArn`
 - `production` -> `GitHubProdDeployRoleArn`
+
+Set `AWS_INFRA_DEPLOY_ROLE_ARN` per infrastructure environment from CDK outputs:
+
+- `staging` -> `GitHubInfrastructureStagingDeployRoleArn`
+- `production` -> `GitHubInfrastructureProductionDeployRoleArn`
 
 ### project-2028 content dispatch
 
@@ -135,6 +152,15 @@ Content publish flow:
 - `project-2028` main push (markdown) -> `repository_dispatch` -> `civicblueprint.org` build
 - `deploy-staging` runs first
 - `deploy-prod` runs only after `production` environment approval
+
+### Docs mobile UX
+
+Docs pages now include a mobile-first navigation and readability pass:
+
+- route-safe primary nav links from docs pages
+- persistent mobile document switcher
+- improved docs link tap targets and active state treatment
+- overflow-safe table behavior and tighter mobile typography defaults
 
 ## Current docs
 

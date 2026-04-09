@@ -9,14 +9,12 @@ on:
       - main
     paths:
       - "website/**"
-      - "infrastructure/**"
       - ".github/workflows/deploy.yml"
   pull_request:
     branches:
       - main
     paths:
       - "website/**"
-      - "infrastructure/**"
       - ".github/workflows/deploy.yml"
   workflow_dispatch:
 

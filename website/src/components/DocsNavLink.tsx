@@ -15,8 +15,8 @@ export function DocsNavLink({ children, href }: DocsNavLinkProps) {
   const isActive = pathname === href;
 
   const className = isActive
-    ? "block rounded-sm border-l-2 border-blueprint-navy bg-[rgba(25,64,138,0.08)] py-1 pl-3 text-sm font-semibold text-blueprint-navy"
-    : "block rounded-sm border-l-2 border-transparent py-1 pl-3 text-sm text-slate transition-colors hover:border-blueprint-line hover:text-blueprint-navy";
+    ? "block rounded-md border border-blueprint-line bg-[rgba(25,64,138,0.08)] px-3 py-2 text-sm font-semibold text-blueprint-navy"
+    : "block rounded-md border border-transparent px-3 py-2 text-sm text-slate transition-colors hover:border-blueprint-line hover:text-blueprint-navy focus-visible:border-blueprint-navy focus-visible:outline-none";
 
   return (
     <Link

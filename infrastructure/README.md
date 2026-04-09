@@ -14,6 +14,9 @@ AWS CDK infrastructure for deploying `website/` to AWS and connecting DNS.
 - GitHub OIDC provider and two deploy roles for GitHub Actions:
   - `GitHubStagingDeployRoleArn`
   - `GitHubProdDeployRoleArn`
+- GitHub OIDC provider and two infrastructure deploy roles for GitHub Actions:
+  - `GitHubInfrastructureStagingDeployRoleArn`
+  - `GitHubInfrastructureProductionDeployRoleArn`
 
 ## Configuration
 
@@ -62,6 +65,12 @@ npm run deploy
 
 ## GitHub Actions integration
 
+Infrastructure workflow separation:
+
+- `.github/workflows/infrastructure-ci.yml` validates CDK changes (`build` + `cdk synth`) on PR/push
+- `.github/workflows/infrastructure-deploy.yml` deploys infra on `main` changes and supports manual dispatch
+- `.github/workflows/deploy.yml` is reserved for static site deployment and content dispatch
+
 The workflow at `.github/workflows/deploy.yml` expects these environment-level secrets:
 
 - `AWS_DEPLOY_ROLE_ARN`
@@ -69,6 +78,15 @@ The workflow at `.github/workflows/deploy.yml` expects these environment-level s
 - `CF_DISTRIBUTION_ID`
 
 Use `staging` and `production` GitHub Environments to scope each set of values separately.
+
+For infrastructure CDK deploy workflow, configure GitHub environment secrets:
+
+- Environment `staging`:
+  - `AWS_INFRA_DEPLOY_ROLE_ARN` = `GitHubInfrastructureStagingDeployRoleArn`
+- Environment `production`:
+  - `AWS_INFRA_DEPLOY_ROLE_ARN` = `GitHubInfrastructureProductionDeployRoleArn`
+
+Use required reviewers on `production` to enforce deployment approval before production infra changes apply.
 
 ### Cross-repo dispatch auth (project-2028 -> civicblueprint.org)
 
