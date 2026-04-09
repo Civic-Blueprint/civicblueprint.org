@@ -59,6 +59,7 @@ export function ResponseForm() {
       ? queryTypeValue
       : null;
   const responseType = selectedResponseType ?? queryResponseType ?? "challenge";
+  const messageCharacterCount = message.length;
 
   const isApiConfigured = apiBaseUrl.trim().length > 0;
   const submitUrl = useMemo(() => resolveSubmitUrl(apiBaseUrl), [apiBaseUrl]);
@@ -207,6 +208,9 @@ export function ResponseForm() {
             onChange={(event) => setMessage(event.target.value)}
             required
           />
+          <p className="mt-2 text-xs text-slate">
+            {messageCharacterCount.toLocaleString()} characters
+          </p>
         </label>
 
         <label className="hidden" aria-hidden="true">

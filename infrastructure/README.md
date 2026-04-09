@@ -193,6 +193,17 @@ The `CivicBlueprintSubmissionApi` stack grants Lambda read access to this secret
 - `appId` (string)
 - `privateKey` (PEM contents)
 
+### Submission payload sizing
+
+The submission Lambda accepts message bodies up to `200000` characters.
+
+When a submission message is larger than GitHub's per-issue body limit (`65536` characters), the API automatically:
+
+1. Writes the first segment into the issue body with a continuation notice.
+2. Writes remaining segments as sequential comments on the same issue.
+
+This preserves long-form responses without requiring users to manually split their feedback.
+
 ### Submission API monitoring and Slack alerting
 
 The infrastructure now deploys `CivicBlueprintMonitoring`, which creates:

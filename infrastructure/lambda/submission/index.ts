@@ -43,6 +43,11 @@ type GitHubAppSecret = {
 const secretsClient = new SecretsManagerClient({});
 let cachedSecret: GitHubAppSecret | null = null;
 let cachedInstallationId: number | null = null;
+const githubBodyMaxChars = 65536;
+const maxSubmissionMessageChars = 200000;
+const issueContinuationNotice =
+  "\n\n---\nThis submission continues in comments because it exceeds GitHub issue body limits.";
+const commentContinuationHeading = "## Submission continuation\n\n";
 const submissionMetricNamespace =
   process.env.SUBMISSION_METRIC_NAMESPACE ?? "CivicBlueprint/SubmissionApi";
 
@@ -152,8 +157,11 @@ function validatePayload(
   if (message.length < 20) {
     return { ok: false, error: "Message must be at least 20 characters." };
   }
-  if (message.length > 5000) {
-    return { ok: false, error: "Message must be 5000 characters or fewer." };
+  if (message.length > maxSubmissionMessageChars) {
+    return {
+      ok: false,
+      error: `Message must be ${maxSubmissionMessageChars} characters or fewer.`,
+    };
   }
 
   let name: string | undefined;
@@ -217,6 +225,33 @@ function buildIssueBody(payload: SubmissionPayload): string {
     payload.message,
   ];
   return lines.join("\n");
+}
+
+function buildIssueBodyWithMessage(
+  payload: SubmissionPayload,
+  message: string,
+): string {
+  return buildIssueBody({
+    ...payload,
+    message,
+  });
+}
+
+function splitIntoChunks(value: string, maxChunkLength: number): string[] {
+  if (maxChunkLength <= 0) {
+    throw new Error("maxChunkLength must be greater than zero.");
+  }
+
+  const chunks: string[] = [];
+  let cursor = 0;
+
+  while (cursor < value.length) {
+    const nextCursor = Math.min(cursor + maxChunkLength, value.length);
+    chunks.push(value.slice(cursor, nextCursor));
+    cursor = nextCursor;
+  }
+
+  return chunks;
 }
 
 function emitSubmissionSuccessMetric(payload: SubmissionPayload): void {
@@ -337,6 +372,27 @@ async function createIssue(payload: SubmissionPayload): Promise<string> {
 
   const octokit = new Octokit({ auth: installationAuth.token });
   const typeConfig = submissionTypeConfig[payload.responseType];
+  const issueBodyBaseLength = buildIssueBodyWithMessage(payload, "").length;
+  const maxPrimaryMessageLength =
+    githubBodyMaxChars - issueBodyBaseLength - issueContinuationNotice.length;
+  if (maxPrimaryMessageLength <= 0) {
+    throw new Error("Unable to calculate a valid GitHub issue body budget.");
+  }
+
+  const fullIssueBody = buildIssueBody(payload);
+  const shouldSplitAcrossComments = fullIssueBody.length > githubBodyMaxChars;
+  const primaryMessage = shouldSplitAcrossComments
+    ? payload.message.slice(0, maxPrimaryMessageLength)
+    : payload.message;
+  const overflowMessage = shouldSplitAcrossComments
+    ? payload.message.slice(maxPrimaryMessageLength)
+    : "";
+  const primaryBody = buildIssueBodyWithMessage(
+    payload,
+    shouldSplitAcrossComments
+      ? `${primaryMessage}${issueContinuationNotice}`
+      : primaryMessage,
+  );
 
   const issueResponse = await octokit.request(
     "POST /repos/{owner}/{repo}/issues",
@@ -344,10 +400,34 @@ async function createIssue(payload: SubmissionPayload): Promise<string> {
       owner,
       repo,
       title: buildIssueTitle(payload),
-      body: buildIssueBody(payload),
+      body: primaryBody,
       labels: [typeConfig.label, "website-submission"],
     },
   );
+
+  if (overflowMessage.length > 0) {
+    const maxCommentMessageLength =
+      githubBodyMaxChars - commentContinuationHeading.length;
+    if (maxCommentMessageLength <= 0) {
+      throw new Error("Unable to calculate a valid GitHub comment budget.");
+    }
+
+    const overflowChunks = splitIntoChunks(
+      overflowMessage,
+      maxCommentMessageLength,
+    );
+    for (const chunk of overflowChunks) {
+      await octokit.request(
+        "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+        {
+          owner,
+          repo,
+          issue_number: issueResponse.data.number,
+          body: `${commentContinuationHeading}${chunk}`,
+        },
+      );
+    }
+  }
 
   return issueResponse.data.html_url;
 }
