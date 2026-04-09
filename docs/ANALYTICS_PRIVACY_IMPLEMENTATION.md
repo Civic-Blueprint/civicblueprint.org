@@ -37,6 +37,7 @@ This supports the Phase 1 goal of "basic analytics or lightweight feedback track
 Set these environment variables for production analytics:
 
 - `NEXT_PUBLIC_PLAUSIBLE_DOMAIN`
+- `NEXT_PUBLIC_PLAUSIBLE_SRC` (preferred, uses Plausible-provided `pa-*.js` script)
 - `NEXT_PUBLIC_CLARITY_ID`
 - `NEXT_PUBLIC_SUBMISSION_API_URL` (existing)
 
