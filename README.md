@@ -106,6 +106,7 @@ Website deploy behavior (`deploy.yml`):
 
 - Pull requests to `main` deploy to the `staging` GitHub environment
 - Pushes to `main` deploy to the `production` GitHub environment
+- Build job caches npm dependencies and `website/.next/cache` to reduce repeated Next.js build time
 - `repository_dispatch` event type `content-updated` deploys to `staging` first, then requires `production` environment approval before production deploy
 - AWS auth uses OIDC via `aws-actions/configure-aws-credentials`
 - No long-lived AWS keys are committed
