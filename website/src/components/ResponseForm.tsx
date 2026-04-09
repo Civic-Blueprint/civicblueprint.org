@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 type ResponseType =
@@ -37,6 +37,7 @@ function resolveSubmitUrl(apiBaseUrl: string): string {
 export function ResponseForm() {
   const searchParams = useSearchParams();
   const apiBaseUrl = process.env.NEXT_PUBLIC_SUBMISSION_API_URL ?? "";
+  const nameInputRef = useRef<HTMLInputElement>(null);
 
   const [selectedResponseType, setSelectedResponseType] =
     useState<ResponseType | null>(null);
@@ -56,6 +57,12 @@ export function ResponseForm() {
 
   const isApiConfigured = apiBaseUrl.trim().length > 0;
   const submitUrl = useMemo(() => resolveSubmitUrl(apiBaseUrl), [apiBaseUrl]);
+
+  useEffect(() => {
+    if (queryResponseType !== null) {
+      nameInputRef.current?.focus();
+    }
+  }, [queryResponseType]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -152,6 +159,7 @@ export function ResponseForm() {
             Name (optional)
           </span>
           <input
+            ref={nameInputRef}
             type="text"
             autoComplete="name"
             className="w-full rounded-md border border-blueprint-line bg-white px-3 py-2 text-sm text-ink"
