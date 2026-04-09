@@ -15,6 +15,9 @@ import {
   Function,
   FunctionCode,
   FunctionEventType,
+  HeadersFrameOption,
+  HeadersReferrerPolicy,
+  ResponseHeadersPolicy,
   ViewerProtocolPolicy,
 } from "aws-cdk-lib/aws-cloudfront";
 import { S3BucketOrigin } from "aws-cdk-lib/aws-cloudfront-origins";
@@ -54,6 +57,54 @@ export class StaticSiteStack extends Stack {
     if (props.includeWwwAlias) {
       aliases.push(`www.${props.domainName}`);
     }
+
+    const securityHeadersPolicy = new ResponseHeadersPolicy(
+      this,
+      "SecurityHeadersPolicy",
+      {
+        comment: "CSP and standard security response headers for website.",
+        customHeadersBehavior: {
+          customHeaders: [
+            {
+              header: "Permissions-Policy",
+              value:
+                "accelerometer=(), autoplay=(), camera=(), geolocation=(), microphone=(), payment=(), usb=()",
+              override: true,
+            },
+          ],
+        },
+        securityHeadersBehavior: {
+          contentSecurityPolicy: {
+            contentSecurityPolicy:
+              "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://plausible.io https://*.clarity.ms https://*.execute-api.us-east-1.amazonaws.com;",
+            override: true,
+          },
+          contentTypeOptions: {
+            override: true,
+          },
+          frameOptions: {
+            frameOption: HeadersFrameOption.DENY,
+            override: true,
+          },
+          referrerPolicy: {
+            referrerPolicy:
+              HeadersReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN,
+            override: true,
+          },
+          strictTransportSecurity: {
+            accessControlMaxAge: Duration.days(365),
+            includeSubdomains: true,
+            preload: true,
+            override: true,
+          },
+          xssProtection: {
+            modeBlock: true,
+            protection: true,
+            override: true,
+          },
+        },
+      },
+    );
 
     this.bucket = new Bucket(this, "SiteBucket", {
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
@@ -117,6 +168,7 @@ function handler(event) {
         cachePolicy: CachePolicy.CACHING_OPTIMIZED,
         allowedMethods: AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
         cachedMethods: CachedMethods.CACHE_GET_HEAD_OPTIONS,
+        responseHeadersPolicy: securityHeadersPolicy,
         functionAssociations,
       },
       errorResponses: [

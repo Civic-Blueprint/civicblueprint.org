@@ -21,9 +21,9 @@ AWS CDK infrastructure for deploying `website/` to AWS and connecting DNS.
 
 ## Configuration
 
-Set these environment variables when needed:
+Set these environment variables:
 
-- `AWS_ACCOUNT_ID` or `CDK_DEFAULT_ACCOUNT`
+- `AWS_ACCOUNT_ID` or `CDK_DEFAULT_ACCOUNT` (required)
 - `CDK_DEFAULT_REGION` (defaults to `us-east-1`)
 - `DOMAIN_NAME` (defaults to `civicblueprint.org`)
 - `GITHUB_ORG`
@@ -37,7 +37,7 @@ Set these environment variables when needed:
 - `SLACK_WORKSPACE_ID` (optional; required to enable AWS Chatbot Slack delivery)
 - `SLACK_CHANNEL_ID` (optional; required to enable AWS Chatbot Slack delivery)
 
-Defaults are defined in `config.ts`.
+Defaults are defined in `config.ts`, except for the AWS account ID, which must be provided explicitly.
 
 ## Install and build
 
@@ -128,7 +128,7 @@ Use a GitHub App for dispatch authentication so token lifecycle is not tied to a
 
 The website submission API Lambda uses the same GitHub App credentials to create issues in `Civic-Blueprint/project-2028`.
 
-Create this secret once in AWS account `932027117408` (or your configured account):
+Create this secret once in your configured AWS account:
 
 ```bash
 aws secretsmanager create-secret \

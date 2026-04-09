@@ -5,6 +5,7 @@ import path from "node:path";
 
 import matter from "gray-matter";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSanitize from "rehype-sanitize";
 import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkGfm from "remark-gfm";
@@ -266,6 +267,7 @@ async function buildDocs(): Promise<DocPage[]> {
         .use(remarkParse)
         .use(remarkGfm)
         .use(remarkRehype)
+        .use(rehypeSanitize)
         .use(rehypeSlug)
         .use(rehypeAutolinkHeadings, {
           behavior: "append",

@@ -1,5 +1,18 @@
 export type DeploymentEnvironment = "staging" | "production";
 
+function requiredEnv(variableNames: string[]): string {
+  for (const variableName of variableNames) {
+    const value = process.env[variableName];
+    if (typeof value === "string" && value.length > 0) {
+      return value;
+    }
+  }
+
+  throw new Error(
+    `Missing required environment variable. Set one of: ${variableNames.join(", ")}`,
+  );
+}
+
 function numberFromEnv(variableName: string, fallbackValue: number): number {
   const rawValue = process.env[variableName];
   if (typeof rawValue !== "string" || rawValue.length === 0) {
@@ -15,10 +28,7 @@ function numberFromEnv(variableName: string, fallbackValue: number): number {
 }
 
 export const config = {
-  account:
-    process.env.CDK_DEFAULT_ACCOUNT ??
-    process.env.AWS_ACCOUNT_ID ??
-    "932027117408",
+  account: requiredEnv(["CDK_DEFAULT_ACCOUNT", "AWS_ACCOUNT_ID"]),
   region: process.env.CDK_DEFAULT_REGION ?? "us-east-1",
   domainName: process.env.DOMAIN_NAME ?? "civicblueprint.org",
   githubOrg: process.env.GITHUB_ORG ?? "Civic-Blueprint",

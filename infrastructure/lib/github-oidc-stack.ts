@@ -212,6 +212,19 @@ export class GitHubOidcStack extends Stack {
   }
 
   private attachInfrastructureDeployPolicies(role: Role): void {
+    const deployRoleArnPatterns = [
+      `arn:aws:iam::${this.account}:role/cdk-*`,
+      `arn:aws:iam::${this.account}:role/civic-blueprint-*`,
+      `arn:aws:iam::${this.account}:role/CivicBlueprint*`,
+      `arn:aws:iam::${this.account}:role/github-actions-*`,
+    ];
+    const deployPolicyArnPatterns = [
+      `arn:aws:iam::${this.account}:policy/cdk-*`,
+      `arn:aws:iam::${this.account}:policy/civic-blueprint-*`,
+      `arn:aws:iam::${this.account}:policy/CivicBlueprint*`,
+      `arn:aws:iam::${this.account}:policy/github-actions-*`,
+    ];
+
     role.addToPolicy(
       new PolicyStatement({
         actions: ["cloudformation:*"],
@@ -228,13 +241,66 @@ export class GitHubOidcStack extends Stack {
           "execute-api:*",
           "route53:*",
           "acm:*",
-          "iam:*",
           "lambda:*",
           "logs:*",
-          "secretsmanager:*",
           "ssm:GetParameter",
         ],
         resources: ["*"],
+      }),
+    );
+
+    role.addToPolicy(
+      new PolicyStatement({
+        actions: [
+          "iam:AttachRolePolicy",
+          "iam:CreatePolicy",
+          "iam:CreatePolicyVersion",
+          "iam:CreateRole",
+          "iam:DeletePolicy",
+          "iam:DeletePolicyVersion",
+          "iam:DeleteRole",
+          "iam:DeleteRolePolicy",
+          "iam:DetachRolePolicy",
+          "iam:GetPolicy",
+          "iam:GetPolicyVersion",
+          "iam:GetRole",
+          "iam:GetRolePolicy",
+          "iam:ListAttachedRolePolicies",
+          "iam:ListPolicyVersions",
+          "iam:ListRolePolicies",
+          "iam:PassRole",
+          "iam:PutRolePolicy",
+          "iam:TagPolicy",
+          "iam:TagRole",
+          "iam:UntagPolicy",
+          "iam:UntagRole",
+          "iam:UpdateAssumeRolePolicy",
+          "iam:UpdateRole",
+        ],
+        resources: [...deployRoleArnPatterns, ...deployPolicyArnPatterns],
+      }),
+    );
+
+    role.addToPolicy(
+      new PolicyStatement({
+        actions: ["iam:CreateServiceLinkedRole"],
+        resources: ["*"],
+      }),
+    );
+
+    role.addToPolicy(
+      new PolicyStatement({
+        actions: [
+          "secretsmanager:DescribeSecret",
+          "secretsmanager:GetResourcePolicy",
+          "secretsmanager:GetSecretValue",
+          "secretsmanager:ListSecretVersionIds",
+          "secretsmanager:PutResourcePolicy",
+          "secretsmanager:UpdateSecret",
+        ],
+        resources: [
+          `arn:aws:secretsmanager:${this.region}:${this.account}:secret:civic-blueprint/*`,
+        ],
       }),
     );
   }
