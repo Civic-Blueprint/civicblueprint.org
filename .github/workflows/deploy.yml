@@ -78,7 +78,7 @@ jobs:
     needs:
       - build
       - deploy-staging
-    if: !cancelled() && needs.build.result == 'success' && ((github.event_name == 'repository_dispatch' && needs.deploy-staging.result == 'success') || (github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (needs.deploy-staging.result == 'success' || needs.deploy-staging.result == 'skipped')))
+    if: ${{ !cancelled() && needs.build.result == 'success' && ((github.event_name == 'repository_dispatch' && needs.deploy-staging.result == 'success') || (github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (needs.deploy-staging.result == 'success' || needs.deploy-staging.result == 'skipped'))) }}
     runs-on: ubuntu-latest
     environment:
       name: production
