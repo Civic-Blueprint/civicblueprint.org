@@ -1,4 +1,4 @@
-import { CfnOutput, Stack, StackProps } from "aws-cdk-lib";
+import { CfnOutput, Duration, Stack, StackProps } from "aws-cdk-lib";
 import {
   CfnStage,
   CorsHttpMethod,
@@ -42,6 +42,7 @@ export class SubmissionApiStack extends Stack {
       runtime: Runtime.NODEJS_22_X,
       entry: path.join(__dirname, "../lambda/submission/index.ts"),
       handler: "handler",
+      timeout: Duration.seconds(15),
       environment: {
         ALLOWED_ORIGINS: allowedOrigins.join(","),
         GITHUB_APP_SECRET_NAME: props.githubAppSecretName,
