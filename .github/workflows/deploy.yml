@@ -54,7 +54,7 @@ jobs:
 
   deploy-staging:
     needs: build
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false
+    if: (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false) || github.event_name == 'repository_dispatch'
     runs-on: ubuntu-latest
     environment:
       name: staging
@@ -75,8 +75,10 @@ jobs:
       - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/*"
 
   deploy-prod:
-    needs: build
-    if: (github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')) || github.event_name == 'repository_dispatch'
+    needs:
+      - build
+      - deploy-staging
+    if: !cancelled() && needs.build.result == 'success' && (needs.deploy-staging.result == 'success' || needs.deploy-staging.result == 'skipped') && (((github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')) || github.event_name == 'repository_dispatch'))
     runs-on: ubuntu-latest
     environment:
       name: production

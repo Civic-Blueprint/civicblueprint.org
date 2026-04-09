@@ -99,7 +99,7 @@ GitHub Actions workflow: `.github/workflows/deploy.yml`
 
 - Pull requests to `main` deploy to the `staging` GitHub environment
 - Pushes to `main` deploy to the `production` GitHub environment
-- `repository_dispatch` event type `content-updated` also deploys to `production`
+- `repository_dispatch` event type `content-updated` now deploys to `staging` first, then requires `production` environment approval before production deploy
 - AWS auth uses OIDC via `aws-actions/configure-aws-credentials`
 - No long-lived AWS keys are committed
 
@@ -118,9 +118,23 @@ Set `AWS_DEPLOY_ROLE_ARN` per environment from CDK outputs:
 
 `project-2028` includes `.github/workflows/notify-website.yml`, which sends a `repository_dispatch` event to this repository when markdown files change on `main`.
 
-Required secret in `project-2028`:
+`project-2028` dispatch auth should use a GitHub App installation token (recommended) instead of a personal access token:
 
-- `WEBSITE_DISPATCH_TOKEN` (GitHub token with permission to dispatch events to `Civic-Blueprint/civicblueprint.org`)
+1. Create an org GitHub App at <https://github.com/organizations/Civic-Blueprint/settings/apps/new>.
+2. Grant repository permissions:
+   - `Contents`: `Read and write`
+   - `Metadata`: `Read-only`
+3. Install the app on `Civic-Blueprint/civicblueprint.org`.
+4. In `Civic-Blueprint/project-2028`, configure:
+   - Repository variable: `DISPATCH_APP_ID`
+   - Repository secret: `DISPATCH_APP_PRIVATE_KEY` (private key `.pem` contents)
+5. Remove legacy secret `WEBSITE_DISPATCH_TOKEN` from `project-2028`.
+
+Content publish flow:
+
+- `project-2028` main push (markdown) -> `repository_dispatch` -> `civicblueprint.org` build
+- `deploy-staging` runs first
+- `deploy-prod` runs only after `production` environment approval
 
 ## Current docs
 

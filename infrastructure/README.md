@@ -70,6 +70,26 @@ The workflow at `.github/workflows/deploy.yml` expects these environment-level s
 
 Use `staging` and `production` GitHub Environments to scope each set of values separately.
 
+### Cross-repo dispatch auth (project-2028 -> civicblueprint.org)
+
+Use a GitHub App for dispatch authentication so token lifecycle is not tied to a user PAT.
+
+1. Create org app: <https://github.com/organizations/Civic-Blueprint/settings/apps/new>
+2. Configure permissions:
+   - `Contents`: `Read and write`
+   - `Metadata`: `Read-only`
+3. Install app on `Civic-Blueprint/civicblueprint.org`
+4. In `Civic-Blueprint/project-2028`, set:
+   - Repository variable `DISPATCH_APP_ID`
+   - Repository secret `DISPATCH_APP_PRIVATE_KEY` (app private key PEM contents)
+5. Remove `WEBSITE_DISPATCH_TOKEN` once GitHub App auth is active
+
+`repository_dispatch` events from `project-2028` follow a staging-first gate:
+
+- Build runs
+- `deploy-staging` runs first
+- `deploy-prod` waits for `production` environment approval
+
 ## Branch protection and environment approvals
 
 Use this helper to configure GitHub protections:
