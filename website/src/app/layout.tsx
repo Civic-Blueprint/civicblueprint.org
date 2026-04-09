@@ -17,6 +17,26 @@ export const metadata: Metadata = {
   title: "Civic Blueprint | A public framework for redesigning broken systems",
   description:
     "Civic Blueprint is an open project for understanding how critical systems fail and how they might be redesigned. Read the first proof-of-usefulness memo — housing permitting and AI governance through one framework — explore the work, and challenge it.",
+  metadataBase: new URL("https://civicblueprint.org"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title:
+      "Civic Blueprint | A public framework for redesigning broken systems",
+    description:
+      "Civic Blueprint is an open project for understanding how critical systems fail and how they might be redesigned.",
+    type: "website",
+    siteName: "Civic Blueprint",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Civic Blueprint | A public framework for redesigning broken systems",
+    description:
+      "Read the first proof-of-usefulness memo, explore the framework, and challenge the work.",
+  },
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",

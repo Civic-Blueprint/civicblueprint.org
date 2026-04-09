@@ -9,12 +9,16 @@
     "deploy": "cdk deploy"
   },
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.922.0",
+    "@octokit/auth-app": "^8.1.1",
+    "@octokit/rest": "^22.0.0",
     "aws-cdk-lib": "^2.227.0",
     "constructs": "^10.4.2"
   },
   "devDependencies": {
     "@types/node": "^20.19.0",
     "aws-cdk": "^2.1029.0",
+    "esbuild": "^0.25.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }

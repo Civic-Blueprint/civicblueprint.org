@@ -398,8 +398,8 @@ These are important, but they should not block Phase 1:
 
 1. ~~Decide the exact first proof-of-usefulness topic and outline.~~ Decided: comparative housing + AI artifact. See `docs/PROOF_OF_USEFULNESS_MEMO_01.md`.
 2. ~~Draft homepage copy around the question: "What is this, and why should a serious outsider spend time on it?"~~ See `docs/HOMEPAGE_COPY_DRAFT.md`.
-3. Decide the minimum contribution channel for non-GitHub users.
-4. Choose a lightweight site stack.
+3. ~~Decide the minimum contribution channel for non-GitHub users.~~ Decided: `/respond` form backed by API Gateway + Lambda that creates GitHub issues in `project-2028`.
+4. ~~Choose a lightweight site stack.~~ Decided and implemented: static Next.js export on S3 + CloudFront, with contribution form routed to serverless API.
 5. Ship the smallest usable version and learn from real responses.
 
 ## External Notes

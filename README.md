@@ -91,6 +91,7 @@ npx cdk deploy --all
 - `CivicBlueprintDns` - Route 53 hosted zone + ACM certificate
 - `CivicBlueprintStagingSite` - staging S3 + CloudFront + Route 53 alias
 - `CivicBlueprintProductionSite` - production S3 + CloudFront + apex/www aliases
+- `CivicBlueprintSubmissionApi` - API Gateway + Lambda endpoint for non-GitHub response submissions
 - `CivicBlueprintGitHubOidc` - GitHub Actions OIDC provider and deploy role
 
 ## CI/CD
@@ -120,6 +121,10 @@ Required environment secrets (per GitHub Environment):
 - `AWS_DEPLOY_ROLE_ARN`
 - `S3_BUCKET_NAME`
 - `CF_DISTRIBUTION_ID`
+
+Required repository variable:
+
+- `NEXT_PUBLIC_SUBMISSION_API_URL` (API base URL output from `CivicBlueprintSubmissionApi`)
 
 Set `AWS_DEPLOY_ROLE_ARN` per environment from CDK outputs:
 
@@ -152,6 +157,12 @@ Content publish flow:
 - `project-2028` main push (markdown) -> `repository_dispatch` -> `civicblueprint.org` build
 - `deploy-staging` runs first
 - `deploy-prod` runs only after `production` environment approval
+
+Staging crawler policy:
+
+- Staging deploy overwrites `robots.txt` with `Disallow: /`
+- Staging deploy removes `sitemap.xml`
+- Staging CloudFront injects `X-Robots-Tag: noindex, nofollow` on responses
 
 ### Docs mobile UX
 

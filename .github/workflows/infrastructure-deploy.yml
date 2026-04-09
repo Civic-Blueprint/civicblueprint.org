@@ -57,7 +57,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_INFRA_DEPLOY_ROLE_ARN }}
           aws-region: us-east-1
           role-session-name: gh-actions-infra-staging-deploy
-      - run: npx cdk deploy CivicBlueprintDns CivicBlueprintStagingSite CivicBlueprintGitHubOidc --require-approval never
+      - run: npx cdk deploy CivicBlueprintDns CivicBlueprintStagingSite CivicBlueprintSubmissionApi CivicBlueprintGitHubOidc --require-approval never
 
   deploy-production-infra:
     needs: deploy-staging-infra
@@ -81,4 +81,4 @@ jobs:
           role-to-assume: ${{ secrets.AWS_INFRA_DEPLOY_ROLE_ARN }}
           aws-region: us-east-1
           role-session-name: gh-actions-infra-production-deploy
-      - run: npx cdk deploy CivicBlueprintProductionSite CivicBlueprintGitHubOidc --require-approval never
+      - run: npx cdk deploy CivicBlueprintProductionSite CivicBlueprintSubmissionApi CivicBlueprintGitHubOidc --require-approval never

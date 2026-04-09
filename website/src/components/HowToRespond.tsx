@@ -1,10 +1,22 @@
 import Link from "next/link";
 
 const responseOptions = [
-  { title: "Challenge the directional claim", href: "#" },
-  { title: "Share domain expertise", href: "#" },
-  { title: "Point to a historical case", href: "#" },
-  { title: "Suggest a missing perspective", href: "#" },
+  {
+    title: "Challenge the directional claim",
+    href: "/respond?type=challenge#challenge",
+  },
+  {
+    title: "Share domain expertise",
+    href: "/respond?type=domain-expertise#expertise",
+  },
+  {
+    title: "Point to a historical case",
+    href: "/respond?type=historical-case#historical",
+  },
+  {
+    title: "Suggest a missing perspective",
+    href: "/respond?type=missing-perspective#perspective",
+  },
   {
     title: "Read the contribution guide",
     href: "/docs/contributing",

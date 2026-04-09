@@ -29,6 +29,20 @@ export async function generateMetadata({
   return {
     title: `${doc.title} | Civic Blueprint`,
     description: doc.description,
+    alternates: {
+      canonical: doc.route,
+    },
+    openGraph: {
+      title: `${doc.title} | Civic Blueprint`,
+      description: doc.description,
+      type: "article",
+      url: doc.route,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${doc.title} | Civic Blueprint`,
+      description: doc.description,
+    },
   };
 }
 

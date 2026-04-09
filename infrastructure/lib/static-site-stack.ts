@@ -36,6 +36,7 @@ export interface StaticSiteStackProps extends StackProps {
   certificate: Certificate;
   subdomain?: string;
   includeWwwAlias?: boolean;
+  noIndexHeaders?: boolean;
   removalPolicy: RemovalPolicy;
 }
 
@@ -79,6 +80,33 @@ function handler(event) {
 `),
     });
 
+    const functionAssociations = [
+      {
+        eventType: FunctionEventType.VIEWER_REQUEST,
+        function: urlRewriteFunction,
+      },
+    ];
+
+    if (props.noIndexHeaders === true) {
+      const noIndexHeadersFunction = new Function(
+        this,
+        "NoIndexHeadersFunction",
+        {
+          code: FunctionCode.fromInline(`
+function handler(event) {
+  var response = event.response;
+  response.headers["x-robots-tag"] = { value: "noindex, nofollow" };
+  return response;
+}
+`),
+        },
+      );
+      functionAssociations.push({
+        eventType: FunctionEventType.VIEWER_RESPONSE,
+        function: noIndexHeadersFunction,
+      });
+    }
+
     this.distribution = new Distribution(this, "SiteDistribution", {
       certificate: props.certificate,
       domainNames: aliases,
@@ -89,12 +117,7 @@ function handler(event) {
         cachePolicy: CachePolicy.CACHING_OPTIMIZED,
         allowedMethods: AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
         cachedMethods: CachedMethods.CACHE_GET_HEAD_OPTIONS,
-        functionAssociations: [
-          {
-            eventType: FunctionEventType.VIEWER_REQUEST,
-            function: urlRewriteFunction,
-          },
-        ],
+        functionAssociations,
       },
       errorResponses: [
         {

@@ -3,6 +3,7 @@ import { App, RemovalPolicy } from "aws-cdk-lib";
 import { config } from "../config";
 import { DnsStack } from "../lib/dns-stack";
 import { GitHubOidcStack } from "../lib/github-oidc-stack";
+import { SubmissionApiStack } from "../lib/submission-api-stack";
 import { StaticSiteStack } from "../lib/static-site-stack";
 
 const app = new App();
@@ -23,6 +24,7 @@ const stagingSiteStack = new StaticSiteStack(app, "CivicBlueprintStagingSite", {
   certificate: dnsStack.certificate,
   subdomain: "staging",
   includeWwwAlias: false,
+  noIndexHeaders: true,
   removalPolicy: RemovalPolicy.DESTROY,
 });
 stagingSiteStack.addDependency(dnsStack);
@@ -40,6 +42,19 @@ const productionSiteStack = new StaticSiteStack(
   },
 );
 productionSiteStack.addDependency(dnsStack);
+
+const submissionApiStack = new SubmissionApiStack(
+  app,
+  "CivicBlueprintSubmissionApi",
+  {
+    env,
+    domainName: config.domainName,
+    githubOrg: config.githubOrg,
+    githubRepo: "project-2028",
+    githubAppSecretName: "civic-blueprint/github-app",
+  },
+);
+submissionApiStack.addDependency(dnsStack);
 
 const githubOidcStack = new GitHubOidcStack(app, "CivicBlueprintGitHubOidc", {
   env,

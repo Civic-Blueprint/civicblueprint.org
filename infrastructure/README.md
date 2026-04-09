@@ -11,6 +11,7 @@ AWS CDK infrastructure for deploying `website/` to AWS and connecting DNS.
   - `staging.civicblueprint.org`
 - Staging static site stack (S3 + CloudFront + Route 53 alias)
 - Production static site stack (S3 + CloudFront + Route 53 apex + www aliases)
+- Submission API stack (API Gateway HTTP API + Lambda + GitHub issue creation)
 - GitHub OIDC provider and two deploy roles for GitHub Actions:
   - `GitHubStagingDeployRoleArn`
   - `GitHubProdDeployRoleArn`
@@ -79,6 +80,10 @@ The workflow at `.github/workflows/deploy.yml` expects these environment-level s
 
 Use `staging` and `production` GitHub Environments to scope each set of values separately.
 
+The build job also expects this repository variable:
+
+- `NEXT_PUBLIC_SUBMISSION_API_URL` (for example, `https://abcd1234.execute-api.us-east-1.amazonaws.com/`)
+
 For infrastructure CDK deploy workflow, configure GitHub environment secrets:
 
 - Environment `staging`:
@@ -101,6 +106,36 @@ Use a GitHub App for dispatch authentication so token lifecycle is not tied to a
    - Repository variable `DISPATCH_APP_ID`
    - Repository secret `DISPATCH_APP_PRIVATE_KEY` (app private key PEM contents)
 5. Remove `WEBSITE_DISPATCH_TOKEN` once GitHub App auth is active
+
+### Submission API GitHub App secret (AWS Secrets Manager)
+
+The website submission API Lambda uses the same GitHub App credentials to create issues in `Civic-Blueprint/project-2028`.
+
+Create this secret once in AWS account `932027117408` (or your configured account):
+
+```bash
+aws secretsmanager create-secret \
+  --name civic-blueprint/github-app \
+  --description "GitHub App credentials for Civic Blueprint submission API (issue creation)" \
+  --secret-string "$(jq -n \
+    --arg app_id "YOUR_APP_ID" \
+    --arg private_key "$(cat /path/to/your-app.private-key.pem)" \
+    '{appId: $app_id, privateKey: $private_key}')" \
+  --region us-east-1
+```
+
+Verify:
+
+```bash
+aws secretsmanager describe-secret \
+  --secret-id civic-blueprint/github-app \
+  --region us-east-1
+```
+
+The `CivicBlueprintSubmissionApi` stack grants Lambda read access to this secret and expects JSON keys:
+
+- `appId` (string)
+- `privateKey` (PEM contents)
 
 `repository_dispatch` events from `project-2028` follow a staging-first gate:
 

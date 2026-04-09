@@ -28,6 +28,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SUBMISSION_API_URL: ${{ vars.NEXT_PUBLIC_SUBMISSION_API_URL }}
     defaults:
       run:
         working-directory: website
@@ -70,6 +72,10 @@ jobs:
           aws-region: us-east-1
           role-session-name: gh-actions-staging-deploy
       - run: aws s3 sync out/ s3://${{ secrets.S3_BUCKET_NAME }} --delete
+      - name: Block staging from crawlers
+        run: |
+          printf "User-agent: *\nDisallow: /\n" | aws s3 cp - s3://${{ secrets.S3_BUCKET_NAME }}/robots.txt --content-type text/plain
+          aws s3 rm s3://${{ secrets.S3_BUCKET_NAME }}/sitemap.xml || true
       - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} --paths "/*"
 
   deploy-prod:
