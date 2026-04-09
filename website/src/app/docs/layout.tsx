@@ -37,7 +37,7 @@ export default async function DocsLayout({ children }: DocsLayoutProps) {
       <Navbar />
       <main className="flex-1 section-shell">
         <div className="container-shell">
-          <div className="sticky top-20 z-10 mb-6 lg:hidden">
+          <div className="sticky top-28 z-10 mb-6 lg:hidden">
             <details id="docs-mobile-nav" className="blueprint-card p-3">
               <summary className="flex min-h-11 cursor-pointer items-center justify-between rounded-md px-3 py-2 text-sm font-semibold text-ink">
                 Browse documents

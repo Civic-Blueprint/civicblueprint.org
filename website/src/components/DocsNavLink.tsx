@@ -23,6 +23,12 @@ export function DocsNavLink({ children, href }: DocsNavLinkProps) {
       href={href}
       className={className}
       aria-current={isActive ? "page" : undefined}
+      onClick={(event) => {
+        const details = event.currentTarget.closest("details");
+        if (details instanceof HTMLDetailsElement) {
+          details.open = false;
+        }
+      }}
     >
       {children}
     </Link>
