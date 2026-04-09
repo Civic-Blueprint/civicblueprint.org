@@ -12,7 +12,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
-export type DocCategory = "core" | "exchanges" | "process" | "other";
+export type DocCategory = "core" | "memos" | "exchanges" | "process" | "other";
 
 export type DocSummary = {
   category: DocCategory;
@@ -68,6 +68,10 @@ function toRoute(slug: string[]) {
 }
 
 function toCategory(relativePath: string): DocCategory {
+  if (relativePath.startsWith("memos/")) {
+    return "memos";
+  }
+
   if (relativePath.startsWith("agent/exchanges/")) {
     return "exchanges";
   }
@@ -214,7 +218,13 @@ async function getMarkdownFiles(
 function sortDocs(docs: DocPage[]) {
   return docs.sort((a, b) => {
     if (a.category !== b.category) {
-      const order: DocCategory[] = ["core", "process", "exchanges", "other"];
+      const order: DocCategory[] = [
+        "core",
+        "memos",
+        "process",
+        "exchanges",
+        "other",
+      ];
       return order.indexOf(a.category) - order.indexOf(b.category);
     }
 
@@ -307,6 +317,7 @@ export async function getDocsNavigation() {
 
   return {
     core: docs.filter((doc) => doc.category === "core"),
+    memos: docs.filter((doc) => doc.category === "memos"),
     exchanges: docs.filter((doc) => doc.category === "exchanges"),
     other: docs.filter((doc) => doc.category === "other"),
     process: docs.filter((doc) => doc.category === "process"),

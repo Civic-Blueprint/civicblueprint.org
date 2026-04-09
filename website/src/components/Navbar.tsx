@@ -1,17 +1,17 @@
 import Image from "next/image";
 
 const navItems = [
-  { href: "#start-here", label: "Start Here" },
-  { href: "#memo", label: "Memo" },
-  { href: "#framework", label: "Framework" },
-  { href: "#contribute", label: "Contribute" },
+  { href: "/#start-here", label: "Start Here" },
+  { href: "/#memo", label: "Memo" },
+  { href: "/#framework", label: "Framework" },
+  { href: "/#contribute", label: "Contribute" },
 ];
 
 export function Navbar() {
   return (
     <header className="sticky top-0 z-20 border-b border-blueprint-line bg-blueprint-surface/95 backdrop-blur">
       <div className="container-shell flex flex-wrap items-center justify-between gap-y-3 py-4">
-        <a href="#" className="flex items-center gap-3">
+        <a href="/" className="flex items-center gap-3">
           <Image
             src="/logo-transparent.png"
             alt="Civic Blueprint logo"

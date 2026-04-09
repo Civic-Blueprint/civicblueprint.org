@@ -203,6 +203,8 @@ a {
 .prose-blueprint {
   color: #334155;
   max-width: 76ch;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .prose-blueprint h1,
@@ -253,7 +255,11 @@ a {
 
 .prose-blueprint table {
   border-collapse: collapse;
+  display: block;
   font-size: 0.95rem;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   width: 100%;
 }
 
@@ -327,9 +333,27 @@ a {
 }
 
 @media (max-width: 640px) {
+  .container-shell {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
   .section-shell {
     padding-bottom: 3.75rem;
     padding-top: 3.75rem;
+  }
+
+  .prose-blueprint h1 {
+    font-size: clamp(1.6rem, 1.2rem + 2.5vw, 2rem);
+  }
+
+  .prose-blueprint h2 {
+    font-size: clamp(1.3rem, 1.1rem + 1.6vw, 1.6rem);
+  }
+
+  .prose-blueprint th,
+  .prose-blueprint td {
+    min-width: 8rem;
   }
 
   .corner-marks::before,

@@ -1,5 +1,4 @@
-import Link from "next/link";
-
+import { DocsNavLink } from "@/components/DocsNavLink";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import type { DocSummary } from "@/lib/content";
@@ -22,12 +21,7 @@ function NavGroup({ docs, title }: { docs: DocSummary[]; title: string }) {
       <ul className="space-y-1.5">
         {docs.map((doc) => (
           <li key={doc.route}>
-            <Link
-              href={doc.route}
-              className="text-sm text-slate transition-colors hover:text-blueprint-navy"
-            >
-              {doc.title}
-            </Link>
+            <DocsNavLink href={doc.route}>{doc.title}</DocsNavLink>
           </li>
         ))}
       </ul>
@@ -43,13 +37,14 @@ export default async function DocsLayout({ children }: DocsLayoutProps) {
       <Navbar />
       <main className="flex-1 section-shell">
         <div className="container-shell">
-          <div className="mb-6 lg:hidden">
-            <details className="blueprint-card p-4">
-              <summary className="cursor-pointer text-sm font-semibold text-ink">
+          <div className="sticky top-20 z-10 mb-6 lg:hidden">
+            <details id="docs-mobile-nav" className="blueprint-card p-3">
+              <summary className="flex min-h-11 cursor-pointer items-center justify-between rounded-md px-3 py-2 text-sm font-semibold text-ink">
                 Browse documents
               </summary>
-              <nav className="mt-4 space-y-5">
+              <nav className="mt-3 space-y-4 px-1 pb-2">
                 <NavGroup docs={navigation.core} title="Core Documents" />
+                <NavGroup docs={navigation.memos} title="Memos" />
                 <NavGroup docs={navigation.process} title="Process" />
                 <NavGroup docs={navigation.exchanges} title="Exchanges" />
               </nav>
@@ -59,6 +54,7 @@ export default async function DocsLayout({ children }: DocsLayoutProps) {
             <aside className="hidden lg:block">
               <div className="blueprint-card sticky top-24 space-y-6 p-5">
                 <NavGroup docs={navigation.core} title="Core Documents" />
+                <NavGroup docs={navigation.memos} title="Memos" />
                 <NavGroup docs={navigation.process} title="Process" />
                 <NavGroup docs={navigation.exchanges} title="Exchanges" />
               </div>

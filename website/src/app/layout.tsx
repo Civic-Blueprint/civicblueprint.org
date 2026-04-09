@@ -18,7 +18,9 @@ export const metadata: Metadata = {
   description:
     "Civic Blueprint is an open project for understanding how critical systems fail and how they might be redesigned. Read the first proof-of-usefulness memo — housing permitting and AI governance through one framework — explore the work, and challenge it.",
   icons: {
-    icon: "/logo.png",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/logo.png",
   },
 };
 

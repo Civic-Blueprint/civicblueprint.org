@@ -1,0 +1,84 @@
+name: Infrastructure Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "infrastructure/**"
+      - ".github/workflows/infrastructure-deploy.yml"
+      - ".github/workflows/infrastructure-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: infra-deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infrastructure
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: infrastructure/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: npx cdk synth
+
+  deploy-staging-infra:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: staging
+    defaults:
+      run:
+        working-directory: infrastructure
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: infrastructure/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_INFRA_DEPLOY_ROLE_ARN }}
+          aws-region: us-east-1
+          role-session-name: gh-actions-infra-staging-deploy
+      - run: npx cdk deploy CivicBlueprintDns CivicBlueprintStagingSite CivicBlueprintGitHubOidc --require-approval never
+
+  deploy-production-infra:
+    needs: deploy-staging-infra
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    defaults:
+      run:
+        working-directory: infrastructure
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: infrastructure/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_INFRA_DEPLOY_ROLE_ARN }}
+          aws-region: us-east-1
+          role-session-name: gh-actions-infra-production-deploy
+      - run: npx cdk deploy CivicBlueprintProductionSite CivicBlueprintGitHubOidc --require-approval never

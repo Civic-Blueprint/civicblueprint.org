@@ -74,7 +74,7 @@ export function MemoFeature() {
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
-              href="/docs/exchanges/proof-of-usefulness-housing-vs-ai"
+              href="/docs/memos/proof-of-usefulness-memo-01"
               className="primary-button w-full sm:w-auto"
             >
               Read the memo

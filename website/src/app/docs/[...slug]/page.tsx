@@ -41,7 +41,7 @@ export default async function DocPage({ params }: DocPageProps) {
   }
 
   return (
-    <article className="prose prose-blueprint max-w-none">
+    <article className="prose prose-blueprint w-full">
       <p className="doc-source-link">
         <a href={doc.githubUrl} target="_blank" rel="noreferrer">
           View this file on GitHub
