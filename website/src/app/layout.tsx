@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Public_Sans, Source_Serif_4 } from "next/font/google";
+
+import { Analytics } from "@/components/Analytics";
+import { CookieConsent } from "@/components/CookieConsent";
+
 import "./globals.css";
 
 const publicSans = Public_Sans({
@@ -54,7 +58,11 @@ export default function RootLayout({
       lang="en"
       className={`${publicSans.variable} ${sourceSerif.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Analytics />
+        <CookieConsent />
+      </body>
     </html>
   );
 }
