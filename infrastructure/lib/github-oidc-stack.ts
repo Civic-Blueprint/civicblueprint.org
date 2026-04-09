@@ -1,7 +1,6 @@
 import { CfnOutput, Stack, StackProps } from "aws-cdk-lib";
 import {
   FederatedPrincipal,
-  OpenIdConnectProvider,
   PolicyStatement,
   Role,
 } from "aws-cdk-lib/aws-iam";
@@ -27,10 +26,8 @@ export class GitHubOidcStack extends Stack {
   constructor(scope: Construct, id: string, props: GitHubOidcStackProps) {
     super(scope, id, props);
 
-    const oidcProvider = new OpenIdConnectProvider(this, "GitHubOidcProvider", {
-      url: "https://token.actions.githubusercontent.com",
-      clientIds: ["sts.amazonaws.com"],
-    });
+    // Reuse the account-level GitHub OIDC provider if it already exists.
+    const oidcProviderArn = `arn:aws:iam::${this.account}:oidc-provider/token.actions.githubusercontent.com`;
 
     const deployTargets: Array<{
       environment: DeployEnvironment;
@@ -67,7 +64,7 @@ export class GitHubOidcStack extends Stack {
     for (const target of deployTargets) {
       const role = this.createEnvironmentDeployRole(
         target,
-        oidcProvider.openIdConnectProviderArn,
+        oidcProviderArn,
         props.githubOrg,
         props.githubRepo,
       );
