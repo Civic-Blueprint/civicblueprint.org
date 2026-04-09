@@ -99,6 +99,10 @@ For infrastructure CDK deploy workflow, configure GitHub environment secrets:
 - Environment `production`:
   - `AWS_INFRA_DEPLOY_ROLE_ARN` = `GitHubInfrastructureProductionDeployRoleArn`
 
+For infrastructure CI and deploy workflows, configure this GitHub repository variable:
+
+- `AWS_ACCOUNT_ID` (required by `config.ts` during `cdk synth`)
+
 For Slack alert delivery in infrastructure deploy workflow, configure GitHub environment variables:
 
 - Environment `staging`:

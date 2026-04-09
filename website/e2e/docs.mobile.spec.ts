@@ -34,4 +34,35 @@ test.describe("Docs mobile experience", () => {
       animations: "disabled",
     });
   });
+
+  test("all docs keep mobile viewport layout", async ({ page }) => {
+    await page.goto("/docs", { waitUntil: "load" });
+    await page.locator("main").waitFor({ state: "visible" });
+
+    const links = await page
+      .locator("a[href^='/docs/']")
+      .evaluateAll((anchors) =>
+        anchors.map((anchor) => (anchor as HTMLAnchorElement).pathname),
+      );
+    const docPaths = Array.from(new Set(links)).filter(
+      (href) => href !== "/docs",
+    );
+
+    for (const docPath of docPaths) {
+      await page.goto(docPath, { waitUntil: "load" });
+      await page.locator("main").waitFor({ state: "visible" });
+
+      const dimensions = await page.evaluate(() => {
+        const root = document.documentElement;
+        return {
+          clientWidth: root.clientWidth,
+          scrollWidth: root.scrollWidth,
+        };
+      });
+
+      expect(dimensions.scrollWidth).toBeLessThanOrEqual(
+        dimensions.clientWidth + 1,
+      );
+    }
+  });
 });
