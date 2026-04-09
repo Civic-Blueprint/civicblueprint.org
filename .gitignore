@@ -26,6 +26,7 @@
 /out/
 /website/.next/
 /website/out/
+/website/content/
 
 # production
 /build

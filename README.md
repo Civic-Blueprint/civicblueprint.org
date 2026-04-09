@@ -34,6 +34,28 @@ npm run build
 
 `website/next.config.ts` is configured with `output: "export"` so `npm run build` emits static files to `website/out/`.
 
+### Markdown content setup (project-2028)
+
+The docs routes under `website/src/app/docs/` render markdown from the sibling `project-2028` repository.
+
+Local setup:
+
+```bash
+cd website
+./scripts/setup-content.sh
+```
+
+This syncs the sibling repo into `website/content/project-2028` (excluding `.git`), which avoids Turbopack symlink limitations during static builds.
+
+Run `./scripts/setup-content.sh` again whenever markdown content changes locally.
+
+Then run the website:
+
+```bash
+cd website
+npm run dev
+```
+
 ### Visual snapshots (Playwright)
 
 ```bash
@@ -77,6 +99,7 @@ GitHub Actions workflow: `.github/workflows/deploy.yml`
 
 - Pull requests to `main` deploy to the `staging` GitHub environment
 - Pushes to `main` deploy to the `production` GitHub environment
+- `repository_dispatch` event type `content-updated` also deploys to `production`
 - AWS auth uses OIDC via `aws-actions/configure-aws-credentials`
 - No long-lived AWS keys are committed
 
@@ -90,6 +113,14 @@ Set `AWS_DEPLOY_ROLE_ARN` per environment from CDK outputs:
 
 - `staging` -> `GitHubStagingDeployRoleArn`
 - `production` -> `GitHubProdDeployRoleArn`
+
+### project-2028 content dispatch
+
+`project-2028` includes `.github/workflows/notify-website.yml`, which sends a `repository_dispatch` event to this repository when markdown files change on `main`.
+
+Required secret in `project-2028`:
+
+- `WEBSITE_DISPATCH_TOKEN` (GitHub token with permission to dispatch events to `Civic-Blueprint/civicblueprint.org`)
 
 ## Current docs
 

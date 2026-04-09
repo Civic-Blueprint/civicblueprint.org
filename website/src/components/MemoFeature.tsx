@@ -1,4 +1,5 @@
 import { BlueprintGrid } from "@/components/BlueprintGrid";
+import Link from "next/link";
 
 export function MemoFeature() {
   return (
@@ -72,22 +73,18 @@ export function MemoFeature() {
             misses, that is a better basis for deeper engagement.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <a
-              href="https://github.com/Civic-Blueprint/project-2028/blob/main/agent/exchanges/proof-of-usefulness-housing-vs-ai.md"
+            <Link
+              href="/docs/exchanges/proof-of-usefulness-housing-vs-ai"
               className="primary-button w-full sm:w-auto"
-              target="_blank"
-              rel="noreferrer"
             >
               Read the memo
-            </a>
-            <a
-              href="https://github.com/Civic-Blueprint/project-2028/blob/main/SYSTEMS_FRAMEWORK.md"
+            </Link>
+            <Link
+              href="/docs/systems-framework"
               className="secondary-button w-full sm:w-auto"
-              target="_blank"
-              rel="noreferrer"
             >
               See the source framework
-            </a>
+            </Link>
           </div>
         </article>
       </div>

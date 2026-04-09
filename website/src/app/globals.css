@@ -187,6 +187,99 @@ a {
   padding: 0.15rem 0.4rem;
 }
 
+.doc-source-path {
+  color: #64748b;
+  font-size: 0.82rem;
+  margin-bottom: 1.1rem;
+  margin-top: 0;
+}
+
+.doc-source-link {
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  margin-top: 0;
+}
+
+.prose-blueprint {
+  color: #334155;
+  max-width: 76ch;
+}
+
+.prose-blueprint h1,
+.prose-blueprint h2,
+.prose-blueprint h3,
+.prose-blueprint h4 {
+  color: #111827;
+  font-family: var(--font-source-serif), Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+.prose-blueprint h1 {
+  font-size: var(--step-3);
+  line-height: 1.12;
+}
+
+.prose-blueprint h2 {
+  border-top: 1px solid #c7d2e3;
+  font-size: var(--step-2);
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+}
+
+.prose-blueprint a {
+  color: #123e7c;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose-blueprint a:hover,
+.prose-blueprint a:focus-visible {
+  color: #2b5a96;
+}
+
+.prose-blueprint blockquote {
+  background: rgba(199, 210, 227, 0.2);
+  border-left: 3px solid #2b5a96;
+  border-radius: 0.5rem;
+  margin: 1.25rem 0;
+  padding: 0.75rem 1rem;
+}
+
+.prose-blueprint hr {
+  border: 0;
+  border-top: 1px solid #c7d2e3;
+  margin: 2rem 0;
+}
+
+.prose-blueprint table {
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  width: 100%;
+}
+
+.prose-blueprint th,
+.prose-blueprint td {
+  border: 1px solid #c7d2e3;
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose-blueprint th {
+  background: rgba(199, 210, 227, 0.2);
+  color: #111827;
+}
+
+.doc-heading-link {
+  color: #64748b;
+  margin-left: 0.35rem;
+  text-decoration: none;
+}
+
+.doc-heading-link:hover {
+  color: #123e7c;
+}
+
 .corner-marks {
   position: relative;
 }

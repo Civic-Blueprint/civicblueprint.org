@@ -1,28 +1,30 @@
+import Link from "next/link";
+
 const frameworkCards = [
   {
     title: "Principles",
     source: "PRINCIPLES.md",
-    href: "https://github.com/Civic-Blueprint/project-2028/blob/main/PRINCIPLES.md",
+    href: "/docs/principles",
     description:
       "defines the project's commitments: dignity, access to essential needs, accountable power, democratic oversight of AI, public-interest governance of critical systems, and openness to challenge.",
   },
   {
     title: "Problem Map",
     source: "PROBLEM_MAP.md",
-    href: "https://github.com/Civic-Blueprint/project-2028/blob/main/PROBLEM_MAP.md",
+    href: "/docs/problem-map",
     description:
       "describes where systems are stuck, why they stay stuck, who benefits from the dysfunction, and how recursive failure can spread across domains.",
   },
   {
     title: "Systems Framework",
     source: "SYSTEMS_FRAMEWORK.md",
-    href: "https://github.com/Civic-Blueprint/project-2028/blob/main/SYSTEMS_FRAMEWORK.md",
+    href: "/docs/systems-framework",
     description:
       "applies that diagnosis across fourteen domains — including housing, AI governance, healthcare, infrastructure, democratic process, and institutional capacity. It focuses on bottlenecks, dependencies, leverage, failure modes, and sequence.",
   },
   {
     title: "Process",
-    href: "https://github.com/Civic-Blueprint/project-2028/blob/main/agent/process/adversarial-review-protocol.md",
+    href: "/docs/process/adversarial-review-protocol",
     description:
       "The project also publishes its review methods. Its claims are meant to face adversarial review, coherence checks, and historical challenge rather than being treated as final answers.",
   },
@@ -53,14 +55,9 @@ export function FrameworkOverview() {
                 ) : null}
                 {card.description}
               </p>
-              <a
-                href={card.href}
-                className="mt-4 inline-block text-link"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <Link href={card.href} className="mt-4 inline-block text-link">
                 Read more
-              </a>
+              </Link>
             </article>
           ))}
         </div>

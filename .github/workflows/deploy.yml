@@ -1,6 +1,9 @@
 name: Deploy
 
 on:
+  repository_dispatch:
+    types:
+      - content-updated
   push:
     branches:
       - main
@@ -32,6 +35,10 @@ jobs:
         working-directory: website
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Civic-Blueprint/project-2028
+          path: website/content/project-2028
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -69,7 +76,7 @@ jobs:
 
   deploy-prod:
     needs: build
-    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    if: (github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')) || github.event_name == 'repository_dispatch'
     runs-on: ubuntu-latest
     environment:
       name: production
