@@ -10,6 +10,10 @@ type ResponseType =
   | "missing-perspective";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
+type SubmitSuccessBody = {
+  success: true;
+  issueUrl?: string;
+};
 
 const responseTypeOptions: Array<{ label: string; value: ResponseType }> = [
   { label: "Challenge the directional claim", value: "challenge" },
@@ -47,6 +51,7 @@ export function ResponseForm() {
   const [honeypot, setHoneypot] = useState("");
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [createdIssueUrl, setCreatedIssueUrl] = useState<string | null>(null);
 
   const queryTypeValue = searchParams.get("type");
   const queryResponseType =
@@ -84,6 +89,7 @@ export function ResponseForm() {
 
     setSubmitState("submitting");
     setErrorMessage("");
+    setCreatedIssueUrl(null);
 
     const payload = {
       responseType,
@@ -112,7 +118,17 @@ export function ResponseForm() {
         return;
       }
 
+      const successBody = (await result
+        .json()
+        .catch(() => null)) as SubmitSuccessBody | null;
+      const issueUrl =
+        typeof successBody?.issueUrl === "string" &&
+        successBody.issueUrl.length > 0
+          ? successBody.issueUrl
+          : null;
+
       setSubmitState("success");
+      setCreatedIssueUrl(issueUrl);
       setName("");
       setEmail("");
       setMessage("");
@@ -213,7 +229,17 @@ export function ResponseForm() {
           </button>
           {submitState === "success" ? (
             <p className="text-sm text-emerald-700">
-              Your response has been recorded. Thank you.
+              Your response has been recorded. Thank you.{" "}
+              {createdIssueUrl !== null ? (
+                <a
+                  href={createdIssueUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                >
+                  View the created GitHub issue.
+                </a>
+              ) : null}
             </p>
           ) : null}
         </div>

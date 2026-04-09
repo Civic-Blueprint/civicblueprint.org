@@ -40,6 +40,9 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: staging
+    env:
+      SLACK_WORKSPACE_ID: ${{ vars.SLACK_WORKSPACE_ID }}
+      SLACK_CHANNEL_ID: ${{ vars.SLACK_CHANNEL_ID }}
     defaults:
       run:
         working-directory: infrastructure
@@ -57,13 +60,16 @@ jobs:
           role-to-assume: ${{ secrets.AWS_INFRA_DEPLOY_ROLE_ARN }}
           aws-region: us-east-1
           role-session-name: gh-actions-infra-staging-deploy
-      - run: npx cdk deploy CivicBlueprintDns CivicBlueprintStagingSite CivicBlueprintSubmissionApi CivicBlueprintGitHubOidc --require-approval never
+      - run: npx cdk deploy CivicBlueprintDns CivicBlueprintStagingSite CivicBlueprintSubmissionApi CivicBlueprintMonitoring CivicBlueprintGitHubOidc --require-approval never
 
   deploy-production-infra:
     needs: deploy-staging-infra
     runs-on: ubuntu-latest
     environment:
       name: production
+    env:
+      SLACK_WORKSPACE_ID: ${{ vars.SLACK_WORKSPACE_ID }}
+      SLACK_CHANNEL_ID: ${{ vars.SLACK_CHANNEL_ID }}
     defaults:
       run:
         working-directory: infrastructure
@@ -81,4 +87,4 @@ jobs:
           role-to-assume: ${{ secrets.AWS_INFRA_DEPLOY_ROLE_ARN }}
           aws-region: us-east-1
           role-session-name: gh-actions-infra-production-deploy
-      - run: npx cdk deploy CivicBlueprintProductionSite CivicBlueprintSubmissionApi CivicBlueprintGitHubOidc --require-approval never
+      - run: npx cdk deploy CivicBlueprintProductionSite CivicBlueprintSubmissionApi CivicBlueprintMonitoring CivicBlueprintGitHubOidc --require-approval never

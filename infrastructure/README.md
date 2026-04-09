@@ -28,6 +28,14 @@ Set these environment variables when needed:
 - `DOMAIN_NAME` (defaults to `civicblueprint.org`)
 - `GITHUB_ORG`
 - `GITHUB_REPO` (defaults to `civicblueprint.org`)
+- `SUBMISSION_ALERT_ALARM_PREFIX` (defaults to `civic-blueprint-submission-api`)
+- `SUBMISSION_METRIC_NAMESPACE` (defaults to `CivicBlueprint/SubmissionApi`)
+- `SUBMISSION_LAMBDA_HIGH_DURATION_MS` (defaults to `12000`)
+- `SUBMISSION_LAMBDA_TIMEOUT_LIKELY_MS` (defaults to `14500`)
+- `SUBMISSION_API_4XX_THRESHOLD` (defaults to `20`)
+- `SUBMISSION_NO_SUCCESS_EVALUATION_PERIODS` (defaults to `12`, with 5-minute periods)
+- `SLACK_WORKSPACE_ID` (optional; required to enable AWS Chatbot Slack delivery)
+- `SLACK_CHANNEL_ID` (optional; required to enable AWS Chatbot Slack delivery)
 
 Defaults are defined in `config.ts`.
 
@@ -91,6 +99,15 @@ For infrastructure CDK deploy workflow, configure GitHub environment secrets:
 - Environment `production`:
   - `AWS_INFRA_DEPLOY_ROLE_ARN` = `GitHubInfrastructureProductionDeployRoleArn`
 
+For Slack alert delivery in infrastructure deploy workflow, configure GitHub environment variables:
+
+- Environment `staging`:
+  - `SLACK_WORKSPACE_ID`
+  - `SLACK_CHANNEL_ID`
+- Environment `production`:
+  - `SLACK_WORKSPACE_ID`
+  - `SLACK_CHANNEL_ID`
+
 Use required reviewers on `production` to enforce deployment approval before production infra changes apply.
 
 ### Cross-repo dispatch auth (project-2028 -> civicblueprint.org)
@@ -136,6 +153,40 @@ The `CivicBlueprintSubmissionApi` stack grants Lambda read access to this secret
 
 - `appId` (string)
 - `privateKey` (PEM contents)
+
+### Submission API monitoring and Slack alerting
+
+The infrastructure now deploys `CivicBlueprintMonitoring`, which creates:
+
+- CloudWatch alarms for Lambda errors, throttles, high duration, and timeout risk
+- CloudWatch alarms for API Gateway HTTP API 5XX and 4XX burst conditions
+- A submission health alarm that detects traffic with no successful submissions
+- An SNS topic used for all submission alert notifications
+- Optional AWS Chatbot Slack integration when `SLACK_WORKSPACE_ID` and `SLACK_CHANNEL_ID` are provided
+
+Slack integration setup:
+
+1. Open AWS Chatbot console: <https://console.aws.amazon.com/chatbot/home>
+2. Authorize your Slack workspace once in the AWS account.
+3. Collect:
+   - Slack workspace ID (format similar to `T01234567`)
+   - Slack channel ID (format similar to `C01234567`)
+4. Export environment variables before deploy:
+
+```bash
+export SLACK_WORKSPACE_ID=T01234567
+export SLACK_CHANNEL_ID=C01234567
+```
+
+Deploy monitoring updates:
+
+```bash
+cd infrastructure
+npm run build
+npx cdk deploy CivicBlueprintMonitoring CivicBlueprintSubmissionApi
+```
+
+If Slack IDs are omitted, alarms and SNS are still deployed, and stack output `SlackIntegrationConfigured` remains `false`.
 
 `repository_dispatch` events from `project-2028` follow a staging-first gate:
 

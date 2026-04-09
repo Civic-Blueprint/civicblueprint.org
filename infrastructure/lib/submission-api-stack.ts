@@ -17,11 +17,14 @@ export interface SubmissionApiStackProps extends StackProps {
   githubOrg: string;
   githubRepo: string;
   githubAppSecretName: string;
+  submissionMetricNamespace: string;
 }
 
 export class SubmissionApiStack extends Stack {
   public readonly api: HttpApi;
   public readonly submissionApiUrl: string;
+  public readonly submissionApiStageName: string;
+  public readonly submissionHandler: NodejsFunction;
 
   constructor(scope: Construct, id: string, props: SubmissionApiStackProps) {
     super(scope, id, props);
@@ -38,7 +41,7 @@ export class SubmissionApiStack extends Stack {
       `https://staging.${props.domainName}`,
     ];
 
-    const submissionHandler = new NodejsFunction(this, "SubmissionHandler", {
+    this.submissionHandler = new NodejsFunction(this, "SubmissionHandler", {
       runtime: Runtime.NODEJS_22_X,
       entry: path.join(__dirname, "../lambda/submission/index.ts"),
       handler: "handler",
@@ -48,9 +51,10 @@ export class SubmissionApiStack extends Stack {
         GITHUB_APP_SECRET_NAME: props.githubAppSecretName,
         GITHUB_OWNER: props.githubOrg,
         GITHUB_REPO: props.githubRepo,
+        SUBMISSION_METRIC_NAMESPACE: props.submissionMetricNamespace,
       },
     });
-    githubAppSecret.grantRead(submissionHandler);
+    githubAppSecret.grantRead(this.submissionHandler);
 
     this.api = new HttpApi(this, "SubmissionHttpApi", {
       apiName: "civic-blueprint-submission-api",
@@ -67,7 +71,7 @@ export class SubmissionApiStack extends Stack {
       methods: [HttpMethod.POST],
       integration: new HttpLambdaIntegration(
         "SubmissionHandlerIntegration",
-        submissionHandler,
+        this.submissionHandler,
       ),
     });
 
@@ -75,6 +79,9 @@ export class SubmissionApiStack extends Stack {
     if (this.submissionApiUrl.length === 0) {
       throw new Error("Expected SubmissionHttpApi to expose a default URL.");
     }
+
+    this.submissionApiStageName =
+      this.api.defaultStage?.stageName ?? "$default";
 
     const cfnStage = this.api.defaultStage?.node.defaultChild as
       | CfnStage

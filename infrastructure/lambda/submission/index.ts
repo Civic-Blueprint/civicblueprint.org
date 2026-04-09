@@ -43,6 +43,8 @@ type GitHubAppSecret = {
 const secretsClient = new SecretsManagerClient({});
 let cachedSecret: GitHubAppSecret | null = null;
 let cachedInstallationId: number | null = null;
+const submissionMetricNamespace =
+  process.env.SUBMISSION_METRIC_NAMESPACE ?? "CivicBlueprint/SubmissionApi";
 
 const submissionTypeConfig: Record<
   SubmissionType,
@@ -217,6 +219,27 @@ function buildIssueBody(payload: SubmissionPayload): string {
   return lines.join("\n");
 }
 
+function emitSubmissionSuccessMetric(payload: SubmissionPayload): void {
+  const metricEnvelope = {
+    _aws: {
+      Timestamp: Date.now(),
+      CloudWatchMetrics: [
+        {
+          Namespace: submissionMetricNamespace,
+          Dimensions: [["Service", "ResponseType"]],
+          Metrics: [{ Name: "SuccessfulSubmissions", Unit: "Count" }],
+        },
+      ],
+    },
+    Service: "SubmissionApi",
+    ResponseType: payload.responseType,
+    SuccessfulSubmissions: 1,
+  };
+
+  // EMF metric emission avoids synchronous CloudWatch API calls in request path.
+  console.log(JSON.stringify(metricEnvelope));
+}
+
 async function getGithubAppSecret(
   secretName: string,
 ): Promise<GitHubAppSecret> {
@@ -284,7 +307,7 @@ async function getInstallationId(
   return cachedInstallationId;
 }
 
-async function createIssue(payload: SubmissionPayload): Promise<void> {
+async function createIssue(payload: SubmissionPayload): Promise<string> {
   const secretName = process.env.GITHUB_APP_SECRET_NAME ?? "";
   const owner = process.env.GITHUB_OWNER ?? "";
   const repo = process.env.GITHUB_REPO ?? "";
@@ -315,13 +338,18 @@ async function createIssue(payload: SubmissionPayload): Promise<void> {
   const octokit = new Octokit({ auth: installationAuth.token });
   const typeConfig = submissionTypeConfig[payload.responseType];
 
-  await octokit.request("POST /repos/{owner}/{repo}/issues", {
-    owner,
-    repo,
-    title: buildIssueTitle(payload),
-    body: buildIssueBody(payload),
-    labels: [typeConfig.label, "website-submission"],
-  });
+  const issueResponse = await octokit.request(
+    "POST /repos/{owner}/{repo}/issues",
+    {
+      owner,
+      repo,
+      title: buildIssueTitle(payload),
+      body: buildIssueBody(payload),
+      labels: [typeConfig.label, "website-submission"],
+    },
+  );
+
+  return issueResponse.data.html_url;
 }
 
 export async function handler(event: LambdaEvent): Promise<LambdaResponse> {
@@ -377,8 +405,9 @@ export async function handler(event: LambdaEvent): Promise<LambdaResponse> {
   }
 
   try {
-    await createIssue(validatedPayload.payload);
-    return response(200, { success: true }, origin);
+    const issueUrl = await createIssue(validatedPayload.payload);
+    emitSubmissionSuccessMetric(validatedPayload.payload);
+    return response(200, { success: true, issueUrl }, origin);
   } catch (error) {
     console.error("Submission API failed to create issue", error);
     return response(

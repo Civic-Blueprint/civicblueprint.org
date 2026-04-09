@@ -3,6 +3,7 @@ import { App, RemovalPolicy } from "aws-cdk-lib";
 import { config } from "../config";
 import { DnsStack } from "../lib/dns-stack";
 import { GitHubOidcStack } from "../lib/github-oidc-stack";
+import { MonitoringStack } from "../lib/monitoring-stack";
 import { SubmissionApiStack } from "../lib/submission-api-stack";
 import { StaticSiteStack } from "../lib/static-site-stack";
 
@@ -52,9 +53,28 @@ const submissionApiStack = new SubmissionApiStack(
     githubOrg: config.githubOrg,
     githubRepo: "project-2028",
     githubAppSecretName: "civic-blueprint/github-app",
+    submissionMetricNamespace: config.monitoring.successMetricNamespace,
   },
 );
 submissionApiStack.addDependency(dnsStack);
+
+const monitoringStack = new MonitoringStack(app, "CivicBlueprintMonitoring", {
+  env,
+  alarmPrefix: config.monitoring.alarmPrefix,
+  submissionFunction: submissionApiStack.submissionHandler,
+  submissionApiId: submissionApiStack.api.apiId,
+  submissionApiStageName: submissionApiStack.submissionApiStageName,
+  successMetricNamespace: config.monitoring.successMetricNamespace,
+  slackWorkspaceId: config.monitoring.slackWorkspaceId,
+  slackChannelId: config.monitoring.slackChannelId,
+  lambdaHighDurationMsThreshold:
+    config.monitoring.lambdaHighDurationMsThreshold,
+  lambdaTimeoutLikelyMsThreshold:
+    config.monitoring.lambdaTimeoutLikelyMsThreshold,
+  api4xxThreshold: config.monitoring.api4xxThreshold,
+  noSuccessEvaluationPeriods: config.monitoring.noSuccessEvaluationPeriods,
+});
+monitoringStack.addDependency(submissionApiStack);
 
 const githubOidcStack = new GitHubOidcStack(app, "CivicBlueprintGitHubOidc", {
   env,
