@@ -59,7 +59,7 @@ export default async function DocsLayout({ children }: DocsLayoutProps) {
                 <NavGroup docs={navigation.exchanges} title="Exchanges" />
               </div>
             </aside>
-            <div className="blueprint-card p-6 md:p-8">{children}</div>
+            <div className="blueprint-card min-w-0 p-6 md:p-8">{children}</div>
           </div>
         </div>
       </main>
