@@ -31,25 +31,20 @@ function NavGroup({ docs, title }: { docs: DocSummary[]; title: string }) {
 
 export default async function DocsLayout({ children }: DocsLayoutProps) {
   const navigation = await getDocsNavigation();
+  const mobileMenuContent = (
+    <nav aria-label="Documents" className="space-y-4">
+      <NavGroup docs={navigation.core} title="Core Documents" />
+      <NavGroup docs={navigation.memos} title="Memos" />
+      <NavGroup docs={navigation.process} title="Process" />
+      <NavGroup docs={navigation.exchanges} title="Exchanges" />
+    </nav>
+  );
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
+      <Navbar mobileMenuEnabled mobileMenuContent={mobileMenuContent} />
       <main className="flex-1 section-shell">
         <div className="container-shell">
-          <div className="sticky top-28 z-10 mb-6 lg:hidden">
-            <details id="docs-mobile-nav" className="blueprint-card p-3">
-              <summary className="flex min-h-11 cursor-pointer items-center justify-between rounded-md px-3 py-2 text-sm font-semibold text-ink">
-                Browse documents
-              </summary>
-              <nav className="mt-3 max-h-[calc(100dvh-12rem)] space-y-4 overflow-y-auto px-1 pb-2">
-                <NavGroup docs={navigation.core} title="Core Documents" />
-                <NavGroup docs={navigation.memos} title="Memos" />
-                <NavGroup docs={navigation.process} title="Process" />
-                <NavGroup docs={navigation.exchanges} title="Exchanges" />
-              </nav>
-            </details>
-          </div>
           <div className="grid gap-8 lg:grid-cols-[17rem_minmax(0,1fr)]">
             <aside className="hidden lg:block">
               <div className="blueprint-card sticky top-24 max-h-[calc(100dvh-8rem)] space-y-6 overflow-y-auto p-5">
