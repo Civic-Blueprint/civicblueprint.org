@@ -10,7 +10,7 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 1,
     operationalOut: ["5", "6", "8"],
     reformRequires: ["4", "2", "15"],
-    recursiveBinds: ["build_chain"],
+    recursiveBinds: [],
   },
   {
     id: "2",
@@ -19,7 +19,7 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 1,
     operationalOut: ["5", "6", "7", "9", "1"],
     reformRequires: ["13", "3", "15"],
-    recursiveBinds: ["wealth_political_capture"],
+    recursiveBinds: [],
   },
   {
     id: "3",
@@ -37,7 +37,7 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 1,
     operationalOut: ["5", "6", "7", "8", "9", "13", "15"],
     reformRequires: ["14", "13", "15"],
-    recursiveBinds: ["build_chain", "institutional_distrust"],
+    recursiveBinds: ["institutional_distrust"],
   },
   {
     id: "5",
@@ -46,7 +46,7 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 2,
     operationalOut: ["9"],
     reformRequires: ["1", "2", "4", "15"],
-    recursiveBinds: ["housing_capacity_legitimacy"],
+    recursiveBinds: [],
   },
   {
     id: "6",
@@ -55,7 +55,7 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 2,
     operationalOut: ["9"],
     reformRequires: ["2", "4", "3", "15"],
-    recursiveBinds: ["care_capacity_talent"],
+    recursiveBinds: [],
   },
   {
     id: "7",
@@ -64,7 +64,7 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 2,
     operationalOut: ["14", "4"],
     reformRequires: ["3", "2", "4", "15"],
-    recursiveBinds: ["talent_capacity_loop"],
+    recursiveBinds: [],
   },
   {
     id: "8",
@@ -73,7 +73,7 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 2,
     operationalOut: ["13"],
     reformRequires: ["1", "12", "4", "15"],
-    recursiveBinds: ["ecology_food_stability"],
+    recursiveBinds: [],
   },
   {
     id: "9",
@@ -82,7 +82,7 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 2,
     operationalOut: ["13", "14"],
     reformRequires: ["5", "6", "2", "15"],
-    recursiveBinds: ["care_capacity_talent"],
+    recursiveBinds: [],
   },
   {
     id: "10",
@@ -100,7 +100,7 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 3,
     operationalOut: ["10", "3", "4", "7", "15"],
     reformRequires: ["15", "4", "13"],
-    recursiveBinds: ["ai_concentration_ratchet"],
+    recursiveBinds: [],
   },
   {
     id: "12",
@@ -109,7 +109,7 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 3,
     operationalOut: ["1", "8", "6", "5"],
     reformRequires: ["15", "4", "13"],
-    recursiveBinds: ["ecology_food_stability"],
+    recursiveBinds: [],
   },
   {
     id: "13",
@@ -118,7 +118,7 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 4,
     operationalOut: ["4", "15", "2", "3"],
     reformRequires: ["4", "15"],
-    recursiveBinds: ["institutional_distrust", "information_democracy"],
+    recursiveBinds: ["institutional_distrust"],
   },
   {
     id: "14",
@@ -127,7 +127,7 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 4,
     operationalOut: ["4"],
     reformRequires: ["4", "13", "15"],
-    recursiveBinds: ["talent_capacity_loop"],
+    recursiveBinds: [],
   },
   {
     id: "15",
@@ -136,7 +136,11 @@ const NODE_DEFINITIONS: GraphNodeDefinition[] = [
     layer: 4,
     operationalOut: ["13", "4", "1", "2", "3", "5", "6", "7", "8", "9"],
     reformRequires: ["15", "13", "3"],
-    recursiveBinds: ["democratic_process_reform", "information_democracy"],
+    recursiveBinds: [
+      "democratic_process_reform",
+      "information_democracy",
+      "wealth_political_capture",
+    ],
   },
 ];
 
@@ -168,48 +172,6 @@ export const loops: GraphLoop[] = [
     path: ["15", "15"],
     description:
       "Fixing democratic process requires democratic process; degraded process blocks its own reform; degradation compounds.",
-  },
-  {
-    id: "build_chain",
-    name: "Build chain",
-    path: ["4", "1", "5", "13", "4"],
-    description:
-      "Institutional capacity enables infrastructure; infrastructure enables housing; housing stability rebuilds legitimacy; legitimacy sustains institutional capacity.",
-  },
-  {
-    id: "talent_capacity_loop",
-    name: "Talent-capacity loop",
-    path: ["14", "4", "13", "14"],
-    description:
-      "Talent feeds institutional capacity; capacity builds legitimacy; legitimacy attracts talent.",
-  },
-  {
-    id: "housing_capacity_legitimacy",
-    name: "Housing-capacity-legitimacy cascade",
-    path: ["5", "9", "13", "4", "5"],
-    description:
-      "Housing reform stabilises families; family stability supports institutional legitimacy; legitimacy sustains capacity to reform housing.",
-  },
-  {
-    id: "care_capacity_talent",
-    name: "Care-talent trap",
-    path: ["9", "14", "4", "6", "9"],
-    description:
-      "Weak care systems burn out public-interest talent; talent loss degrades institutional capacity; weakened capacity cannot reform healthcare; healthcare failure worsens care systems.",
-  },
-  {
-    id: "ecology_food_stability",
-    name: "Ecology-food-stability chain",
-    path: ["12", "8", "13", "4", "12"],
-    description:
-      "Ecological stress degrades food systems; food insecurity erodes legitimacy; legitimacy loss weakens institutional capacity to pursue ecological reform.",
-  },
-  {
-    id: "ai_concentration_ratchet",
-    name: "AI concentration ratchet",
-    path: ["11", "10", "15", "11"],
-    description:
-      "AI concentration accelerates wealth concentration; wealth concentration captures democratic process; captured process cannot govern AI deployment.",
   },
 ];
 
@@ -253,35 +215,60 @@ export const nodes: GraphNode[] = NODE_DEFINITIONS.map((node) => {
   };
 });
 
-const loopLinkSet = new Set(
-  loops.flatMap((loop) =>
-    loop.path.slice(0, -1).map((source, index) => {
-      const target = loop.path[index + 1];
-      return `${source}:${target}`;
-    }),
-  ),
-);
-
 const operationalLinksRaw: Omit<GraphLink, "curvature">[] = nodes.flatMap(
   (node) =>
-    node.operationalOut.map((target) => ({
-      id: `operational:${node.id}->${target}`,
-      source: node.id,
-      target,
-      type: "operational" as const,
-      isLoopPath: loopLinkSet.has(`${node.id}:${target}`),
-    })),
+    node.operationalOut
+      .filter((target) => target !== node.id)
+      .map((target) => ({
+        id: `operational:${node.id}->${target}`,
+        source: node.id,
+        target,
+        type: "operational" as const,
+        isLoopPath: false,
+      })),
 );
 
 const reformLinksRaw: Omit<GraphLink, "curvature">[] = nodes.flatMap((node) =>
-  node.reformRequires.map((requiredId) => ({
-    id: `reform:${requiredId}->${node.id}`,
-    source: requiredId,
-    target: node.id,
-    type: "reform" as const,
-    isLoopPath: loopLinkSet.has(`${requiredId}:${node.id}`),
-  })),
+  node.reformRequires
+    .filter((requiredId) => requiredId !== node.id)
+    .map((requiredId) => ({
+      id: `reform:${requiredId}->${node.id}`,
+      source: requiredId,
+      target: node.id,
+      type: "reform" as const,
+      isLoopPath: false,
+    })),
 );
+
+const allRawLinks = [...operationalLinksRaw, ...reformLinksRaw];
+const rawLinkIndex = new Map<string, Omit<GraphLink, "curvature">>();
+for (const link of allRawLinks) {
+  rawLinkIndex.set(link.id, link);
+}
+
+for (const loop of loops) {
+  if (loop.path.length < 2) {
+    continue;
+  }
+  for (let i = 0; i < loop.path.length - 1; i++) {
+    const src = loop.path[i];
+    const tgt = loop.path[i + 1];
+    if (src === tgt) {
+      continue;
+    }
+    const opId = `operational:${src}->${tgt}`;
+    const rfId = `reform:${src}->${tgt}`;
+    const opLink = rawLinkIndex.get(opId);
+    if (opLink !== undefined) {
+      opLink.isLoopPath = true;
+      continue;
+    }
+    const rfLink = rawLinkIndex.get(rfId);
+    if (rfLink !== undefined) {
+      rfLink.isLoopPath = true;
+    }
+  }
+}
 
 function assignCurvatures(
   rawLinks: Omit<GraphLink, "curvature">[],
@@ -302,25 +289,64 @@ function assignCurvatures(
   const result: GraphLink[] = [];
   for (const group of pairGroups.values()) {
     if (group.length === 1) {
-      result.push({ ...group[0], curvature: group[0].isLoopPath ? 0.15 : 0 });
+      const link = group[0];
+      result.push({ ...link, curvature: link.isLoopPath ? 0.15 : 0 });
       continue;
     }
 
-    const step = 0.22;
+    const step = 0.35;
     const offset = -((group.length - 1) * step) / 2;
     for (let i = 0; i < group.length; i++) {
-      result.push({ ...group[i], curvature: offset + i * step });
+      const link = group[i];
+      const spread = offset + i * step;
+      const isCanonical = link.source < link.target;
+      result.push({
+        ...link,
+        curvature: isCanonical ? spread : -spread,
+      });
     }
   }
 
   return result;
 }
 
-export const links: GraphLink[] = assignCurvatures([
-  ...operationalLinksRaw,
-  ...reformLinksRaw,
-]);
+export const links: GraphLink[] = assignCurvatures(allRawLinks);
+
+export const selfLoopNodeIds = new Set(
+  loops
+    .filter((loop) => loop.path.length === 2 && loop.path[0] === loop.path[1])
+    .map((loop) => loop.path[0]),
+);
 
 export const nodeById = new Map(nodes.map((node) => [node.id, node]));
 
 export const loopById = new Map(loops.map((loop) => [loop.id, loop]));
+
+const segmentToLinkIds = new Map<string, string[]>();
+for (const link of links) {
+  const key = `${link.source}:${link.target}`;
+  const existing = segmentToLinkIds.get(key);
+  if (existing !== undefined) {
+    existing.push(link.id);
+  } else {
+    segmentToLinkIds.set(key, [link.id]);
+  }
+}
+
+export function getLoopLinkIds(loopId: string): string[] {
+  const loop = loopById.get(loopId);
+  if (loop === undefined) {
+    return [];
+  }
+
+  const ids: string[] = [];
+  for (let i = 0; i < loop.path.length - 1; i++) {
+    const key = `${loop.path[i]}:${loop.path[i + 1]}`;
+    const matched = segmentToLinkIds.get(key);
+    if (matched !== undefined) {
+      ids.push(...matched);
+    }
+  }
+
+  return ids;
+}

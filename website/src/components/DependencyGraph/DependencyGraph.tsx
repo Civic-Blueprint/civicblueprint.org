@@ -5,7 +5,14 @@ import ForceGraph2D from "react-force-graph-2d";
 import ForceGraph3D from "react-force-graph-3d";
 import SpriteText from "three-spritetext";
 
-import { links, loopById, nodeById, nodes } from "./graph-data";
+import {
+  getLoopLinkIds,
+  links,
+  loopById,
+  nodeById,
+  nodes,
+  selfLoopNodeIds,
+} from "./graph-data";
 import type {
   GraphFilter,
   GraphLink,
@@ -117,8 +124,19 @@ export function DependencyGraph() {
       }
     });
 
+    const activeNode = nodeById.get(activeNodeId);
+    if (activeNode !== undefined) {
+      for (const loopId of activeNode.recursiveBinds) {
+        for (const linkId of getLoopLinkIds(loopId)) {
+          if (visibleLinkIds.has(linkId)) {
+            ids.add(linkId);
+          }
+        }
+      }
+    }
+
     return ids;
-  }, [activeNodeId, visibleLinks]);
+  }, [activeNodeId, visibleLinkIds, visibleLinks]);
 
   const connectedNodeIds = useMemo(() => {
     const ids = new Set<string>();
@@ -625,19 +643,69 @@ export function DependencyGraph() {
                   ctx.fillStyle = "#334155";
                   ctx.fillText(node.short, x + 10, y - 8);
                 }
+
+                if (selfLoopNodeIds.has(node.id)) {
+                  const loopRadius = radius + 6;
+                  const dimmed =
+                    activeNodeId !== null &&
+                    connectedNodeIds.has(node.id) === false;
+                  ctx.beginPath();
+                  ctx.arc(
+                    x,
+                    y - radius - 2,
+                    loopRadius,
+                    0.15 * Math.PI,
+                    0.85 * Math.PI,
+                    true,
+                  );
+                  ctx.strokeStyle = dimmed
+                    ? "rgba(153,27,27,0.15)"
+                    : "rgba(153,27,27,0.82)";
+                  ctx.lineWidth = dimmed ? 1 : 1.8;
+                  ctx.stroke();
+
+                  const arrowX =
+                    x + loopRadius * Math.cos(0.85 * Math.PI) + (radius - 2);
+                  const arrowY =
+                    y - radius - 2 + loopRadius * Math.sin(0.85 * Math.PI);
+                  ctx.beginPath();
+                  ctx.moveTo(arrowX - 3, arrowY - 4);
+                  ctx.lineTo(arrowX, arrowY);
+                  ctx.lineTo(arrowX + 4, arrowY - 3);
+                  ctx.strokeStyle = dimmed
+                    ? "rgba(153,27,27,0.15)"
+                    : "rgba(153,27,27,0.82)";
+                  ctx.lineWidth = dimmed ? 1 : 1.6;
+                  ctx.stroke();
+                }
               }}
               linkColor={(link) => getLinkColor(link as ForceLink)}
               linkWidth={(link) => getLinkWidth(link as ForceLink)}
               linkLineDash={(link) => {
                 const fl = link as ForceLink;
-                if (fl.type === "reform" && !fl.isLoopPath) {
+                if (fl.type === "reform") {
                   return [4, 3];
                 }
                 return null;
               }}
               linkCurvature={(link) => (link as ForceLink).curvature}
-              linkDirectionalArrowLength={3}
+              linkDirectionalArrowLength={(link) => {
+                const fl = link as ForceLink;
+                if (visibleLinkIds.has(fl.id) === false) {
+                  return 0;
+                }
+                if (fl.type === "reform") {
+                  return activeNodeId !== null && connectedLinkIds.has(fl.id)
+                    ? 7
+                    : 5;
+                }
+                return 3;
+              }}
               linkDirectionalArrowRelPos={1}
+              linkDirectionalArrowColor={(link) => {
+                const fl = link as ForceLink;
+                return getLinkColor(fl);
+              }}
               onNodeHover={(node) => {
                 setHoveredNodeId(node !== null ? (node as ForceNode).id : null);
               }}
@@ -665,8 +733,17 @@ export function DependencyGraph() {
               nodeThreeObject={makeNode3dLabel}
               linkColor={(link) => getLinkColor(link as ForceLink)}
               linkWidth={(link) => getLinkWidth(link as ForceLink)}
-              linkDirectionalArrowLength={2.4}
+              linkDirectionalArrowLength={(link) => {
+                const fl = link as ForceLink;
+                if (visibleLinkIds.has(fl.id) === false) {
+                  return 0;
+                }
+                return fl.type === "reform" ? 5 : 2.4;
+              }}
               linkDirectionalArrowRelPos={1}
+              linkDirectionalArrowColor={(link) =>
+                getLinkColor(link as ForceLink)
+              }
               linkCurvature={(link) => (link as ForceLink).curvature}
               onNodeHover={(node) => {
                 setHoveredNodeId(node !== null ? (node as ForceNode).id : null);
