@@ -42,7 +42,7 @@ export default async function DocsLayout({ children }: DocsLayoutProps) {
               <summary className="flex min-h-11 cursor-pointer items-center justify-between rounded-md px-3 py-2 text-sm font-semibold text-ink">
                 Browse documents
               </summary>
-              <nav className="mt-3 space-y-4 px-1 pb-2">
+              <nav className="mt-3 max-h-[calc(100dvh-12rem)] space-y-4 overflow-y-auto px-1 pb-2">
                 <NavGroup docs={navigation.core} title="Core Documents" />
                 <NavGroup docs={navigation.memos} title="Memos" />
                 <NavGroup docs={navigation.process} title="Process" />
