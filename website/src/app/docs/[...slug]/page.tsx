@@ -58,9 +58,8 @@ export default async function DocPage({ params }: DocPageProps) {
 
   return (
     <article
-      className={`prose prose-blueprint min-w-0 w-full ${
-        isProblemMap ? "max-w-none prose-blueprint-full" : ""
-      }`}
+      className="prose prose-blueprint min-w-0 w-full"
+      style={isProblemMap ? { maxWidth: "none" } : undefined}
     >
       <p className="doc-source-link">
         <a href={doc.githubUrl} target="_blank" rel="noreferrer">

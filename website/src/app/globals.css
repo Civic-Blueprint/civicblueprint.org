@@ -207,10 +207,6 @@ a {
   word-break: break-word;
 }
 
-.prose-blueprint.prose-blueprint-full {
-  max-width: none;
-}
-
 .prose-blueprint h1,
 .prose-blueprint h2,
 .prose-blueprint h3,

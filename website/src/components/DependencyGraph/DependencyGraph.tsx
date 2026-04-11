@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import ForceGraph2D from "react-force-graph-2d";
 import ForceGraph3D from "react-force-graph-3d";
+import SpriteText from "three-spritetext";
 
 import { links, loopById, nodeById, nodes } from "./graph-data";
 import type {
@@ -61,6 +62,7 @@ export function DependencyGraph() {
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [graphWidth, setGraphWidth] = useState<number>(640);
+  const [graphViewportHeight, setGraphViewportHeight] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
 
   const activeNodeId = selectedNodeId ?? hoveredNodeId;
@@ -233,6 +235,7 @@ export function DependencyGraph() {
 
       const nextWidth = Math.max(Math.floor(entry.contentRect.width), 520);
       setGraphWidth(nextWidth);
+      setGraphViewportHeight(Math.floor(entry.contentRect.height));
     });
 
     observer.observe(element);
@@ -286,9 +289,11 @@ export function DependencyGraph() {
     await section.requestFullscreen();
   };
 
-  const graphHeight = isFullscreen ? 760 : 520;
+  const graphHeight =
+    isFullscreen && graphViewportHeight > 0 ? graphViewportHeight : 520;
+
   const sectionClassName = isFullscreen
-    ? "not-prose my-0 h-full w-full overflow-auto rounded-none bg-white p-4 md:p-6"
+    ? "not-prose my-0 flex h-full w-full flex-col overflow-hidden rounded-none bg-white p-4 md:p-6"
     : "not-prose my-8 w-full max-w-full overflow-hidden rounded-xl border border-blueprint-line bg-white p-4 md:p-5";
 
   const getNodeFill = (node: GraphNode) => {
@@ -319,15 +324,22 @@ export function DependencyGraph() {
     return "#123E7C";
   };
 
+  const getLinkBaseColor = (link: ForceLink) => {
+    if (link.isLoopPath) {
+      return "rgba(153,27,27,0.82)";
+    }
+    if (link.type === "reform") {
+      return "rgba(180,83,9,0.78)";
+    }
+    return "rgba(18,62,124,0.82)";
+  };
+
   const getLinkColor = (link: ForceLink) => {
     if (visibleLinkIds.has(link.id) === false) {
       return "rgba(17,24,39,0.05)";
     }
 
-    const base =
-      link.type === "operational"
-        ? "rgba(18,62,124,0.78)"
-        : "rgba(43,90,150,0.78)";
+    const base = getLinkBaseColor(link);
 
     if (activeNodeId === null) {
       return base;
@@ -337,7 +349,7 @@ export function DependencyGraph() {
       return base;
     }
 
-    return "rgba(51,65,85,0.12)";
+    return "rgba(51,65,85,0.10)";
   };
 
   const getLinkWidth = (link: ForceLink) => {
@@ -374,6 +386,33 @@ export function DependencyGraph() {
 
     return `${base}\nConnected: ${activeConnectedNodes.map((n) => n.short).join(", ")}`;
   };
+
+  const makeNode3dLabel = useCallback(
+    (nodeRaw: object) => {
+      const node = nodeRaw as ForceNode;
+      const isActive = node.id === activeNodeId;
+      const isConnected =
+        activeNodeId !== null && connectedNodeIds.has(node.id);
+      const showLabel = isActive || isConnected;
+
+      const label = showLabel ? `${node.id} ${node.short}` : node.id;
+
+      const sprite = new SpriteText(label);
+      sprite.color = isActive ? "#111827" : isConnected ? "#334155" : "#64748B";
+      sprite.textHeight = isActive ? 5 : showLabel ? 4 : 3.2;
+      sprite.fontFace = "Public Sans, sans-serif";
+      sprite.fontWeight = isActive ? "700" : "600";
+      sprite.backgroundColor = showLabel
+        ? "rgba(255,255,255,0.85)"
+        : "rgba(0,0,0,0)";
+      sprite.padding = showLabel ? 1.2 : 0.4;
+      sprite.borderRadius = 1.5;
+      sprite.position.set(0, 8, 0);
+
+      return sprite;
+    },
+    [activeNodeId, connectedNodeIds],
+  );
 
   return (
     <section ref={sectionRef} className={sectionClassName}>
@@ -472,6 +511,37 @@ export function DependencyGraph() {
         ) : null}
       </div>
 
+      <div className="mb-2 hidden items-center gap-4 text-xs text-muted lg:flex">
+        <span className="flex items-center gap-1.5">
+          <span
+            className="inline-block h-0.5 w-4 rounded-full"
+            style={{ backgroundColor: "rgba(18,62,124,0.82)" }}
+          />
+          Operational
+        </span>
+        <span className="flex items-center gap-1.5">
+          <svg width="16" height="2" className="inline-block">
+            <line
+              x1="0"
+              y1="1"
+              x2="16"
+              y2="1"
+              stroke="rgba(180,83,9,0.78)"
+              strokeWidth="2"
+              strokeDasharray="4 3"
+            />
+          </svg>
+          Reform
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span
+            className="inline-block h-0.5 w-4 rounded-full"
+            style={{ backgroundColor: "rgba(153,27,27,0.82)" }}
+          />
+          Recursive loop
+        </span>
+      </div>
+
       <div className="lg:hidden">
         <div className="overflow-hidden rounded-lg border border-blueprint-line bg-blueprint-surface">
           <img
@@ -485,10 +555,12 @@ export function DependencyGraph() {
         </p>
       </div>
 
-      <div className="hidden lg:grid lg:grid-cols-[minmax(0,1fr)_14rem] lg:items-start lg:gap-3 xl:grid-cols-[minmax(0,1fr)_16rem]">
+      <div
+        className={`hidden ${isFullscreen ? "min-h-0 flex-1 lg:flex lg:flex-col" : "lg:block"}`}
+      >
         <div
           ref={graphViewportRef}
-          className="rounded-lg border border-blueprint-line bg-blueprint-surface p-2"
+          className={`rounded-lg border border-blueprint-line bg-blueprint-surface p-2 ${isFullscreen ? "min-h-0 flex-1" : ""}`}
         >
           {viewMode === "2d" ? (
             <ForceGraph2D
@@ -541,6 +613,13 @@ export function DependencyGraph() {
               }}
               linkColor={(link) => getLinkColor(link as ForceLink)}
               linkWidth={(link) => getLinkWidth(link as ForceLink)}
+              linkLineDash={(link) => {
+                const fl = link as ForceLink;
+                if (fl.type === "reform" && !fl.isLoopPath) {
+                  return [4, 3];
+                }
+                return null;
+              }}
               linkDirectionalArrowLength={3}
               linkDirectionalArrowRelPos={1}
               onNodeHover={(node) => {
@@ -566,6 +645,8 @@ export function DependencyGraph() {
               nodeColor={(node: ForceNode) => getNodeFill(node)}
               nodeOpacity={0.95}
               nodeResolution={14}
+              nodeThreeObjectExtend={true}
+              nodeThreeObject={makeNode3dLabel}
               linkColor={(link) => getLinkColor(link as ForceLink)}
               linkWidth={(link) => getLinkWidth(link as ForceLink)}
               linkDirectionalArrowLength={2.4}
@@ -596,72 +677,89 @@ export function DependencyGraph() {
           )}
         </div>
 
-        <aside className="self-start rounded-lg border border-blueprint-line bg-blueprint-surface p-3">
-          {selectedNode !== null ? (
-            <>
-              <h4 className="mb-1 text-sm font-semibold text-ink">
-                {selectedNode.name}
-              </h4>
-              <p className="mb-3 text-xs text-muted">
-                §{selectedNode.id} · Layer {selectedNode.layer}
-              </p>
+        {selectedNode !== null ? (
+          <aside className="mt-3 rounded-lg border border-blueprint-line bg-blueprint-surface p-3">
+            <div className="flex flex-wrap gap-x-8 gap-y-3">
+              <div className="min-w-0">
+                <h4 className="mb-0.5 text-sm font-semibold text-ink">
+                  {selectedNode.name}
+                </h4>
+                <p className="text-xs text-muted">
+                  §{selectedNode.id} · Layer {selectedNode.layer}
+                </p>
+              </div>
 
-              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.08em] text-muted">
-                Operationally feeds
-              </p>
-              <ul className="mb-3 space-y-1 text-sm text-slate">
-                {selectedNodeOperationalFeeds.map((node) => (
-                  <li key={node.id}>
-                    §{node.id} {node.short}
-                  </li>
-                ))}
-              </ul>
+              <div className="min-w-0">
+                <p
+                  className="mb-1 text-xs font-semibold uppercase tracking-[0.08em]"
+                  style={{ color: "rgba(18,62,124,0.9)" }}
+                >
+                  Operationally feeds
+                </p>
+                <ul className="flex flex-wrap gap-x-3 gap-y-0.5 text-sm text-slate">
+                  {selectedNodeOperationalFeeds.map((node) => (
+                    <li key={node.id}>
+                      §{node.id} {node.short}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.08em] text-muted">
-                Reform requires
-              </p>
-              <ul className="mb-3 space-y-1 text-sm text-slate">
-                {selectedNodeReformRequires.map((node) => (
-                  <li key={node.id}>
-                    §{node.id} {node.short}
-                  </li>
-                ))}
-              </ul>
+              <div className="min-w-0">
+                <p
+                  className="mb-1 text-xs font-semibold uppercase tracking-[0.08em]"
+                  style={{ color: "rgba(180,83,9,0.9)" }}
+                >
+                  Reform requires
+                </p>
+                <ul className="flex flex-wrap gap-x-3 gap-y-0.5 text-sm text-slate">
+                  {selectedNodeReformRequires.map((node) => (
+                    <li key={node.id}>
+                      §{node.id} {node.short}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.08em] text-muted">
-                Required for reform by
-              </p>
-              <ul className="mb-3 space-y-1 text-sm text-slate">
-                {selectedNodeRequiredFor.map((node) => (
-                  <li key={node.id}>
-                    §{node.id} {node.short}
-                  </li>
-                ))}
-              </ul>
+              <div className="min-w-0">
+                <p
+                  className="mb-1 text-xs font-semibold uppercase tracking-[0.08em]"
+                  style={{ color: "rgba(180,83,9,0.9)" }}
+                >
+                  Required for reform by
+                </p>
+                <ul className="flex flex-wrap gap-x-3 gap-y-0.5 text-sm text-slate">
+                  {selectedNodeRequiredFor.map((node) => (
+                    <li key={node.id}>
+                      §{node.id} {node.short}
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-              <p className="mb-1 text-xs font-semibold uppercase tracking-[0.08em] text-muted">
-                Recursive loops
-              </p>
-              <ul className="space-y-2 text-xs text-slate">
-                {selectedNodeLoops.map((loop) => (
-                  <li key={loop.id}>
-                    <p className="font-semibold text-ink">{loop.name}</p>
-                    <p>{loop.description}</p>
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : (
-            <>
-              <h4 className="mb-2 text-sm font-semibold text-ink">Inspector</h4>
-              <p className="text-sm text-muted">
-                Hover a node to preview its neighborhood. Click a node to lock
-                selection and inspect its operational, reform, and recursive
-                relationships.
-              </p>
-            </>
-          )}
-        </aside>
+              {selectedNodeLoops.length > 0 ? (
+                <div className="min-w-0">
+                  <p
+                    className="mb-1 text-xs font-semibold uppercase tracking-[0.08em]"
+                    style={{ color: "rgba(153,27,27,0.9)" }}
+                  >
+                    Recursive loops
+                  </p>
+                  <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate">
+                    {selectedNodeLoops.map((loop) => (
+                      <li key={loop.id}>
+                        <span className="font-semibold text-ink">
+                          {loop.name}
+                        </span>{" "}
+                        — {loop.description}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+          </aside>
+        ) : null}
       </div>
     </section>
   );
