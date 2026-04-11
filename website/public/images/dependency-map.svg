@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 900" width="1280" height="900" font-family="'Public Sans', 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="op-arrow" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0,0 7,2.5 0,5" fill="#123E7C"/>
+    </marker>
+    <marker id="ref-arrow" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0,0 7,2.5 0,5" fill="#2B5A96"/>
+    </marker>
+    <marker id="loop-arrow" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+      <polygon points="0,0 7,2.5 0,5" fill="#8B5C2A"/>
+    </marker>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M 36 0 L 0 0 0 36" fill="none" stroke="#C7D2E3" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="900" fill="#F7F4EF"/>
+  <rect width="1280" height="900" fill="url(#grid)" opacity="0.25"/>
+
+  <!-- Border frame -->
+  <rect x="24" y="24" width="1232" height="852" fill="none" stroke="#C7D2E3" stroke-width="1.5" rx="2"/>
+
+  <!-- Corner marks -->
+  <g stroke="#2B5A96" stroke-width="2" fill="none">
+    <path d="M 14,38 L 14,14 L 38,14"/>
+    <path d="M 1242,14 L 1266,14 L 1266,38"/>
+    <path d="M 1266,862 L 1266,886 L 1242,886"/>
+    <path d="M 38,886 L 14,886 L 14,862"/>
+  </g>
+
+  <!-- LAYER BANDS -->
+
+  <!-- Layer 4: Meta-conditions (y 44-230) -->
+  <rect x="40" y="44" width="1200" height="186" fill="none" stroke="#C7D2E3" stroke-width="0.75" stroke-dasharray="6,4"/>
+  <text x="56" y="68" font-size="10" font-weight="700" letter-spacing="0.14em" fill="#2B5A96">LAYER 4 &#8212; META-CONDITIONS</text>
+
+  <!-- Layer 3: Structural dynamics (y 240-400) -->
+  <rect x="40" y="240" width="1200" height="160" fill="none" stroke="#C7D2E3" stroke-width="0.75" stroke-dasharray="6,4"/>
+  <text x="56" y="264" font-size="10" font-weight="700" letter-spacing="0.14em" fill="#2B5A96">LAYER 3 &#8212; STRUCTURAL DYNAMICS</text>
+
+  <!-- Layer 2: Essential systems (y 410-590) -->
+  <rect x="40" y="410" width="1200" height="180" fill="none" stroke="#C7D2E3" stroke-width="0.75" stroke-dasharray="6,4"/>
+  <text x="56" y="434" font-size="10" font-weight="700" letter-spacing="0.14em" fill="#2B5A96">LAYER 2 &#8212; ESSENTIAL SYSTEMS</text>
+
+  <!-- Layer 1: Foundational substrates (y 600-780) -->
+  <rect x="40" y="600" width="1200" height="180" fill="none" stroke="#C7D2E3" stroke-width="0.75" stroke-dasharray="6,4"/>
+  <text x="56" y="624" font-size="10" font-weight="700" letter-spacing="0.14em" fill="#2B5A96">LAYER 1 &#8212; FOUNDATIONAL SUBSTRATES</text>
+
+  <!-- NODE BLOCKS -->
+
+  <!-- LAYER 4 nodes -->
+  <g transform="translate(120,126)">
+    <rect width="160" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;13</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Inst. Legitimacy</text>
+  </g>
+  <g transform="translate(440,126)">
+    <rect width="160" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;14</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Talent Pipeline</text>
+  </g>
+  <g transform="translate(760,126)">
+    <rect width="180" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;15</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Democratic Process</text>
+  </g>
+
+  <!-- LAYER 3 nodes -->
+  <g transform="translate(100,306)">
+    <rect width="180" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;10</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Wealth Concentration</text>
+  </g>
+  <g transform="translate(440,306)">
+    <rect width="170" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;11</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">AI Concentration</text>
+  </g>
+  <g transform="translate(780,306)">
+    <rect width="180" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;12</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Ecological Stability</text>
+  </g>
+
+  <!-- LAYER 2 nodes -->
+  <g transform="translate(68,481)">
+    <rect width="130" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;5</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Housing</text>
+  </g>
+  <g transform="translate(268,481)">
+    <rect width="140" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;6</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Healthcare</text>
+  </g>
+  <g transform="translate(478,481)">
+    <rect width="140" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;7</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Education</text>
+  </g>
+  <g transform="translate(688,481)">
+    <rect width="130" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;8</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Food Systems</text>
+  </g>
+  <g transform="translate(888,481)">
+    <rect width="140" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;9</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Family / Care</text>
+  </g>
+
+  <!-- LAYER 1 nodes -->
+  <g transform="translate(68,676)">
+    <rect width="195" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;1</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Energy / Infrastructure</text>
+  </g>
+  <g transform="translate(338,676)">
+    <rect width="175" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;2</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Capital Allocation</text>
+  </g>
+  <g transform="translate(588,676)">
+    <rect width="190" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;3</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Information Integrity</text>
+  </g>
+  <g transform="translate(853,676)">
+    <rect width="195" height="48" rx="4" fill="#FFFFFF" stroke="#123E7C" stroke-width="1.25"/>
+    <text x="12" y="20" font-size="10" font-weight="700" fill="#2B5A96">&#167;4</text>
+    <text x="12" y="36" font-size="11.5" font-weight="600" fill="#111827">Institutional Capacity</text>
+  </g>
+
+  <!-- OPERATIONAL DEPENDENCIES (solid navy, generally downward) -->
+  <g fill="none" stroke="#123E7C" stroke-width="1.1" opacity="0.55">
+    <!-- L4 internal -->
+    <path d="M 760,155 L 280,155" marker-end="url(#op-arrow)"/>
+    <path d="M 280,162 L 760,162" marker-end="url(#op-arrow)"/>
+
+    <!-- 15 to L1 -->
+    <path d="M 830,174 L 830,400 L 950,400 L 950,676" marker-end="url(#op-arrow)"/>
+    <path d="M 780,174 L 780,230 L 130,230 L 130,676" marker-end="url(#op-arrow)"/>
+    <path d="M 800,174 L 800,396 L 430,396 L 430,676" marker-end="url(#op-arrow)"/>
+    <path d="M 850,174 L 850,226 L 680,226 L 680,676" marker-end="url(#op-arrow)"/>
+
+    <!-- 15 to L2 -->
+    <path d="M 770,174 L 770,400 L 110,400 L 110,481" marker-end="url(#op-arrow)"/>
+    <path d="M 790,174 L 790,404 L 320,404 L 320,481" marker-end="url(#op-arrow)"/>
+    <path d="M 820,174 L 820,392 L 540,392 L 540,481" marker-end="url(#op-arrow)"/>
+    <path d="M 860,174 L 860,396 L 750,396 L 750,481" marker-end="url(#op-arrow)"/>
+    <path d="M 880,174 L 880,400 L 960,400 L 960,481" marker-end="url(#op-arrow)"/>
+
+    <!-- 13 outgoing -->
+    <path d="M 200,174 L 200,590 L 940,590 L 940,676" marker-end="url(#op-arrow)"/>
+    <path d="M 180,174 L 180,586 L 420,586 L 420,676" marker-end="url(#op-arrow)"/>
+    <path d="M 220,174 L 220,594 L 670,594 L 670,676" marker-end="url(#op-arrow)"/>
+
+    <!-- 14 outgoing -->
+    <path d="M 520,174 L 520,594 L 960,594 L 960,676" marker-end="url(#op-arrow)"/>
+
+    <!-- 4 to L2 (upward in diagram since L1 is bottom) -->
+    <path d="M 890,676 L 890,596 L 100,596 L 100,529" marker-end="url(#op-arrow)"/>
+    <path d="M 910,676 L 910,592 L 310,592 L 310,529" marker-end="url(#op-arrow)"/>
+    <path d="M 930,676 L 930,588 L 530,588 L 530,529" marker-end="url(#op-arrow)"/>
+    <path d="M 970,676 L 970,592 L 740,592 L 740,529" marker-end="url(#op-arrow)"/>
+    <path d="M 990,676 L 990,584 L 950,584 L 950,529" marker-end="url(#op-arrow)"/>
+    <!-- 4 to L4 -->
+    <path d="M 1000,676 L 1000,598 L 1090,598 L 1090,180 L 260,180 L 260,174" marker-end="url(#op-arrow)"/>
+    <path d="M 1020,676 L 1020,602 L 1100,602 L 1100,188 L 920,188 L 920,174" marker-end="url(#op-arrow)"/>
+
+    <!-- 1 to L2 -->
+    <path d="M 140,676 L 140,529" marker-end="url(#op-arrow)"/>
+    <path d="M 170,676 L 170,598 L 300,598 L 300,529" marker-end="url(#op-arrow)"/>
+    <path d="M 200,676 L 200,596 L 730,596 L 730,529" marker-end="url(#op-arrow)"/>
+
+    <!-- 2 to L2 -->
+    <path d="M 370,676 L 370,598 L 120,598 L 120,529" marker-end="url(#op-arrow)"/>
+    <path d="M 390,676 L 390,596 L 330,596 L 330,529" marker-end="url(#op-arrow)"/>
+    <path d="M 430,676 L 430,594 L 550,594 L 550,529" marker-end="url(#op-arrow)"/>
+    <path d="M 460,676 L 460,592 L 940,592 L 940,529" marker-end="url(#op-arrow)"/>
+    <!-- 2 to 1 internal -->
+    <path d="M 338,700 L 263,700" marker-end="url(#op-arrow)"/>
+
+    <!-- 3 to L2 -->
+    <path d="M 640,676 L 640,596 L 340,596 L 340,529" marker-end="url(#op-arrow)"/>
+    <path d="M 660,676 L 660,594 L 560,594 L 560,529" marker-end="url(#op-arrow)"/>
+    <!-- 3 to L4 -->
+    <path d="M 700,676 L 700,638 L 1110,638 L 1110,142 L 940,142" marker-end="url(#op-arrow)"/>
+    <path d="M 720,676 L 720,634 L 1106,634 L 1106,148 L 280,148" marker-end="url(#op-arrow)"/>
+
+    <!-- L2 internal -->
+    <path d="M 198,505 L 888,505" marker-end="url(#op-arrow)"/>
+    <path d="M 408,510 L 888,510" marker-end="url(#op-arrow)"/>
+
+    <!-- 7 to 14 and 4 -->
+    <path d="M 548,481 L 548,410 L 80,410 L 80,140 L 440,140" marker-end="url(#op-arrow)"/>
+    <path d="M 580,529 L 580,596 L 880,596 L 880,676" marker-end="url(#op-arrow)"/>
+
+    <!-- 8 to 13, 9 to 13 and 14 -->
+    <path d="M 753,481 L 753,410 L 72,410 L 72,150 L 120,150" marker-end="url(#op-arrow)"/>
+    <path d="M 958,481 L 958,406 L 1086,406 L 1086,158 L 280,158" marker-end="url(#op-arrow)"/>
+    <path d="M 970,481 L 970,402 L 1082,402 L 1082,162 L 600,162" marker-end="url(#op-arrow)"/>
+
+    <!-- L3 outgoing -->
+    <!-- 10 -->
+    <path d="M 190,354 L 190,396 L 400,396 L 400,676" marker-end="url(#op-arrow)"/>
+    <path d="M 150,354 L 150,400 L 130,400 L 130,481" marker-end="url(#op-arrow)"/>
+    <path d="M 170,354 L 170,392 L 290,392 L 290,481" marker-end="url(#op-arrow)"/>
+    <path d="M 230,306 L 230,282 L 840,282 L 840,174" marker-end="url(#op-arrow)"/>
+    <path d="M 180,306 L 180,278 L 200,278 L 200,174" marker-end="url(#op-arrow)"/>
+    <path d="M 240,354 L 240,392 L 920,392 L 920,676" marker-end="url(#op-arrow)"/>
+    <!-- 11 -->
+    <path d="M 440,330 L 280,330" marker-end="url(#op-arrow)"/>
+    <path d="M 500,354 L 500,396 L 650,396 L 650,676" marker-end="url(#op-arrow)"/>
+    <path d="M 530,354 L 530,392 L 930,392 L 930,676" marker-end="url(#op-arrow)"/>
+    <path d="M 520,354 L 520,400 L 500,400 L 500,481" marker-end="url(#op-arrow)"/>
+    <path d="M 540,306 L 540,282 L 860,282 L 860,174" marker-end="url(#op-arrow)"/>
+    <!-- 12 -->
+    <path d="M 820,354 L 820,396 L 160,396 L 160,676" marker-end="url(#op-arrow)"/>
+    <path d="M 860,354 L 860,400 L 760,400 L 760,481" marker-end="url(#op-arrow)"/>
+    <path d="M 840,354 L 840,404 L 350,404 L 350,481" marker-end="url(#op-arrow)"/>
+    <path d="M 800,354 L 800,408 L 150,408 L 150,481" marker-end="url(#op-arrow)"/>
+  </g>
+
+  <!-- REFORM DEPENDENCIES (dashed blue, generally upward) -->
+  <g fill="none" stroke="#2B5A96" stroke-width="1.1" stroke-dasharray="6,3" opacity="0.45">
+    <!-- 1 reform requires 4, 2, 15 -->
+    <path d="M 166,724 L 166,760 L 950,760 L 950,724" marker-end="url(#ref-arrow)"/>
+    <path d="M 150,724 L 150,752 L 426,752 L 426,724" marker-end="url(#ref-arrow)"/>
+    <path d="M 180,724 L 180,770 L 1120,770 L 1120,150 L 940,150" marker-end="url(#ref-arrow)"/>
+
+    <!-- 2 reform requires 13, 3, 15 -->
+    <path d="M 400,724 L 400,760 L 56,760 L 56,148 L 120,148" marker-end="url(#ref-arrow)"/>
+    <path d="M 425,724 L 425,756 L 683,756 L 683,724" marker-end="url(#ref-arrow)"/>
+    <path d="M 450,724 L 450,764 L 1118,764 L 1118,155 L 940,155" marker-end="url(#ref-arrow)"/>
+
+    <!-- 3 reform requires 15, 13, 4 -->
+    <path d="M 650,724 L 650,768 L 1126,768 L 1126,145 L 940,145" marker-end="url(#ref-arrow)"/>
+    <path d="M 670,724 L 670,764 L 52,764 L 52,152 L 120,152" marker-end="url(#ref-arrow)"/>
+    <path d="M 690,724 L 690,760 L 950,760 L 950,724" marker-end="url(#ref-arrow)"/>
+
+    <!-- 4 reform requires 14, 13, 15 -->
+    <path d="M 920,724 L 920,764 L 1130,764 L 1130,140 L 600,140" marker-end="url(#ref-arrow)"/>
+    <path d="M 940,724 L 940,768 L 48,768 L 48,136 L 120,136" marker-end="url(#ref-arrow)"/>
+    <path d="M 960,724 L 960,772 L 1138,772 L 1138,132 L 940,132" marker-end="url(#ref-arrow)"/>
+
+    <!-- 5 reform requires 1, 2, 4, 15 -->
+    <path d="M 100,529 L 100,560 L 166,560 L 166,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 120,529 L 120,556 L 426,556 L 426,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 140,529 L 140,552 L 950,552 L 950,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 160,529 L 160,548 L 60,548 L 60,158 L 760,158" marker-end="url(#ref-arrow)"/>
+
+    <!-- 6 reform requires 2, 4, 3, 15 -->
+    <path d="M 290,529 L 290,564 L 426,564 L 426,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 310,529 L 310,560 L 950,560 L 950,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 330,529 L 330,556 L 683,556 L 683,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 350,529 L 350,548 L 56,548 L 56,162 L 760,162" marker-end="url(#ref-arrow)"/>
+
+    <!-- 7 reform requires 3, 2, 4, 15 -->
+    <path d="M 500,529 L 500,564 L 683,564 L 683,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 520,529 L 520,560 L 426,560 L 426,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 540,529 L 540,556 L 950,556 L 950,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 560,529 L 560,548 L 52,548 L 52,166 L 760,166" marker-end="url(#ref-arrow)"/>
+
+    <!-- 8 reform requires 1, 12, 4, 15 -->
+    <path d="M 710,529 L 710,564 L 166,564 L 166,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 730,529 L 730,548 L 1060,548 L 1060,330 L 960,330" marker-end="url(#ref-arrow)"/>
+    <path d="M 750,529 L 750,560 L 950,560 L 950,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 770,529 L 770,548 L 48,548 L 48,170 L 760,170" marker-end="url(#ref-arrow)"/>
+
+    <!-- 9 reform requires 5, 6, 2, 15 -->
+    <path d="M 910,529 L 910,548 L 133,548 L 133,529" marker-end="url(#ref-arrow)"/>
+    <path d="M 930,529 L 930,544 L 338,544 L 338,529" marker-end="url(#ref-arrow)"/>
+    <path d="M 950,529 L 950,540 L 426,540 L 426,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 970,529 L 970,536 L 44,536 L 44,174 L 760,174" marker-end="url(#ref-arrow)"/>
+
+    <!-- 10 reform requires 15, 13, 3 -->
+    <path d="M 190,306 L 190,274 L 850,274 L 850,174" marker-end="url(#ref-arrow)"/>
+    <path d="M 170,306 L 170,270 L 200,270 L 200,174" marker-end="url(#ref-arrow)"/>
+    <path d="M 210,306 L 210,392 L 683,392 L 683,676" marker-end="url(#ref-arrow)"/>
+
+    <!-- 11 reform requires 15, 4, 13 -->
+    <path d="M 530,306 L 530,274 L 854,274 L 854,174" marker-end="url(#ref-arrow)"/>
+    <path d="M 510,306 L 510,392 L 950,392 L 950,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 490,306 L 490,270 L 204,270 L 204,174" marker-end="url(#ref-arrow)"/>
+
+    <!-- 12 reform requires 15, 4, 13 -->
+    <path d="M 870,306 L 870,274 L 858,274 L 858,174" marker-end="url(#ref-arrow)"/>
+    <path d="M 850,306 L 850,392 L 954,392 L 954,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 830,306 L 830,270 L 208,270 L 208,174" marker-end="url(#ref-arrow)"/>
+
+    <!-- 13 reform requires 4, 15 -->
+    <path d="M 200,174 L 200,212 L 950,212 L 950,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 220,174 L 220,216 L 854,216 L 854,174" marker-end="url(#ref-arrow)"/>
+
+    <!-- 14 reform requires 4, 13, 15 -->
+    <path d="M 500,174 L 500,208 L 954,208 L 954,676" marker-end="url(#ref-arrow)"/>
+    <path d="M 480,174 L 480,204 L 204,204 L 204,174" marker-end="url(#ref-arrow)"/>
+    <path d="M 520,174 L 520,212 L 858,212 L 858,174" marker-end="url(#ref-arrow)"/>
+
+    <!-- 15 reform requires self, 13, 3 -->
+    <path d="M 870,126 L 870,106 L 900,106 L 900,126" marker-end="url(#ref-arrow)"/>
+    <path d="M 780,126 L 780,108 L 240,108 L 240,126" marker-end="url(#ref-arrow)"/>
+    <path d="M 810,126 L 810,100 L 1142,100 L 1142,700 L 778,700 L 778,724" marker-end="url(#ref-arrow)"/>
+  </g>
+
+  <!-- RECURSIVE LOOP HIGHLIGHTS -->
+  <g fill="none" stroke-width="2.5" opacity="0.7">
+    <!-- Institutional distrust: 13-4-13 -->
+    <path d="M 120,170 L 50,170 L 50,700 L 853,700" stroke="#8B5C2A" marker-end="url(#loop-arrow)"/>
+    <path d="M 1048,700 L 1150,700 L 1150,170 L 280,170" stroke="#8B5C2A" marker-end="url(#loop-arrow)"/>
+
+    <!-- Information-democracy: 3-15-3 -->
+    <path d="M 740,676 L 740,644 L 1156,644 L 1156,90 L 870,90 L 870,126" stroke="#8B5C2A" marker-end="url(#loop-arrow)"/>
+    <path d="M 760,174 L 760,220 L 620,220 L 620,676" stroke="#8B5C2A" marker-end="url(#loop-arrow)"/>
+
+    <!-- Wealth-political capture: 10-15-10 -->
+    <path d="M 280,320 L 1064,320 L 1064,90 L 820,90 L 820,126" stroke="#8B5C2A" marker-end="url(#loop-arrow)"/>
+    <path d="M 780,174 L 780,290 L 100,290 L 100,306" stroke="#8B5C2A" marker-end="url(#loop-arrow)"/>
+  </g>
+
+  <!-- LEGEND -->
+  <g transform="translate(56,806)">
+    <text x="0" y="0" font-size="9.5" font-weight="700" fill="#111827" letter-spacing="0.08em">LEGEND</text>
+    <line x1="0" y1="16" x2="36" y2="16" stroke="#123E7C" stroke-width="1.5" opacity="0.6" marker-end="url(#op-arrow)"/>
+    <text x="44" y="20" font-size="9" fill="#334155">Operational dependency (steady-state)</text>
+    <line x1="280" y1="16" x2="316" y2="16" stroke="#2B5A96" stroke-width="1.5" stroke-dasharray="6,3" opacity="0.6" marker-end="url(#ref-arrow)"/>
+    <text x="324" y="20" font-size="9" fill="#334155">Reform dependency (what changing it requires)</text>
+    <line x1="620" y1="16" x2="656" y2="16" stroke="#8B5C2A" stroke-width="2.5" opacity="0.7" marker-end="url(#loop-arrow)"/>
+    <text x="664" y="20" font-size="9" fill="#334155">Recursive loop (circular dependency)</text>
+  </g>
+
+  <!-- TITLE BLOCK -->
+  <g transform="translate(946,790)">
+    <rect width="290" height="72" rx="2" fill="#FFFFFF" stroke="#C7D2E3" stroke-width="1"/>
+    <line x1="0" y1="24" x2="290" y2="24" stroke="#C7D2E3" stroke-width="0.75"/>
+    <line x1="0" y1="48" x2="290" y2="48" stroke="#C7D2E3" stroke-width="0.75"/>
+    <text x="10" y="17" font-size="11" font-weight="700" fill="#123E7C" letter-spacing="0.04em">CIVIC BLUEPRINT</text>
+    <text x="10" y="40" font-size="9" fill="#334155">Problem Map &#8212; Dependency Network</text>
+    <text x="10" y="64" font-size="8.5" fill="#64748B">15 domains &#183; 4 layers &#183; operational + reform flows</text>
+    <text x="220" y="17" font-size="8.5" fill="#64748B">SHEET 1 OF 1</text>
+  </g>
+</svg>
