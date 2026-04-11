@@ -35,6 +35,10 @@ body {
   min-height: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: #f7f4ef;
   color: #111827;
@@ -214,6 +218,7 @@ a {
   color: #111827;
   font-family: var(--font-source-serif), Georgia, serif;
   letter-spacing: -0.01em;
+  scroll-margin-top: 6.25rem;
 }
 
 .prose-blueprint h1 {
@@ -316,6 +321,21 @@ a {
   color: #123e7c;
 }
 
+.toc-mobile summary::-webkit-details-marker {
+  display: none;
+}
+
+.toc-mobile summary::after {
+  content: "▾";
+  float: right;
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+
+.toc-mobile[open] summary::after {
+  transform: rotate(180deg);
+}
+
 .corner-marks {
   position: relative;
 }
@@ -375,6 +395,13 @@ a {
 
   .prose-blueprint h1 {
     font-size: clamp(1.6rem, 1.2rem + 2.5vw, 2rem);
+  }
+
+  .prose-blueprint h1,
+  .prose-blueprint h2,
+  .prose-blueprint h3,
+  .prose-blueprint h4 {
+    scroll-margin-top: 9rem;
   }
 
   .prose-blueprint h2 {

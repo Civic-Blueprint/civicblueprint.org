@@ -27,6 +27,13 @@ export type DocSummary = {
 
 export type DocPage = DocSummary & {
   html: string;
+  toc: TocEntry[];
+};
+
+export type TocEntry = {
+  depth: number;
+  id: string;
+  text: string;
 };
 
 const CONTENT_ROOT = path.join(process.cwd(), "content", "project-2028");
@@ -41,6 +48,14 @@ const CORE_ORDER = [
 ];
 
 let docsCache: Promise<DocPage[]> | null = null;
+
+type HastNode = {
+  children?: HastNode[];
+  properties?: Record<string, unknown>;
+  tagName?: string;
+  type: string;
+  value?: string;
+};
 
 function toPosix(relativePath: string) {
   return relativePath.split(path.sep).join(path.posix.sep);
@@ -244,6 +259,55 @@ function sortDocs(docs: DocPage[]) {
   });
 }
 
+function getHeadingText(node: HastNode): string {
+  if (node.type === "text" && typeof node.value === "string") {
+    return node.value;
+  }
+
+  if (!node.children || node.children.length === 0) {
+    return "";
+  }
+
+  return node.children.map((child) => getHeadingText(child)).join("");
+}
+
+function collectTocEntries(node: HastNode, toc: TocEntry[]) {
+  if (node.type === "element" && node.tagName) {
+    const match = /^h([1-4])$/.exec(node.tagName);
+    if (match) {
+      const id = node.properties?.id;
+      if (typeof id === "string" && id.length > 0) {
+        const text = getHeadingText(node).trim();
+        if (text.length > 0) {
+          toc.push({
+            depth: Number(match[1]),
+            id,
+            text,
+          });
+        }
+      }
+    }
+  }
+
+  if (!node.children || node.children.length === 0) {
+    return;
+  }
+
+  for (const child of node.children) {
+    collectTocEntries(child, toc);
+  }
+}
+
+function rehypeCollectToc(toc: TocEntry[]) {
+  return () => (tree: unknown) => {
+    if (!tree || typeof tree !== "object") {
+      return;
+    }
+
+    collectTocEntries(tree as HastNode, toc);
+  };
+}
+
 async function buildDocs(): Promise<DocPage[]> {
   const markdownFiles = await getMarkdownFiles(CONTENT_ROOT, CONTENT_ROOT);
   const routeByRelativePath = new Map<string, string>();
@@ -257,6 +321,7 @@ async function buildDocs(): Promise<DocPage[]> {
       const absolutePath = path.join(CONTENT_ROOT, relativePath);
       const rawMarkdown = await fs.readFile(absolutePath, "utf8");
       const parsed = matter(rawMarkdown);
+      const toc: TocEntry[] = [];
       const markdown = rewriteMarkdownLinks(
         parsed.content,
         relativePath,
@@ -269,6 +334,7 @@ async function buildDocs(): Promise<DocPage[]> {
         .use(remarkRehype)
         .use(rehypeSanitize)
         .use(rehypeSlug)
+        .use(rehypeCollectToc(toc))
         .use(rehypeAutolinkHeadings, {
           behavior: "append",
           properties: { className: ["doc-heading-link"] },
@@ -288,6 +354,7 @@ async function buildDocs(): Promise<DocPage[]> {
         route: toRoute(slug),
         slug,
         sourcePath: relativePath,
+        toc,
         title: extractTitle(parsed.content, parsed.data.title, relativePath),
       };
     }),

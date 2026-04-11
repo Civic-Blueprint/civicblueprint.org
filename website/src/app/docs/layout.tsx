@@ -45,7 +45,7 @@ export default async function DocsLayout({ children }: DocsLayoutProps) {
       <Navbar mobileMenuEnabled mobileMenuContent={mobileMenuContent} />
       <main className="flex-1 section-shell">
         <div className="container-shell">
-          <div className="grid gap-8 lg:grid-cols-[17rem_minmax(0,1fr)]">
+          <div className="grid items-start gap-8 lg:grid-cols-[17rem_minmax(0,1fr)]">
             <aside className="hidden lg:block">
               <div className="blueprint-card sticky top-24 max-h-[calc(100dvh-8rem)] space-y-6 overflow-y-auto p-5">
                 <NavGroup docs={navigation.core} title="Core Documents" />
@@ -54,7 +54,7 @@ export default async function DocsLayout({ children }: DocsLayoutProps) {
                 <NavGroup docs={navigation.exchanges} title="Exchanges" />
               </div>
             </aside>
-            <div className="blueprint-card min-w-0 p-6 md:p-8">{children}</div>
+            <div className="min-w-0">{children}</div>
           </div>
         </div>
       </main>
