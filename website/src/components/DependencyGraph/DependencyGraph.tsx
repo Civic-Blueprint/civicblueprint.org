@@ -60,7 +60,7 @@ export function DependencyGraph() {
   const [viewMode, setViewMode] = useState<GraphViewMode>("2d");
   const [filter, setFilter] = useState<GraphFilter>("all");
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
-  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>("15");
   const [graphWidth, setGraphWidth] = useState<number>(640);
   const [graphViewportHeight, setGraphViewportHeight] = useState<number>(0);
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
@@ -242,6 +242,21 @@ export function DependencyGraph() {
     return () => {
       observer.disconnect();
     };
+  }, []);
+
+  useEffect(() => {
+    const graph = ref2d.current;
+    if (graph === null || graph === undefined) {
+      return;
+    }
+
+    const node15 = nodeById.get("15");
+    if (node15 === undefined) {
+      return;
+    }
+
+    graph.centerAt((node15.x ?? 0) + -135, (node15.y ?? 0) + 180, 0);
+    graph.zoom(1.1, 0);
   }, []);
 
   const handleResetView = () => {
@@ -620,6 +635,7 @@ export function DependencyGraph() {
                 }
                 return null;
               }}
+              linkCurvature={(link) => (link as ForceLink).curvature}
               linkDirectionalArrowLength={3}
               linkDirectionalArrowRelPos={1}
               onNodeHover={(node) => {
@@ -651,9 +667,7 @@ export function DependencyGraph() {
               linkWidth={(link) => getLinkWidth(link as ForceLink)}
               linkDirectionalArrowLength={2.4}
               linkDirectionalArrowRelPos={1}
-              linkCurvature={(link) =>
-                (link as ForceLink).isLoopPath ? 0.12 : 0
-              }
+              linkCurvature={(link) => (link as ForceLink).curvature}
               onNodeHover={(node) => {
                 setHoveredNodeId(node !== null ? (node as ForceNode).id : null);
               }}

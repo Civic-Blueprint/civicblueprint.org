@@ -262,17 +262,18 @@ const loopLinkSet = new Set(
   ),
 );
 
-const operationalLinks: GraphLink[] = nodes.flatMap((node) =>
-  node.operationalOut.map((target) => ({
-    id: `operational:${node.id}->${target}`,
-    source: node.id,
-    target,
-    type: "operational" as const,
-    isLoopPath: loopLinkSet.has(`${node.id}:${target}`),
-  })),
+const operationalLinksRaw: Omit<GraphLink, "curvature">[] = nodes.flatMap(
+  (node) =>
+    node.operationalOut.map((target) => ({
+      id: `operational:${node.id}->${target}`,
+      source: node.id,
+      target,
+      type: "operational" as const,
+      isLoopPath: loopLinkSet.has(`${node.id}:${target}`),
+    })),
 );
 
-const reformLinks: GraphLink[] = nodes.flatMap((node) =>
+const reformLinksRaw: Omit<GraphLink, "curvature">[] = nodes.flatMap((node) =>
   node.reformRequires.map((requiredId) => ({
     id: `reform:${requiredId}->${node.id}`,
     source: requiredId,
@@ -282,7 +283,43 @@ const reformLinks: GraphLink[] = nodes.flatMap((node) =>
   })),
 );
 
-export const links: GraphLink[] = [...operationalLinks, ...reformLinks];
+function assignCurvatures(
+  rawLinks: Omit<GraphLink, "curvature">[],
+): GraphLink[] {
+  const pairKey = (a: string, b: string) => (a < b ? `${a}:${b}` : `${b}:${a}`);
+
+  const pairGroups = new Map<string, Omit<GraphLink, "curvature">[]>();
+  for (const link of rawLinks) {
+    const key = pairKey(link.source, link.target);
+    const group = pairGroups.get(key);
+    if (group !== undefined) {
+      group.push(link);
+    } else {
+      pairGroups.set(key, [link]);
+    }
+  }
+
+  const result: GraphLink[] = [];
+  for (const group of pairGroups.values()) {
+    if (group.length === 1) {
+      result.push({ ...group[0], curvature: group[0].isLoopPath ? 0.15 : 0 });
+      continue;
+    }
+
+    const step = 0.22;
+    const offset = -((group.length - 1) * step) / 2;
+    for (let i = 0; i < group.length; i++) {
+      result.push({ ...group[i], curvature: offset + i * step });
+    }
+  }
+
+  return result;
+}
+
+export const links: GraphLink[] = assignCurvatures([
+  ...operationalLinksRaw,
+  ...reformLinksRaw,
+]);
 
 export const nodeById = new Map(nodes.map((node) => [node.id, node]));
 

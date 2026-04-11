@@ -23,6 +23,7 @@ export type GraphLink = {
   target: string;
   type: GraphEdgeType;
   isLoopPath: boolean;
+  curvature: number;
 };
 
 export type GraphLoop = {
