@@ -6,14 +6,14 @@ import { getAllDocs } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Project Documents | Civic Blueprint",
   description:
-    "Read Civic Blueprint core documents, memos, process protocols, proposals, and exchanges in one searchable public archive.",
+    "Browse Civic Blueprint core documents, memos, process protocols, proposals, and exchanges in one public archive.",
   alternates: {
     canonical: "/docs",
   },
   openGraph: {
     title: "Project Documents | Civic Blueprint",
     description:
-      "Read Civic Blueprint core documents, memos, process protocols, proposals, and exchanges in one searchable public archive.",
+      "Browse Civic Blueprint core documents, memos, process protocols, proposals, and exchanges in one public archive.",
     url: "/docs",
     type: "website",
     siteName: "Civic Blueprint",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Project Documents | Civic Blueprint",
     description:
-      "Read Civic Blueprint core documents, memos, process protocols, proposals, and exchanges in one searchable public archive.",
+      "Browse Civic Blueprint core documents, memos, process protocols, proposals, and exchanges in one public archive.",
     images: ["/og-default.png"],
   },
 };
