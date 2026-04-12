@@ -18,12 +18,22 @@ export const metadata: Metadata = {
       "How Civic Blueprint uses analytics data, optional cookies, and interaction data to improve public documentation.",
     url: "/privacy",
     type: "website",
+    siteName: "Civic Blueprint",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Privacy Policy | Civic Blueprint",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Privacy Policy | Civic Blueprint",
     description:
       "How Civic Blueprint uses analytics data, optional cookies, and interaction data to improve public documentation.",
+    images: ["/og-default.png"],
   },
 };
 

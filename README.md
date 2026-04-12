@@ -165,6 +165,14 @@ Staging crawler policy:
 - Staging deploy removes `sitemap.xml`
 - Staging CloudFront injects `X-Robots-Tag: noindex, nofollow` on responses
 
+Production SEO and social previews:
+
+- `website/src/app/sitemap.ts` publishes document routes with category-based priority and document `lastModified` dates from source file mtimes.
+- `website/src/app/robots.ts` allows indexing and points crawlers to `https://civicblueprint.org/sitemap.xml`.
+- `website/src/app/opengraph-image.tsx` generates a static Open Graph image at build time for social sharing.
+- `website/src/app/docs/[...slug]/page.tsx` adds per-document Open Graph/Twitter metadata plus `Article` and `BreadcrumbList` JSON-LD.
+- `website/src/app/layout.tsx` adds site-level Organization JSON-LD and a default social image fallback.
+
 ### Docs mobile UX
 
 Docs pages now include a mobile-first navigation and readability pass:

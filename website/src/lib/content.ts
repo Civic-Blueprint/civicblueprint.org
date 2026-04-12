@@ -13,12 +13,19 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
-export type DocCategory = "core" | "memos" | "exchanges" | "process" | "other";
+export type DocCategory =
+  | "core"
+  | "memos"
+  | "proposals"
+  | "exchanges"
+  | "process"
+  | "other";
 
 export type DocSummary = {
   category: DocCategory;
   description: string;
   githubUrl: string;
+  lastModified: Date;
   route: string;
   slug: string[];
   sourcePath: string;
@@ -87,6 +94,10 @@ function toRoute(slug: string[]) {
 function toCategory(relativePath: string): DocCategory {
   if (relativePath.startsWith("memos/")) {
     return "memos";
+  }
+
+  if (relativePath.startsWith("proposals/")) {
+    return "proposals";
   }
 
   if (relativePath.startsWith("agent/exchanges/")) {
@@ -238,6 +249,7 @@ function sortDocs(docs: DocPage[]) {
       const order: DocCategory[] = [
         "core",
         "memos",
+        "proposals",
         "process",
         "exchanges",
         "other",
@@ -332,6 +344,7 @@ async function buildDocs(): Promise<DocPage[]> {
     markdownFiles.map(async (relativePath): Promise<DocPage> => {
       const absolutePath = path.join(CONTENT_ROOT, relativePath);
       const rawMarkdown = await fs.readFile(absolutePath, "utf8");
+      const stat = await fs.stat(absolutePath);
       const parsed = matter(rawMarkdown);
       const toc: TocEntry[] = [];
       const markdown = rewriteMarkdownLinks(
@@ -363,6 +376,7 @@ async function buildDocs(): Promise<DocPage[]> {
         ),
         githubUrl: `${GITHUB_BASE_URL}/${relativePath}`,
         html: String(compiled),
+        lastModified: stat.mtime,
         route: toRoute(slug),
         slug,
         sourcePath: relativePath,
@@ -399,6 +413,7 @@ export async function getDocsNavigation() {
   return {
     core: docs.filter((doc) => doc.category === "core"),
     memos: docs.filter((doc) => doc.category === "memos"),
+    proposals: docs.filter((doc) => doc.category === "proposals"),
     exchanges: docs.filter((doc) => doc.category === "exchanges"),
     other: docs.filter((doc) => doc.category === "other"),
     process: docs.filter((doc) => doc.category === "process"),

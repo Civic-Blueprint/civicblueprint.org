@@ -54,12 +54,22 @@ export const metadata: Metadata = {
       "Choose how to challenge or contribute to Civic Blueprint. Submit through GitHub issue templates or use the plain submission form.",
     url: "/respond",
     type: "website",
+    siteName: "Civic Blueprint",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Respond | Civic Blueprint",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Respond | Civic Blueprint",
     description:
       "Choose how to challenge or contribute to Civic Blueprint through GitHub or a plain form.",
+    images: ["/og-default.png"],
   },
 };
 

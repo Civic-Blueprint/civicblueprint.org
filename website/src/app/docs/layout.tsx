@@ -35,6 +35,7 @@ export default async function DocsLayout({ children }: DocsLayoutProps) {
     <nav aria-label="Documents" className="space-y-4">
       <NavGroup docs={navigation.core} title="Core Documents" />
       <NavGroup docs={navigation.memos} title="Memos" />
+      <NavGroup docs={navigation.proposals} title="Proposals" />
       <NavGroup docs={navigation.process} title="Process" />
       <NavGroup docs={navigation.exchanges} title="Exchanges" />
     </nav>
@@ -50,6 +51,7 @@ export default async function DocsLayout({ children }: DocsLayoutProps) {
               <div className="blueprint-card sticky top-24 max-h-[calc(100dvh-8rem)] space-y-6 overflow-y-auto p-5">
                 <NavGroup docs={navigation.core} title="Core Documents" />
                 <NavGroup docs={navigation.memos} title="Memos" />
+                <NavGroup docs={navigation.proposals} title="Proposals" />
                 <NavGroup docs={navigation.process} title="Process" />
                 <NavGroup docs={navigation.exchanges} title="Exchanges" />
               </div>

@@ -3,6 +3,7 @@ import { Public_Sans, Source_Serif_4 } from "next/font/google";
 
 import { Analytics } from "@/components/Analytics";
 import { CookieConsent } from "@/components/CookieConsent";
+import { JsonLd } from "@/components/JsonLd";
 
 import "./globals.css";
 
@@ -33,6 +34,14 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Civic Blueprint",
     locale: "en_US",
+    images: [
+      {
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "Civic Blueprint",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -40,6 +49,7 @@ export const metadata: Metadata = {
       "Civic Blueprint | A public framework for redesigning broken systems",
     description:
       "Read the first proof-of-usefulness memo, explore the framework, and challenge the work.",
+    images: ["/og-default.png"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -59,6 +69,15 @@ export default function RootLayout({
       className={`${publicSans.variable} ${sourceSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Civic Blueprint",
+            url: "https://civicblueprint.org",
+            logo: "https://civicblueprint.org/logo.png",
+          }}
+        />
         {children}
         <Analytics />
         <CookieConsent />

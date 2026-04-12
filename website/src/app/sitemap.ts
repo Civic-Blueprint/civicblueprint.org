@@ -36,11 +36,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
+  const priorityByCategory: Record<(typeof docs)[number]["category"], number> =
+    {
+      core: 0.8,
+      memos: 0.8,
+      proposals: 0.75,
+      process: 0.6,
+      exchanges: 0.5,
+      other: 0.5,
+    };
+
   const docRoutes: MetadataRoute.Sitemap = docs.map((doc) => ({
     url: `${BASE_URL}${doc.route}`,
-    lastModified: now,
+    lastModified: doc.lastModified,
     changeFrequency: "monthly",
-    priority: 0.7,
+    priority: priorityByCategory[doc.category],
   }));
 
   return [...staticRoutes, ...docRoutes];
