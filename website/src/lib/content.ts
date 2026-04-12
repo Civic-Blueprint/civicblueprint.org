@@ -46,6 +46,7 @@ const CORE_ORDER = [
   "systems-framework",
   "contributing",
 ];
+const EXCHANGES_ORDER = ["exchanges/-exchange-index"];
 
 let docsCache: Promise<DocPage[]> | null = null;
 
@@ -247,6 +248,17 @@ function sortDocs(docs: DocPage[]) {
     if (a.category === "core" && b.category === "core") {
       const aIndex = CORE_ORDER.indexOf(a.slug.join("/"));
       const bIndex = CORE_ORDER.indexOf(b.slug.join("/"));
+      if (aIndex !== -1 || bIndex !== -1) {
+        return (
+          (aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex) -
+          (bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex)
+        );
+      }
+    }
+
+    if (a.category === "exchanges" && b.category === "exchanges") {
+      const aIndex = EXCHANGES_ORDER.indexOf(a.slug.join("/"));
+      const bIndex = EXCHANGES_ORDER.indexOf(b.slug.join("/"));
       if (aIndex !== -1 || bIndex !== -1) {
         return (
           (aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex) -
