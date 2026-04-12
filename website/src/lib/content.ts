@@ -161,7 +161,12 @@ function extractDescription(
     .map((line) => line.trim())
     .filter(
       (line) =>
-        line.length > 0 && !line.startsWith("#") && !line.startsWith(">"),
+        line.length > 0 &&
+        !line.startsWith("#") &&
+        !line.startsWith(">") &&
+        !/^-{3,}$/.test(line) &&
+        !/^\*{3,}$/.test(line) &&
+        !/^_{3,}$/.test(line),
     );
 
   return paragraphLines[0] ?? fallback;

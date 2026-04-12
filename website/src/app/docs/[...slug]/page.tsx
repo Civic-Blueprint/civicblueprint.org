@@ -11,6 +11,35 @@ type DocPageProps = {
   params: Promise<{ slug: string[] }>;
 };
 
+const SOCIAL_MIN = 50;
+const SOCIAL_MAX = 60;
+
+function truncateAtWord(text: string, max: number, min = 0): string {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  const last = cut.lastIndexOf(" ");
+  return last >= min ? cut.slice(0, last) : cut;
+}
+
+function buildSocialTitle(title: string, description: string): string {
+  const branded = `${title} | Civic Blueprint`;
+  if (branded.length >= SOCIAL_MIN && branded.length <= SOCIAL_MAX) {
+    return branded;
+  }
+
+  if (title.length >= SOCIAL_MIN) {
+    return truncateAtWord(title, SOCIAL_MAX);
+  }
+
+  if (description.length > 0) {
+    const combined = `${title} — ${description}`;
+    if (combined.length <= SOCIAL_MAX) return combined;
+    return truncateAtWord(combined, SOCIAL_MAX, SOCIAL_MIN);
+  }
+
+  return branded;
+}
+
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -32,10 +61,7 @@ export async function generateMetadata({
 
   const imageUrl = "/og-default.jpg";
   const shortTitle = `${doc.title} | Civic Blueprint`;
-  const socialTitle =
-    doc.description.length > 0
-      ? `${doc.title} — ${doc.description}`.slice(0, 70)
-      : shortTitle;
+  const socialTitle = buildSocialTitle(doc.title, doc.description);
 
   return {
     title: shortTitle,

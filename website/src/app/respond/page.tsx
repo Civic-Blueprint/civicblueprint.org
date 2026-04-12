@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     canonical: "/respond",
   },
   openGraph: {
-    title: "Respond | Civic Blueprint",
+    title: "Respond to Civic Blueprint — Challenge or Contribute",
     description:
       "Choose how to challenge or contribute to Civic Blueprint. Submit through GitHub issue templates or use the plain submission form.",
     url: "/respond",
@@ -60,13 +60,13 @@ export const metadata: Metadata = {
         url: "/og-default.jpg",
         width: 1200,
         height: 630,
-        alt: "Respond | Civic Blueprint",
+        alt: "Respond to Civic Blueprint — Challenge or Contribute",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Respond | Civic Blueprint",
+    title: "Respond to Civic Blueprint — Challenge or Contribute",
     description:
       "Choose how to challenge or contribute to Civic Blueprint through GitHub or a plain form.",
     images: ["/og-default.jpg"],

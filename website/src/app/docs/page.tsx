@@ -4,14 +4,14 @@ import Link from "next/link";
 import { getAllDocs } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Project Documents | Civic Blueprint",
+  title: "Civic Blueprint — Core Documents, Memos, and Proposals",
   description:
     "Browse Civic Blueprint core documents, memos, process protocols, proposals, and exchanges in one public archive.",
   alternates: {
     canonical: "/docs",
   },
   openGraph: {
-    title: "Project Documents | Civic Blueprint",
+    title: "Civic Blueprint — Core Documents, Memos, and Proposals",
     description:
       "Browse Civic Blueprint core documents, memos, process protocols, proposals, and exchanges in one public archive.",
     url: "/docs",
@@ -22,13 +22,13 @@ export const metadata: Metadata = {
         url: "/og-default.jpg",
         width: 1200,
         height: 630,
-        alt: "Project Documents | Civic Blueprint",
+        alt: "Civic Blueprint — Core Documents, Memos, and Proposals",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Project Documents | Civic Blueprint",
+    title: "Civic Blueprint — Core Documents, Memos, and Proposals",
     description:
       "Browse Civic Blueprint core documents, memos, process protocols, proposals, and exchanges in one public archive.",
     images: ["/og-default.jpg"],

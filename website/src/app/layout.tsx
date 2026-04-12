@@ -27,8 +27,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title:
-      "Civic Blueprint | A public framework for redesigning broken systems",
+    title: "Civic Blueprint — A Framework for Redesigning Civic Systems",
     description:
       "Civic Blueprint is an open project for understanding how critical systems fail and how they might be redesigned.",
     type: "website",
@@ -45,8 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "Civic Blueprint | A public framework for redesigning broken systems",
+    title: "Civic Blueprint — A Framework for Redesigning Civic Systems",
     description:
       "Read the first proof-of-usefulness memo, explore the framework, and challenge the work.",
     images: ["/og-default.jpg"],
