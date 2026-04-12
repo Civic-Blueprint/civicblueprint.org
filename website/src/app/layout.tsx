@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/og-default.png",
+        url: "/og-default.jpg",
         width: 1200,
         height: 630,
         alt: "Civic Blueprint",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
       "Civic Blueprint | A public framework for redesigning broken systems",
     description:
       "Read the first proof-of-usefulness memo, explore the framework, and challenge the work.",
-    images: ["/og-default.png"],
+    images: ["/og-default.jpg"],
   },
   icons: {
     icon: "/favicon.ico",

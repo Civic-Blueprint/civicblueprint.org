@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     siteName: "Civic Blueprint",
     images: [
       {
-        url: "/og-default.png",
+        url: "/og-default.jpg",
         width: 1200,
         height: 630,
         alt: "Privacy Policy | Civic Blueprint",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: "Privacy Policy | Civic Blueprint",
     description:
       "How Civic Blueprint uses analytics data, optional cookies, and interaction data to improve public documentation.",
-    images: ["/og-default.png"],
+    images: ["/og-default.jpg"],
   },
 };
 

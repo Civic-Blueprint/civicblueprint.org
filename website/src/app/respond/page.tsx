@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     siteName: "Civic Blueprint",
     images: [
       {
-        url: "/og-default.png",
+        url: "/og-default.jpg",
         width: 1200,
         height: 630,
         alt: "Respond | Civic Blueprint",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     title: "Respond | Civic Blueprint",
     description:
       "Choose how to challenge or contribute to Civic Blueprint through GitHub or a plain form.",
-    images: ["/og-default.png"],
+    images: ["/og-default.jpg"],
   },
 };
 

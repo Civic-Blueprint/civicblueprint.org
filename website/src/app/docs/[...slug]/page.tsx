@@ -30,16 +30,21 @@ export async function generateMetadata({
     };
   }
 
-  const imageUrl = "/og-default.png";
+  const imageUrl = "/og-default.jpg";
+  const shortTitle = `${doc.title} | Civic Blueprint`;
+  const socialTitle =
+    doc.description.length > 0
+      ? `${doc.title} — ${doc.description}`.slice(0, 70)
+      : shortTitle;
 
   return {
-    title: `${doc.title} | Civic Blueprint`,
+    title: shortTitle,
     description: doc.description,
     alternates: {
       canonical: doc.route,
     },
     openGraph: {
-      title: `${doc.title} | Civic Blueprint`,
+      title: socialTitle,
       description: doc.description,
       type: "article",
       url: doc.route,
@@ -49,13 +54,13 @@ export async function generateMetadata({
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: `${doc.title} | Civic Blueprint`,
+          alt: shortTitle,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${doc.title} | Civic Blueprint`,
+      title: socialTitle,
       description: doc.description,
       images: [imageUrl],
     },
@@ -90,7 +95,7 @@ export default async function DocPage({ params }: DocPageProps) {
                 url: "https://civicblueprint.org/logo.png",
               },
             },
-            image: "https://civicblueprint.org/og-default.png",
+            image: "https://civicblueprint.org/og-default.jpg",
             dateModified: doc.lastModified.toISOString(),
           },
           {
