@@ -7,6 +7,10 @@ export function MemoFeature() {
       <BlueprintGrid className="opacity-30" />
       <div className="container-shell relative grid gap-8 lg:grid-cols-2">
         <div>
+          <p className="mb-4 reading-width text-[var(--step--1)] leading-relaxed text-slate">
+            Civic Blueprint is an open project analyzing why critical systems
+            fail and how they might be redesigned.
+          </p>
           <p className="section-eyebrow mb-3">
             Start With One Concrete Example
           </p>
