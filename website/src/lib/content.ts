@@ -26,6 +26,7 @@ export type DocSummary = {
   description: string;
   githubUrl: string;
   lastModified: Date;
+  provenance?: string;
   route: string;
   slug: string[];
   sourcePath: string;
@@ -170,6 +171,15 @@ function extractDescription(
     );
 
   return paragraphLines[0] ?? fallback;
+}
+
+function extractOptionalString(value: unknown) {
+  if (typeof value !== "string") {
+    return undefined;
+  }
+
+  const trimmed = value.trim();
+  return trimmed.length > 0 ? trimmed : undefined;
 }
 
 function shouldRewriteLink(href: string) {
@@ -382,6 +392,7 @@ async function buildDocs(): Promise<DocPage[]> {
         githubUrl: `${GITHUB_BASE_URL}/${relativePath}`,
         html: String(compiled),
         lastModified: stat.mtime,
+        provenance: extractOptionalString(parsed.data.provenance),
         route: toRoute(slug),
         slug,
         sourcePath: relativePath,

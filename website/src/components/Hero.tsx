@@ -27,6 +27,15 @@ export function Hero() {
             working set of claims that needs outside pressure, domain expertise,
             and evidence strong enough to prove parts of it wrong.
           </p>
+          <p className="mb-8 reading-width rounded-lg border border-blueprint-line bg-blueprint-technical/10 px-4 py-3 text-[var(--step--1)] leading-relaxed text-slate">
+            Orientation: most project documents are developed through human-AI
+            collaboration and steward editing, not published as raw model
+            output.{" "}
+            <a href="/docs/docs/content-provenance" className="underline">
+              See content provenance labels
+            </a>{" "}
+            before diving into the memo.
+          </p>
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
             <a href="#memo" className="primary-button w-full sm:w-auto">
               Read the first memo

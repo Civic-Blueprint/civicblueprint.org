@@ -161,6 +161,16 @@ export default async function DocPage({ params }: DocPageProps) {
             </a>
           </p>
           <p className="doc-source-path">{doc.sourcePath}</p>
+          {doc.provenance ? (
+            <p className="doc-provenance">
+              <span className="doc-provenance-label">Provenance:</span>{" "}
+              <code>{doc.provenance}</code>.{" "}
+              <a href="/docs/docs/content-provenance">
+                How Civic Blueprint labels human and AI collaboration
+              </a>
+              .
+            </p>
+          ) : null}
           <div className="mb-6 xl:hidden">
             <TableOfContents entries={doc.toc} collapsible />
           </div>
