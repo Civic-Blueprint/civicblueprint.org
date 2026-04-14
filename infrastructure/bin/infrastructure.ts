@@ -30,6 +30,22 @@ const stagingSiteStack = new StaticSiteStack(app, "CivicBlueprintStagingSite", {
 });
 stagingSiteStack.addDependency(dnsStack);
 
+const archiveSiteStack = new StaticSiteStack(
+  app,
+  "CivicBlueprintArchiveSite",
+  {
+    env,
+    domainName: config.domainName,
+    zone: dnsStack.hostedZone,
+    certificate: dnsStack.certificate,
+    subdomain: "archive",
+    includeWwwAlias: false,
+    noIndexHeaders: true,
+    removalPolicy: RemovalPolicy.RETAIN,
+  },
+);
+archiveSiteStack.addDependency(dnsStack);
+
 const productionSiteStack = new StaticSiteStack(
   app,
   "CivicBlueprintProductionSite",
