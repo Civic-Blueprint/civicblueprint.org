@@ -79,8 +79,8 @@ export function MemoFeature() {
           <p className="mb-6 rounded-lg border border-blueprint-line bg-blueprint-technical/10 px-4 py-3 text-sm leading-relaxed text-slate">
             <span className="font-semibold text-ink">Artifact context:</span>{" "}
             this memo is labeled{" "}
-            <code className="rounded bg-slate-200 px-1.5 py-0.5 text-[0.78rem] text-slate-900">
-              [collaborative]
+            <code className="rounded border border-blueprint-line bg-slate-200 px-1.5 py-0.5 text-[0.78rem] font-semibold text-slate-900">
+              collaborative
             </code>{" "}
             in the project provenance standard. It was drafted with AI support
             and then revised and approved by the steward.{" "}

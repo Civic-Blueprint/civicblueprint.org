@@ -218,10 +218,12 @@ a {
 
 .doc-provenance code {
   background: #e2e8f0;
+  border: 1px solid #c7d2e3;
   border-radius: 0.35rem;
   color: #0f172a;
   font-size: 0.82rem;
-  padding: 0.12rem 0.24rem;
+  font-weight: 600;
+  padding: 0.18rem 0.24rem;
 }
 
 .doc-provenance-label {
