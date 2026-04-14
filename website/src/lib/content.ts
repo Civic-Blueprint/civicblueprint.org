@@ -81,7 +81,10 @@ function toSlug(relativePath: string) {
     .filter(Boolean)
     .map(toSegment);
 
-  if (segments[0] === "agent" && segments.length > 1) {
+  if (
+    (segments[0] === "agent" || segments[0] === "docs") &&
+    segments.length > 1
+  ) {
     return segments.slice(1);
   }
 

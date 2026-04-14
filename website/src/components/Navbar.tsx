@@ -5,8 +5,8 @@ import type { ReactNode } from "react";
 import { NavbarMobileMenu } from "@/components/NavbarMobileMenu";
 
 const navItems = [
-  { href: "/#start-here", label: "Start Here" },
   { href: "/#memo", label: "Memo" },
+  { href: "/#start-here", label: "Start Here" },
   { href: "/#framework", label: "Framework" },
   { href: "/#contribute", label: "Contribute" },
 ];

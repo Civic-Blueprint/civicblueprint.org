@@ -165,7 +165,7 @@ export default async function DocPage({ params }: DocPageProps) {
             <p className="doc-provenance">
               <span className="doc-provenance-label">Provenance:</span>{" "}
               <code>{doc.provenance}</code>.{" "}
-              <a href="/docs/docs/content-provenance">
+              <a href="/docs/content-provenance">
                 How Civic Blueprint labels human and AI collaboration
               </a>
               .

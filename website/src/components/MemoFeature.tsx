@@ -77,13 +77,17 @@ export function MemoFeature() {
             misses, that is a better basis for deeper engagement.
           </p>
           <p className="mb-6 rounded-lg border border-blueprint-line bg-blueprint-technical/10 px-4 py-3 text-sm leading-relaxed text-slate">
-            Before reading: this memo is labeled{" "}
+            <span className="font-semibold text-ink">Artifact context:</span>{" "}
+            this memo is labeled{" "}
             <code className="rounded bg-slate-200 px-1.5 py-0.5 text-[0.78rem] text-slate-900">
               [collaborative]
             </code>{" "}
             in the project provenance standard. It was drafted with AI support
             and then revised and approved by the steward.{" "}
-            <Link href="/docs/docs/content-provenance" className="underline">
+            <Link
+              href="/docs/content-provenance"
+              className="font-semibold text-ink underline decoration-2 underline-offset-2 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueprint-technical focus-visible:ring-offset-2"
+            >
               How we label authorship and generation
             </Link>
             .

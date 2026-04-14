@@ -1,4 +1,5 @@
 import { BlueprintGrid } from "@/components/BlueprintGrid";
+import Link from "next/link";
 
 export function Hero() {
   return (
@@ -28,12 +29,15 @@ export function Hero() {
             and evidence strong enough to prove parts of it wrong.
           </p>
           <p className="mb-8 reading-width rounded-lg border border-blueprint-line bg-blueprint-technical/10 px-4 py-3 text-[var(--step--1)] leading-relaxed text-slate">
-            Orientation: most project documents are developed through human-AI
-            collaboration and steward editing, not published as raw model
-            output.{" "}
-            <a href="/docs/docs/content-provenance" className="underline">
+            <span className="font-semibold text-ink">Project context:</span>{" "}
+            most documents are developed through human-AI collaboration and
+            steward editing, not published as raw model output.{" "}
+            <Link
+              href="/docs/content-provenance"
+              className="font-semibold text-ink underline decoration-2 underline-offset-2 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueprint-technical focus-visible:ring-offset-2"
+            >
               See content provenance labels
-            </a>{" "}
+            </Link>{" "}
             before diving into the memo.
           </p>
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
