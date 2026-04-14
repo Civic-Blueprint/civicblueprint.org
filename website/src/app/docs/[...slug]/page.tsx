@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { BackToTop } from "@/components/BackToTop";
@@ -165,9 +166,12 @@ export default async function DocPage({ params }: DocPageProps) {
             <p className="doc-provenance">
               <span className="doc-provenance-label">Provenance:</span>{" "}
               <code>{doc.provenance}</code>.{" "}
-              <a href="/docs/content-provenance">
+              <Link
+                href="/docs/content-provenance"
+                className="font-semibold text-blueprint-navy underline decoration-2 decoration-blueprint-navy underline-offset-2 hover:text-blueprint-technical hover:decoration-blueprint-technical focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueprint-technical focus-visible:ring-offset-2"
+              >
                 How Civic Blueprint labels human and AI collaboration
-              </a>
+              </Link>
               .
             </p>
           ) : null}

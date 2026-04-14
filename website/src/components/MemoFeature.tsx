@@ -84,7 +84,7 @@ export function MemoFeature() {
             revised and approved by the steward.{" "}
             <Link
               href="/docs/content-provenance"
-              className="font-semibold text-ink underline decoration-2 underline-offset-2 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueprint-technical focus-visible:ring-offset-2"
+              className="font-semibold text-blueprint-navy underline decoration-2 decoration-blueprint-navy underline-offset-2 hover:text-blueprint-technical hover:decoration-blueprint-technical focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueprint-technical focus-visible:ring-offset-2"
             >
               How we label authorship and generation
             </Link>
