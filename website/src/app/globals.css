@@ -216,14 +216,20 @@ a {
   padding: 0.55rem 0.75rem;
 }
 
-.doc-provenance code {
+.doc-provenance code,
+.prose-blueprint table code,
+.prose-blueprint blockquote code {
   background: #e2e8f0;
-  border: 1px solid #c7d2e3;
+  border: 1px solid #94a3b8;
   border-radius: 0.35rem;
   color: #0f172a;
-  font-size: 0.82rem;
+  display: inline-block;
+  font-size: 0.78rem;
+  font-style: normal;
   font-weight: 600;
-  padding: 0.18rem 0.24rem;
+  line-height: 1.2;
+  padding: 0.12rem 0.24rem;
+  white-space: nowrap;
 }
 
 .doc-provenance-label {
@@ -336,6 +342,11 @@ a {
   color: #111827;
   font-size: 0.88em;
   padding: 0.08rem 0.28rem;
+}
+
+.prose-blueprint code::before,
+.prose-blueprint code::after {
+  content: none;
 }
 
 .doc-heading-link {
