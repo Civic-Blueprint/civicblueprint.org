@@ -185,6 +185,13 @@ function extractOptionalString(value: unknown) {
   return trimmed.length > 0 ? trimmed : undefined;
 }
 
+function stripProvenanceCallout(html: string) {
+  return html.replace(
+    /\s*<blockquote>\s*<p>\s*<strong>Provenance:<\/strong>[\s\S]*?<a href="\/docs\/content-provenance">[\s\S]*?<\/a>\.?[\s\S]*?<\/p>\s*<\/blockquote>/,
+    "",
+  );
+}
+
 function shouldRewriteLink(href: string) {
   if (
     href.startsWith("#") ||
@@ -384,6 +391,9 @@ async function buildDocs(): Promise<DocPage[]> {
         })
         .use(rehypeStringify)
         .process(markdown);
+      const provenance = extractOptionalString(parsed.data.provenance);
+      const rawHtml = String(compiled);
+      const html = provenance ? stripProvenanceCallout(rawHtml) : rawHtml;
 
       const slug = toSlug(relativePath);
       return {
@@ -393,9 +403,9 @@ async function buildDocs(): Promise<DocPage[]> {
           parsed.data.description,
         ),
         githubUrl: `${GITHUB_BASE_URL}/${relativePath}`,
-        html: String(compiled),
+        html,
         lastModified: stat.mtime,
-        provenance: extractOptionalString(parsed.data.provenance),
+        provenance,
         route: toRoute(slug),
         slug,
         sourcePath: relativePath,
