@@ -48,6 +48,15 @@ export type TocEntry = {
 const CONTENT_ROOT = path.join(process.cwd(), "content", "project-2028");
 const GITHUB_BASE_URL =
   "https://github.com/Civic-Blueprint/project-2028/blob/main";
+const CORE_PATHS = new Set([
+  "README.md",
+  "PRINCIPLES.md",
+  "PROBLEM_MAP.md",
+  "SYSTEMS_FRAMEWORK.md",
+  "CONTRIBUTING.md",
+  "docs/CONTENT_PROVENANCE.md",
+]);
+
 const CORE_ORDER = [
   "readme",
   "principles",
@@ -103,6 +112,10 @@ function toRoute(slug: string[]) {
 }
 
 function toCategory(relativePath: string): DocCategory {
+  if (CORE_PATHS.has(relativePath)) {
+    return "core";
+  }
+
   if (relativePath.startsWith("formation-docs/")) {
     return "formation-docs";
   }
@@ -123,14 +136,7 @@ function toCategory(relativePath: string): DocCategory {
     return "process";
   }
 
-  if (
-    relativePath.startsWith("agent/") ||
-    relativePath.startsWith(".cursor/")
-  ) {
-    return "other";
-  }
-
-  return "core";
+  return "other";
 }
 
 function fallbackTitle(relativePath: string) {
@@ -385,14 +391,17 @@ function rehypeCollectToc(toc: TocEntry[]) {
 
 async function buildDocs(): Promise<DocPage[]> {
   const markdownFiles = await getMarkdownFiles(CONTENT_ROOT, CONTENT_ROOT);
+  const publishableFiles = markdownFiles.filter(
+    (f) => toCategory(f) !== "other",
+  );
   const routeByRelativePath = new Map<string, string>();
 
-  for (const relativePath of markdownFiles) {
+  for (const relativePath of publishableFiles) {
     routeByRelativePath.set(relativePath, toRoute(toSlug(relativePath)));
   }
 
   const docs = await Promise.all(
-    markdownFiles.map(async (relativePath): Promise<DocPage> => {
+    publishableFiles.map(async (relativePath): Promise<DocPage> => {
       const absolutePath = path.join(CONTENT_ROOT, relativePath);
       const rawMarkdown = await fs.readFile(absolutePath, "utf8");
       const stat = await fs.stat(absolutePath);

@@ -45,9 +45,14 @@ cd website
 ./scripts/setup-content.sh
 ```
 
-This syncs the sibling repo into `website/content/project-2028` (excluding `.git`), which avoids Turbopack symlink limitations during static builds.
+This syncs the sibling repo into `website/content/project-2028`, excluding internal/operational files (agent config, steward planning, triage templates, etc.) that should not appear on the public website. See the `--exclude` list in `setup-content.sh` for the full set.
 
 Run `./scripts/setup-content.sh` again whenever markdown content changes locally.
+
+**Content allowlisting:** The website uses a two-layer filter to control which project-2028 files become public pages:
+
+1. **Sync layer** (`setup-content.sh`): excludes operational files from being copied into the content directory at all.
+2. **Category layer** (`website/src/lib/content.ts`): uses an explicit `CORE_PATHS` allowlist for core documents. Files that don't match any known category default to `"other"` and are excluded from the site. New files added to project-2028 will not appear on the website unless they are placed in a recognized directory (`memos/`, `proposals/`, `agent/exchanges/`, `agent/process/`, `formation-docs/`) or explicitly added to `CORE_PATHS`.
 
 Then run the website:
 

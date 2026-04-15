@@ -24,8 +24,21 @@ if [[ -L "${target_dir}" ]]; then
 fi
 
 mkdir -p "${target_dir}"
-rsync -a --delete \
+rsync -a --delete --delete-excluded \
   --exclude=".git/" \
+  --exclude=".cursor/" \
+  --exclude=".github/" \
+  --exclude=".env*" \
+  --exclude="scripts/" \
+  --exclude="assets/" \
+  --exclude="CLAUDE.md" \
+  --exclude="ROADMAP.md" \
+  --exclude="WEBSITE_SUBMISSION_TRIAGE_CHECKLIST.md" \
+  --exclude="LICENSE" \
+  --exclude="*.code-workspace" \
+  --exclude=".prettierignore" \
+  --exclude=".gitignore" \
+  --exclude="docs/PRACTITIONER_OUTREACH_TEMPLATE.md" \
   "${source_repo}/" \
   "${target_dir}/"
 echo "Synced markdown content into ${target_dir}"
