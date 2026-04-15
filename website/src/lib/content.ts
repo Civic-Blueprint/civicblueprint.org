@@ -74,6 +74,13 @@ const FORMATION_DOCS_ORDER = [
   "formation-docs/analysis/synthesis/uniqueness-report",
   "formation-docs/source-registry",
 ];
+const SYNTHESIS_PREFIX = "formation-docs/analysis/synthesis/";
+const SOURCE_ALIGNMENTS_PREFIX = "formation-docs/analysis/principle-maps/";
+const SYNTHESIS_ROOT_PATHS = new Set([
+  "formation-docs/ALIGNMENT_FRAMEWORK.md",
+  "formation-docs/README.md",
+  "formation-docs/SOURCE_REGISTRY.md",
+]);
 
 let docsCache: Promise<DocPage[]> | null = null;
 
@@ -140,6 +147,17 @@ function toCategory(relativePath: string): DocCategory {
   }
 
   return "other";
+}
+
+function isSynthesisDoc(sourcePath: string) {
+  return (
+    sourcePath.startsWith(SYNTHESIS_PREFIX) ||
+    SYNTHESIS_ROOT_PATHS.has(sourcePath)
+  );
+}
+
+function isSourceAlignmentDoc(sourcePath: string) {
+  return sourcePath.startsWith(SOURCE_ALIGNMENTS_PREFIX);
 }
 
 function fallbackTitle(relativePath: string) {
@@ -327,10 +345,7 @@ function sortDocs(docs: DocPage[]) {
       }
     }
 
-    if (
-      a.category === "formation-docs" &&
-      b.category === "formation-docs"
-    ) {
+    if (a.category === "formation-docs" && b.category === "formation-docs") {
       const aIndex = FORMATION_DOCS_ORDER.indexOf(a.slug.join("/"));
       const bIndex = FORMATION_DOCS_ORDER.indexOf(b.slug.join("/"));
       if (aIndex !== -1 || bIndex !== -1) {
@@ -480,10 +495,14 @@ export async function getDocBySlug(slug: string[]) {
 
 export async function getDocsNavigation() {
   const docs = await getDocsInternal();
+  const formationDocs = docs.filter((doc) => doc.category === "formation-docs");
 
   return {
     core: docs.filter((doc) => doc.category === "core"),
-    formationDocs: docs.filter((doc) => doc.category === "formation-docs"),
+    synthesis: formationDocs.filter((doc) => isSynthesisDoc(doc.sourcePath)),
+    sourceAlignments: formationDocs.filter((doc) =>
+      isSourceAlignmentDoc(doc.sourcePath),
+    ),
     memos: docs.filter((doc) => doc.category === "memos"),
     proposals: docs.filter((doc) => doc.category === "proposals"),
     exchanges: docs.filter((doc) => doc.category === "exchanges"),
