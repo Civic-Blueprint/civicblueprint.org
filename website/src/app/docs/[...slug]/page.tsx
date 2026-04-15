@@ -198,15 +198,22 @@ export default async function DocPage({ params }: DocPageProps) {
         <article
           className={`prose prose-blueprint blueprint-card min-w-0 w-full p-6 md:p-8 ${isSynthesisDoc ? "docs-wide-content" : ""}`}
           style={isWideDocLayout ? { maxWidth: "none" } : undefined}
+          data-pagefind-body
         >
-          <p className="doc-source-link">
+          <div className="sr-only" aria-hidden="true">
+            <span data-pagefind-meta={`title:${doc.title}`} />
+            <span data-pagefind-meta={`category:${doc.category}`} />
+            <span data-pagefind-meta={`sourcePath:${doc.sourcePath}`} />
+            <span data-pagefind-filter={`category:${doc.category}`} />
+          </div>
+          <p className="doc-source-link" data-pagefind-ignore>
             <a href={doc.githubUrl} className="external-link" target="_blank" rel="noreferrer">
               View this file on GitHub
             </a>
           </p>
-          <p className="doc-source-path">{doc.sourcePath}</p>
+          <p className="doc-source-path" data-pagefind-ignore>{doc.sourcePath}</p>
           {doc.provenance ? (
-            <p className="doc-provenance">
+            <p className="doc-provenance" data-pagefind-ignore>
               <span className="doc-provenance-label">Provenance:</span>{" "}
               <code>{doc.provenance}</code>.{" "}
               <Link
@@ -219,24 +226,27 @@ export default async function DocPage({ params }: DocPageProps) {
             </p>
           ) : null}
           {docFraming ? (
-            <section className="mb-6 rounded-xl border border-blueprint-line bg-blueprint-technical/10 p-5">
+            <section
+              className="mb-6 rounded-xl border border-blueprint-line bg-blueprint-technical/10 p-5"
+              data-pagefind-ignore
+            >
               <p className="section-eyebrow mb-2">{docFraming.eyebrow}</p>
               <h2 className="mb-2 font-display text-2xl text-ink">
                 {docFraming.title}
               </h2>
-              <p className="m-0 text-[var(--step--1)] leading-relaxed text-slate">
+              <p className="m-0 text-(--step--1) leading-relaxed">
                 {docFraming.description}
               </p>
             </section>
           ) : null}
-          <div className="mb-6 xl:hidden">
+          <div className="mb-6 xl:hidden" data-pagefind-ignore>
             <TableOfContents entries={doc.toc} collapsible />
           </div>
           {isProblemMap ? <DependencyGraph /> : null}
           <div dangerouslySetInnerHTML={{ __html: doc.html }} />
         </article>
 
-        <div className="hidden xl:block">
+        <div className="hidden xl:block" data-pagefind-ignore>
           <TableOfContents entries={doc.toc} className="sticky top-24" />
         </div>
       </div>

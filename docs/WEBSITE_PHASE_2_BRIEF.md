@@ -257,6 +257,15 @@ Phase 2 retains the Phase 1 page types and adds one.
    - Source corpus overview
    - Links to full analysis artifacts
 
+### Search and discovery
+
+Phase 2 should include a dedicated on-site search experience for public documents:
+
+- **Search page (`/search`)** with full-text query input and category filters (core, formation docs, memos, proposals, process, exchanges)
+- Search results should include document title, excerpt, and source path so users can distinguish similarly named artifacts quickly
+- Search should work without GitHub authentication and without introducing new backend infrastructure
+- The implementation should remain compatible with the static export architecture (index generated at build time, served from S3 + CloudFront)
+
 ## Success Criteria
 
 Phase 2 is successful if the alignment framing produces a qualitatively different response from visitors.

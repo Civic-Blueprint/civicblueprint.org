@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="border-t border-blueprint-line py-8">
+    <footer className="border-t border-blueprint-line py-8" data-pagefind-ignore>
       <div className="container-shell flex flex-col gap-3 text-sm text-muted md:flex-row md:items-center md:justify-between">
         <a
           href="https://github.com/Civic-Blueprint"
