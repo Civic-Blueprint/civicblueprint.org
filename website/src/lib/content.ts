@@ -13,6 +13,8 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
+import rehypeResponsiveTables from "./rehype-responsive-tables";
+
 export type DocCategory =
   | "core"
   | "formation-docs"
@@ -418,6 +420,7 @@ async function buildDocs(): Promise<DocPage[]> {
         .use(remarkGfm)
         .use(remarkRehype)
         .use(rehypeSanitize)
+        .use(rehypeResponsiveTables)
         .use(rehypeSlug)
         .use(rehypeCollectToc(toc))
         .use(rehypeAutolinkHeadings, {

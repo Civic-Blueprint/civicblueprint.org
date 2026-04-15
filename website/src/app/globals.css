@@ -319,6 +319,81 @@ a {
   white-space: nowrap;
 }
 
+.doc-table-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+.doc-table-card {
+  background: rgba(199, 210, 227, 0.1);
+  border: 1px solid #c7d2e3;
+  border-left: 3px solid #2b5a96;
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+}
+
+.doc-table-card-title {
+  color: #111827;
+  font-family: var(--font-source-serif), Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.doc-table-card-title a {
+  color: #123e7c;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.doc-table-card-title a:hover,
+.doc-table-card-title a:focus-visible {
+  color: #2b5a96;
+}
+
+.doc-table-card-fields {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.doc-table-card-fields dt {
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  margin-top: 0.6rem;
+  text-transform: uppercase;
+}
+
+.doc-table-card-fields dd {
+  color: #334155;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0.1rem 0 0;
+}
+
+.doc-table-card-fields dd a {
+  color: #123e7c;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.doc-table-card-fields dd a:hover,
+.doc-table-card-fields dd a:focus-visible {
+  color: #2b5a96;
+}
+
+.doc-table-card-fields dd code {
+  background: rgba(199, 210, 227, 0.28);
+  border-radius: 0.3rem;
+  color: #111827;
+  font-size: 0.88em;
+  padding: 0.08rem 0.28rem;
+}
+
 .prose-blueprint pre {
   background: rgba(199, 210, 227, 0.2);
   border: 1px solid #c7d2e3;
