@@ -22,12 +22,19 @@ export function Hero() {
             not.
           </h2>
           <p className="mb-10 reading-width text-[var(--step-0)] leading-relaxed text-slate">
-            Civic Blueprint assembled twenty-one formation documents spanning
-            six continents and three centuries and mapped them against a shared
-            set of principles. The pattern that emerged was convergence, not
-            divergence. This is a working thesis backed by evidence, not a
-            settled claim. It needs outside pressure, domain expertise, and
-            challenges strong enough to prove parts of it wrong.
+            Civic Blueprint assembled{" "}
+            <Link href="/evidence" className="text-link">
+              twenty-one formation documents
+            </Link>{" "}
+            spanning six continents and three centuries and mapped them against
+            a shared set of{" "}
+            <Link href="/docs/principles" className="text-link">
+              principles
+            </Link>
+            . The pattern that emerged was convergence, not divergence. This is
+            a working thesis backed by evidence, not a settled claim. It needs
+            outside pressure, domain expertise, and challenges strong enough to
+            prove parts of it wrong.
           </p>
           <p className="mb-8 reading-width rounded-lg border border-blueprint-line bg-blueprint-technical/10 px-4 py-3 text-[var(--step--1)] leading-relaxed text-slate">
             <span className="font-semibold text-ink">Project context:</span>{" "}

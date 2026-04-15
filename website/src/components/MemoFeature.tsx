@@ -23,8 +23,14 @@ export function MemoFeature() {
             real drift than generic policy summaries can.
           </p>
           <p className="reading-width text-[var(--step-0)] leading-relaxed text-slate">
-            That is why the first memo pairs two cases: housing permitting and
-            AI governance.
+            That is why the{" "}
+            <Link
+              href="/docs/memos/proof-of-usefulness-memo-01"
+              className="text-link"
+            >
+              first memo
+            </Link>{" "}
+            pairs two cases: housing permitting and AI governance.
           </p>
         </div>
         <article className="blueprint-panel corner-marks p-7 md:p-8">

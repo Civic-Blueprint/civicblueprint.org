@@ -54,6 +54,8 @@ Run `./scripts/setup-content.sh` again whenever markdown content changes locally
 1. **Sync layer** (`setup-content.sh`): excludes operational files from being copied into the content directory at all.
 2. **Category layer** (`website/src/lib/content.ts`): uses an explicit `CORE_PATHS` allowlist for core documents. Files that don't match any known category default to `"other"` and are excluded from the site. New files added to project-2028 will not appear on the website unless they are placed in a recognized directory (`memos/`, `proposals/`, `agent/exchanges/`, `agent/process/`, `formation-docs/`) or explicitly added to `CORE_PATHS`.
 
+**Link rewriting:** Markdown links to `.md` files are automatically rewritten at build time. Links to published documents become internal `/docs/...` routes. Links to unpublished files (e.g., `ROADMAP.md`, `WEBSITE_SUBMISSION_TRIAGE_CHECKLIST.md`) are rewritten to their GitHub blob URLs so they remain functional on the website without requiring manual edits to every source file.
+
 Then run the website:
 
 ```bash

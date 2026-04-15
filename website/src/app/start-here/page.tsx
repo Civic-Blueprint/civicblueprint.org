@@ -115,9 +115,19 @@ export default function StartHerePage() {
                 and tests what realignment would require.
               </p>
               <p className="reading-width text-[var(--step-0)] leading-relaxed text-slate">
-                If you are new here, the shortest useful path is: see the
-                convergence claim, inspect the evidence, read the principles,
-                then decide whether the rest of the framework is worth your
+                If you are new here, the shortest useful path is: read the{" "}
+                <Link href="/docs/readme" className="text-link">
+                  project overview
+                </Link>
+                , inspect the{" "}
+                <Link href="/evidence" className="text-link">
+                  evidence
+                </Link>
+                , review the{" "}
+                <Link href="/docs/principles" className="text-link">
+                  principles
+                </Link>
+                , then decide whether the rest of the framework is worth your
                 time.
               </p>
             </header>
@@ -173,20 +183,42 @@ export default function StartHerePage() {
               front door.
             </h2>
             <p className="mb-5 reading-width text-[var(--step-0)] leading-relaxed text-slate">
-              The working documents live in GitHub because version history,
-              source transparency, and structured contribution matter. But that
-              is not a reasonable entry point for many of the people the project
-              most needs: domain experts, public-interest operators,
-              policy-adjacent builders, and researchers with strong
-              disagreement.
+              The working documents live in{" "}
+              <a
+                href="https://github.com/Civic-Blueprint/project-2028"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-link external-link"
+              >
+                GitHub
+              </a>{" "}
+              because version history, source transparency, and structured
+              contribution matter. But that is not a reasonable entry point for
+              many of the people the project most needs: domain experts,
+              public-interest operators, policy-adjacent builders, and
+              researchers with strong disagreement.
             </p>
             <p className="reading-width text-[var(--step-0)] leading-relaxed text-slate">
               This site exists to make the work legible enough for serious
               outsiders to challenge it without first learning a repository
-              structure. If you want the deepest source context, use the full
-              `/docs` library on this site. If you want the shortest path to
-              the current thesis, start with the evidence page and the first
-              memo.
+              structure. If you want the deepest source context, use the
+              full{" "}
+              <Link href="/docs" className="text-link">
+                /docs library
+              </Link>{" "}
+              on this site. If you want the shortest path to the current
+              thesis, start with the{" "}
+              <Link href="/evidence" className="text-link">
+                evidence page
+              </Link>{" "}
+              and the{" "}
+              <Link
+                href="/docs/memos/proof-of-usefulness-memo-01"
+                className="text-link"
+              >
+                first memo
+              </Link>
+              .
             </p>
           </div>
         </section>

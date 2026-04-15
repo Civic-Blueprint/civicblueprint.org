@@ -246,11 +246,13 @@ function rewriteMarkdownLinks(
         path.posix.join(path.posix.dirname(currentRelativePath), targetPath),
       );
       const route = routeByRelativePath.get(normalizedTarget);
-      if (!route) {
-        return full;
+      if (route) {
+        const rewrittenHref = targetHash ? `${route}#${targetHash}` : route;
+        return `[${label}](${rewrittenHref}${titlePart ?? ""})`;
       }
 
-      const rewrittenHref = targetHash ? `${route}#${targetHash}` : route;
+      const ghUrl = `${GITHUB_BASE_URL}/${normalizedTarget}`;
+      const rewrittenHref = targetHash ? `${ghUrl}#${targetHash}` : ghUrl;
       return `[${label}](${rewrittenHref}${titlePart ?? ""})`;
     },
   );

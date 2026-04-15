@@ -17,8 +17,11 @@ export function FindingSection() {
           </p>
           <p className="mb-5 reading-width text-[var(--step-0)] leading-relaxed text-slate">
             That question led to a harder one: are these commitments ours alone,
-            or has humanity been reaching toward them all along? The
-            formation-document analysis was built to answer that.
+            or has humanity been reaching toward them all along? The{" "}
+            <Link href="/evidence" className="text-link">
+              formation-document analysis
+            </Link>{" "}
+            was built to answer that.
           </p>
           <p className="mb-5 reading-width text-[var(--step-0)] leading-relaxed text-slate">
             Twenty-one constitutions, charters, declarations, and organizational
