@@ -37,7 +37,6 @@ const archiveSiteStack = new StaticSiteStack(
     env,
     domainName: config.domainName,
     zone: dnsStack.hostedZone,
-    certificate: dnsStack.certificate,
     subdomain: "archive",
     includeWwwAlias: false,
     noIndexHeaders: true,

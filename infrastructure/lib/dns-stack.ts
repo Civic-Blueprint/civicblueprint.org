@@ -26,7 +26,6 @@ export class DnsStack extends Stack {
       subjectAlternativeNames: [
         `www.${props.domainName}`,
         `staging.${props.domainName}`,
-        `archive.${props.domainName}`,
       ],
       validation: CertificateValidation.fromDns(this.hostedZone),
     });

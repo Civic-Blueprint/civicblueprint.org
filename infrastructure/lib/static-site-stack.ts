@@ -21,7 +21,11 @@ import {
   ViewerProtocolPolicy,
 } from "aws-cdk-lib/aws-cloudfront";
 import { S3BucketOrigin } from "aws-cdk-lib/aws-cloudfront-origins";
-import { Certificate } from "aws-cdk-lib/aws-certificatemanager";
+import {
+  Certificate,
+  CertificateValidation,
+  type ICertificate,
+} from "aws-cdk-lib/aws-certificatemanager";
 import { BlockPublicAccess, Bucket } from "aws-cdk-lib/aws-s3";
 import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
 import {
@@ -36,7 +40,7 @@ import { Construct } from "constructs";
 export interface StaticSiteStackProps extends StackProps {
   domainName: string;
   zone: HostedZone;
-  certificate: Certificate;
+  certificate?: ICertificate;
   subdomain?: string;
   includeWwwAlias?: boolean;
   noIndexHeaders?: boolean;
@@ -57,6 +61,13 @@ export class StaticSiteStack extends Stack {
     if (props.includeWwwAlias) {
       aliases.push(`www.${props.domainName}`);
     }
+
+    const certificate =
+      props.certificate ??
+      new Certificate(this, "SiteCertificate", {
+        domainName: siteDomain,
+        validation: CertificateValidation.fromDns(props.zone),
+      });
 
     const securityHeadersPolicy = new ResponseHeadersPolicy(
       this,
@@ -159,7 +170,7 @@ function handler(event) {
     }
 
     this.distribution = new Distribution(this, "SiteDistribution", {
-      certificate: props.certificate,
+      certificate,
       domainNames: aliases,
       defaultRootObject: "index.html",
       defaultBehavior: {
