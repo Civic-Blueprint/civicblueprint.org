@@ -8,8 +8,8 @@ export function MemoFeature() {
       <div className="container-shell relative grid gap-8 lg:grid-cols-2">
         <div>
           <p className="mb-4 reading-width text-[var(--step--1)] leading-relaxed text-slate">
-            Civic Blueprint is an open project analyzing why critical systems
-            fail and how they might be redesigned.
+            Civic Blueprint is an open project mapping where systems drift from
+            the commitments societies already say they share.
           </p>
           <p className="section-eyebrow mb-3">
             Start With One Concrete Example
@@ -20,7 +20,7 @@ export function MemoFeature() {
           </h2>
           <p className="mb-5 section-lead">
             It is to test whether the framework can produce a better read of
-            real bottlenecks than generic policy summaries can.
+            real drift than generic policy summaries can.
           </p>
           <p className="reading-width text-[var(--step-0)] leading-relaxed text-slate">
             That is why the first memo pairs two cases: housing permitting and
@@ -37,9 +37,10 @@ export function MemoFeature() {
           </h3>
           <p className="mb-5 text-[var(--step-0)] leading-relaxed text-slate">
             AI governance is arguably the most urgent systemic challenge right
-            now. Housing permitting is one of the most concrete. The memo
-            applies the same analytical method to both and compares what they
-            reveal together:
+            now. Housing permitting is one of the most concrete. Both represent
+            cases where shared commitments around competence, accountability,
+            and broad access are not being met. The memo applies the same
+            analytical method to both and compares what they reveal together:
           </p>
           <div className="mb-6 border-t border-blueprint-line pt-4">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.1em] text-muted">

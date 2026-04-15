@@ -2,6 +2,10 @@ import Link from "next/link";
 
 const responseOptions = [
   {
+    title: "Challenge the convergence claim",
+    href: "/respond?type=challenge#challenge",
+  },
+  {
     title: "Challenge the directional claim",
     href: "/respond?type=challenge#challenge",
   },
@@ -12,6 +16,10 @@ const responseOptions = [
   {
     title: "Point to a historical case",
     href: "/respond?type=historical-case#historical",
+  },
+  {
+    title: "Suggest a missing formation document",
+    href: "/respond?type=missing-perspective#perspective",
   },
   {
     title: "Suggest a missing perspective",
@@ -30,8 +38,9 @@ export function HowToRespond() {
         <p className="section-eyebrow mb-4">Response paths</p>
         <h2 className="section-title mb-5 text-ink">How To Respond</h2>
         <p className="section-lead mb-8">
-          If you think the framework is useful, incomplete, or wrong, say so
-          directly.
+          If you think the convergence claim is valid, overstated, or wrong,
+          say so directly. If you think the framework is useful, incomplete, or
+          missing something, say that too.
         </p>
         <p className="mb-5 text-[var(--step-0)] font-semibold text-blueprint-navy">
           Suggested response paths:

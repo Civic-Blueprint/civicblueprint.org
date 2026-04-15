@@ -9,9 +9,9 @@ import { ResponseForm } from "@/components/ResponseForm";
 const responsePaths = [
   {
     anchor: "challenge",
-    title: "Challenge the directional claim",
+    title: "Challenge a major claim",
     description:
-      "Point directly to where the framework overreaches, misses causality, or draws the wrong strategic conclusion.",
+      "Point directly to where the convergence claim, the directional claim, or the broader framework overreaches, misses causality, or draws the wrong strategic conclusion.",
     template: "challenge-claim.yml",
     queryType: "challenge",
   },

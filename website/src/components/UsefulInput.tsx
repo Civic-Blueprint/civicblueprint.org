@@ -4,6 +4,8 @@ const usefulInputItems = [
   "Implementation critique about sequencing, incentives, staffing, and execution.",
   "Missing perspectives, especially from outside US and Western policy frames.",
   "Direct disagreement with major claims, including the institutional-capacity hypothesis and the memo's directional claim about leverage.",
+  "Formation-document expertise from constitutional scholars, comparative political theorists, and historians of founding texts.",
+  "Challenges to the convergence claim itself, including selection bias, interpretive generosity, or false-overlap inflation.",
 ];
 
 export function UsefulInput() {
@@ -21,7 +23,7 @@ export function UsefulInput() {
         <p className="mb-8 text-[var(--step-1)] font-semibold text-blueprint-navy">
           The most useful input includes:
         </p>
-        <div className="balanced-grid grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="balanced-grid grid gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {usefulInputItems.map((item) => (
             <article key={item} className="blueprint-card p-6">
               <p className="text-[var(--step-0)] leading-relaxed text-slate">
@@ -31,9 +33,9 @@ export function UsefulInput() {
           ))}
         </div>
         <p className="mt-6 reading-width text-[var(--step-0)] leading-relaxed text-muted">
-          Helpful feedback is specific. &quot;This feels right&quot; is less
-          useful than &quot;this causal link is weak because permitting delays
-          in this case came from infrastructure finance, not zoning.&quot;
+          Helpful feedback is specific. &quot;The convergence finding is
+          interesting&quot; is less useful than &quot;the alignment you&apos;re
+          reading in the African Union Act is better explained by X.&quot;
         </p>
       </div>
     </section>

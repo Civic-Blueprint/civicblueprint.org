@@ -19,17 +19,17 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: "Civic Blueprint | A public framework for redesigning broken systems",
+  title: "Civic Blueprint | What if we already agree on where we're going?",
   description:
-    "Civic Blueprint is an open project for understanding how critical systems fail and how they might be redesigned. Read the first proof-of-usefulness memo — housing permitting and AI governance through one framework — explore the work, and challenge it.",
+    "Across centuries and continents, human civilizations converge on the same commitments: dignity, accountability, freedom, and broad participation. Civic Blueprint surfaces that alignment, maps where systems drift from it, and invites challenge.",
   metadataBase: new URL("https://civicblueprint.org"),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Civic Blueprint — A Framework for Redesigning Civic Systems",
+    title: "Civic Blueprint — What if we're not as divided as we think?",
     description:
-      "Civic Blueprint is an open project for understanding how critical systems fail and how they might be redesigned.",
+      "Across centuries and continents, human civilizations converge on the same commitments. Explore the evidence, read the framework, and challenge the work.",
     type: "website",
     siteName: "Civic Blueprint",
     locale: "en_US",
@@ -44,9 +44,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Civic Blueprint — A Framework for Redesigning Civic Systems",
+    title: "Civic Blueprint — What if we're not as divided as we think?",
     description:
-      "Read the first proof-of-usefulness memo, explore the framework, and challenge the work.",
+      "See the evidence. Read the framework. Challenge the work.",
     images: ["/og-default.jpg"],
   },
   icons: {

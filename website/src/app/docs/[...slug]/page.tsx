@@ -15,6 +15,12 @@ type DocPageProps = {
 const SOCIAL_MIN = 50;
 const SOCIAL_MAX = 60;
 
+type FramingCard = {
+  eyebrow: string;
+  title: string;
+  description: string;
+};
+
 function truncateAtWord(text: string, max: number, min = 0): string {
   if (text.length <= max) return text;
   const cut = text.slice(0, max);
@@ -39,6 +45,39 @@ function buildSocialTitle(title: string, description: string): string {
   }
 
   return branded;
+}
+
+function getPhaseTwoFraming(slug: string[]): FramingCard | null {
+  const joinedSlug = slug.join("/");
+
+  if (joinedSlug === "principles") {
+    return {
+      eyebrow: "How to read this document",
+      title: "Principles as shared outcome targets",
+      description:
+        "In Phase 2, the principles are framed as shared outcome commitments that the formation-document corpus helps surface and test, not merely as Civic Blueprint's internal values list.",
+    };
+  }
+
+  if (joinedSlug === "problem-map") {
+    return {
+      eyebrow: "How to read this document",
+      title: "Problem Map as drift diagnostic",
+      description:
+        "This document shows where systems move away from commitments societies already say they share: dignity, accountable power, broad access, and durable public legitimacy.",
+    };
+  }
+
+  if (joinedSlug === "systems-framework") {
+    return {
+      eyebrow: "How to read this document",
+      title: "Systems Framework as realignment analysis",
+      description:
+        "This document translates the diagnosis into domain-by-domain analysis of leverage, bottlenecks, dependencies, and sequence for closing the gap between shared commitments and lived system outcomes.",
+    };
+  }
+
+  return null;
 }
 
 export const dynamicParams = false;
@@ -98,6 +137,7 @@ export default async function DocPage({ params }: DocPageProps) {
   const { slug } = await params;
   const doc = await getDocBySlug(slug);
   const isProblemMap = slug.join("/") === "problem-map";
+  const phaseTwoFraming = getPhaseTwoFraming(slug);
 
   if (!doc) {
     notFound();
@@ -174,6 +214,17 @@ export default async function DocPage({ params }: DocPageProps) {
               </Link>
               .
             </p>
+          ) : null}
+          {phaseTwoFraming ? (
+            <section className="mb-6 rounded-xl border border-blueprint-line bg-blueprint-technical/10 p-5">
+              <p className="section-eyebrow mb-2">{phaseTwoFraming.eyebrow}</p>
+              <h2 className="mb-2 font-display text-2xl text-ink">
+                {phaseTwoFraming.title}
+              </h2>
+              <p className="m-0 text-[var(--step--1)] leading-relaxed text-slate">
+                {phaseTwoFraming.description}
+              </p>
+            </section>
           ) : null}
           <div className="mb-6 xl:hidden">
             <TableOfContents entries={doc.toc} collapsible />

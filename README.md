@@ -186,6 +186,8 @@ Docs pages now include a mobile-first navigation and readability pass:
 
 - `docs/WEBSITE_PHASE_1_BRIEF.md` - Phase 1 scope, audience, and launch plan
 - `docs/HOMEPAGE_COPY_DRAFT.md` - draft homepage copy based on the Phase 1 brief
+- `docs/WEBSITE_PHASE_2_BRIEF.md` - Phase 2 narrative pivot, evidence page, Start Here, framework reframing, and incremental ship plan
+- `docs/HOMEPAGE_COPY_DRAFT_PHASE_2.md` - draft homepage copy for the alignment-first Phase 2 narrative
 - `docs/HOMEPAGE_DESIGN_SYSTEM_SPEC.md` - first-pass design system and visual language
 - `docs/HOMEPAGE_UX_FIRST_PASS.md` - UX structure, information architecture, and conversion flow
 - `docs/PROOF_OF_USEFULNESS_MEMO_01.md` - first proof-of-usefulness memo (comparative: housing permitting + AI governance)

@@ -13,20 +13,21 @@ export function Hero() {
         <div className="max-w-5xl">
           <p className="section-eyebrow mb-4">An open analytical project</p>
           <h1 className="section-title mb-5 text-ink text-wrap-balance">
-            If we wanted a society that was more capable, more humane, and more
-            accountable, what would have to change first?
+            What if we&apos;re not as divided as we think?
           </h1>
           <h2 className="section-lead mb-8 leading-snug text-slate text-wrap-balance">
-            Better systems are possible -- and building them is a shared civic
-            responsibility.
+            Across centuries, human civilizations keep reaching toward the same
+            commitments: dignity, accountability, freedom, and broad
+            participation. The methods differ. The outcomes they aspire to do
+            not.
           </h2>
           <p className="mb-10 reading-width text-[var(--step-0)] leading-relaxed text-slate">
-            Civic Blueprint is an open attempt to understand why critical
-            systems keep failing, what makes reform so difficult, and where
-            better design might actually change outcomes. The framework already
-            exists, but it is not presented here as settled truth. It is a
-            working set of claims that needs outside pressure, domain expertise,
-            and evidence strong enough to prove parts of it wrong.
+            Civic Blueprint assembled twenty-one formation documents spanning
+            six continents and three centuries and mapped them against a shared
+            set of principles. The pattern that emerged was convergence, not
+            divergence. This is a working thesis backed by evidence, not a
+            settled claim. It needs outside pressure, domain expertise, and
+            challenges strong enough to prove parts of it wrong.
           </p>
           <p className="mb-8 reading-width rounded-lg border border-blueprint-line bg-blueprint-technical/10 px-4 py-3 text-[var(--step--1)] leading-relaxed text-slate">
             <span className="font-semibold text-ink">Project context:</span>{" "}
@@ -41,19 +42,19 @@ export function Hero() {
             before diving into the memo.
           </p>
           <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-            <a href="#memo" className="primary-button w-full sm:w-auto">
+            <Link href="/evidence" className="primary-button w-full sm:w-auto">
+              See the evidence
+            </Link>
+            <a href="#memo" className="secondary-button w-full sm:w-auto">
               Read the first memo
-            </a>
-            <a href="#start-here" className="secondary-button w-full sm:w-auto">
-              Start here
             </a>
             <a href="#contribute" className="secondary-button w-full sm:w-auto">
               Challenge this work
             </a>
           </div>
           <p className="mb-8 text-[var(--step--1)] text-muted">
-            Start with one concrete example, then decide whether the broader
-            framework is worth your time.
+            Start with the finding. Then decide whether the framework behind it
+            is worth your time.
           </p>
         </div>
       </div>
