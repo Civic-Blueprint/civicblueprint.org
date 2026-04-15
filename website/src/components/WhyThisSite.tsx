@@ -8,7 +8,7 @@ export function WhyThisSite() {
           The working documents live in{" "}
           <a
             href="https://github.com/Civic-Blueprint/project-2028"
-            className="text-link"
+            className="external-link text-link"
             target="_blank"
             rel="noreferrer"
           >

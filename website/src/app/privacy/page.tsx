@@ -169,6 +169,7 @@ export default function PrivacyPolicyPage() {
               <li>
                 <a
                   href="https://plausible.io/data-policy"
+                  className="external-link"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -178,6 +179,7 @@ export default function PrivacyPolicyPage() {
               <li>
                 <a
                   href="https://learn.microsoft.com/en-us/clarity/setup-and-installation/clarity-data"
+                  className="external-link"
                   target="_blank"
                   rel="noreferrer"
                 >

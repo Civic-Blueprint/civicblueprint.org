@@ -200,7 +200,7 @@ export default async function DocPage({ params }: DocPageProps) {
           style={isWideDocLayout ? { maxWidth: "none" } : undefined}
         >
           <p className="doc-source-link">
-            <a href={doc.githubUrl} target="_blank" rel="noreferrer">
+            <a href={doc.githubUrl} className="external-link" target="_blank" rel="noreferrer">
               View this file on GitHub
             </a>
           </p>

@@ -13,6 +13,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 
+import rehypeExternalLinks from "./rehype-external-links";
 import rehypeResponsiveTables from "./rehype-responsive-tables";
 
 export type DocCategory =
@@ -421,6 +422,7 @@ async function buildDocs(): Promise<DocPage[]> {
         .use(remarkRehype)
         .use(rehypeSanitize)
         .use(rehypeResponsiveTables)
+        .use(rehypeExternalLinks)
         .use(rehypeSlug)
         .use(rehypeCollectToc(toc))
         .use(rehypeAutolinkHeadings, {

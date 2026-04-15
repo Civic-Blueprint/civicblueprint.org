@@ -269,7 +269,7 @@ export default function EvidencePage() {
               The full source-text corpus lives in the public source repository{" "}
               <a
                 href="https://github.com/Civic-Blueprint/external-formation-docs"
-                className="text-link"
+                className="external-link text-link"
                 target="_blank"
                 rel="noreferrer"
               >

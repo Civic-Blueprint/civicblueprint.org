@@ -28,7 +28,7 @@ export function WhyThisExists() {
           For readers who want the full working documents, the{" "}
           <a
             href="https://github.com/Civic-Blueprint/project-2028"
-            className="text-link"
+            className="external-link text-link"
             target="_blank"
             rel="noreferrer"
           >

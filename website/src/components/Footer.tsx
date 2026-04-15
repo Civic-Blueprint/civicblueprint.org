@@ -6,7 +6,7 @@ export function Footer() {
       <div className="container-shell flex flex-col gap-3 text-sm text-muted md:flex-row md:items-center md:justify-between">
         <a
           href="https://github.com/Civic-Blueprint"
-          className="font-medium text-slate transition-colors hover:text-blueprint-navy"
+          className="external-link font-medium text-slate transition-colors hover:text-blueprint-navy"
           target="_blank"
           rel="noreferrer"
         >

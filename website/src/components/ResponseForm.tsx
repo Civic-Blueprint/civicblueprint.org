@@ -245,7 +245,7 @@ export function ResponseForm() {
                   href={createdIssueUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="secondary-button text-sm"
+                  className="external-link secondary-button text-sm"
                 >
                   View the created GitHub issue
                 </a>

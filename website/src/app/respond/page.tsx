@@ -117,7 +117,7 @@ export default function RespondPage() {
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <a
-                    className="primary-button"
+                    className="external-link primary-button"
                     href={issueTemplateUrl(path.template)}
                     target="_blank"
                     rel="noreferrer"
