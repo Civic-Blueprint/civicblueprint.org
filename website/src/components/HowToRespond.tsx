@@ -6,10 +6,6 @@ const responseOptions = [
     href: "/respond?type=challenge#challenge",
   },
   {
-    title: "Challenge the directional claim",
-    href: "/respond?type=challenge#challenge",
-  },
-  {
     title: "Share domain expertise",
     href: "/respond?type=domain-expertise#expertise",
   },
@@ -19,7 +15,7 @@ const responseOptions = [
   },
   {
     title: "Suggest a missing formation document",
-    href: "/respond?type=missing-perspective#perspective",
+    href: "/respond?type=missing-formation-document#formation-document",
   },
   {
     title: "Suggest a missing perspective",

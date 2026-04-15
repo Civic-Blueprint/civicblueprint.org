@@ -7,6 +7,7 @@ type ResponseType =
   | "challenge"
   | "domain-expertise"
   | "historical-case"
+  | "missing-formation-document"
   | "missing-perspective";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
@@ -16,9 +17,13 @@ type SubmitSuccessBody = {
 };
 
 const responseTypeOptions: Array<{ label: string; value: ResponseType }> = [
-  { label: "Challenge the directional claim", value: "challenge" },
+  { label: "Challenge a major claim", value: "challenge" },
   { label: "Share domain expertise", value: "domain-expertise" },
   { label: "Point to a historical case", value: "historical-case" },
+  {
+    label: "Suggest a missing formation document",
+    value: "missing-formation-document",
+  },
   { label: "Suggest a missing perspective", value: "missing-perspective" },
 ];
 
@@ -27,6 +32,7 @@ function isResponseType(value: string): value is ResponseType {
     value === "challenge" ||
     value === "domain-expertise" ||
     value === "historical-case" ||
+    value === "missing-formation-document" ||
     value === "missing-perspective"
   );
 }

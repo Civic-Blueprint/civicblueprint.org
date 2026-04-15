@@ -11,6 +11,7 @@ AWS CDK infrastructure for deploying `website/` to AWS and connecting DNS.
   - `staging.civicblueprint.org`
 - Staging static site stack (S3 + CloudFront + Route 53 alias)
 - Production static site stack (S3 + CloudFront + Route 53 apex + www aliases)
+- Archive static site stack (`CivicBlueprintArchiveSite`) for `archive.civicblueprint.org` with dedicated ACM certificate and noindex headers
 - Submission API stack (API Gateway HTTP API + Lambda + GitHub issue creation)
 - GitHub OIDC staging stack (`CivicBlueprintGitHubOidcStaging`) with deploy roles for GitHub Actions:
   - `GitHubStagingDeployRoleArn`
@@ -79,6 +80,8 @@ Infrastructure workflow separation:
 - `.github/workflows/infrastructure-ci.yml` validates CDK changes (`build` + `cdk synth`) on PR/push
 - `.github/workflows/infrastructure-deploy.yml` deploys infra on `main` changes and supports manual dispatch
 - `.github/workflows/deploy.yml` is reserved for static site deployment and content dispatch
+
+The archive site is infrastructure-managed but not part of routine content deployment. It is intended as a point-in-time snapshot and should only be republished intentionally.
 
 The workflow at `.github/workflows/deploy.yml` expects these environment-level secrets:
 

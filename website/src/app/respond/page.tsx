@@ -32,6 +32,14 @@ const responsePaths = [
     queryType: "historical-case",
   },
   {
+    anchor: "formation-document",
+    title: "Suggest a missing formation document",
+    description:
+      "Propose a constitutional, charter, declaration, or organizational founding text that should be added to the comparative corpus.",
+    template: "suggest-formation-document.yml",
+    queryType: "missing-formation-document",
+  },
+  {
     anchor: "perspective",
     title: "Suggest a missing perspective",
     description:

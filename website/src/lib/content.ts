@@ -15,6 +15,7 @@ import { unified } from "unified";
 
 export type DocCategory =
   | "core"
+  | "formation-docs"
   | "memos"
   | "proposals"
   | "exchanges"
@@ -55,6 +56,12 @@ const CORE_ORDER = [
   "contributing",
 ];
 const EXCHANGES_ORDER = ["exchanges/-exchange-index"];
+const FORMATION_DOCS_ORDER = [
+  "formation-docs/analysis/synthesis/alignment-matrix",
+  "formation-docs/analysis/synthesis/gap-analysis",
+  "formation-docs/analysis/synthesis/uniqueness-report",
+  "formation-docs/source-registry",
+];
 
 let docsCache: Promise<DocPage[]> | null = null;
 
@@ -96,6 +103,10 @@ function toRoute(slug: string[]) {
 }
 
 function toCategory(relativePath: string): DocCategory {
+  if (relativePath.startsWith("formation-docs/")) {
+    return "formation-docs";
+  }
+
   if (relativePath.startsWith("memos/")) {
     return "memos";
   }
@@ -273,6 +284,7 @@ function sortDocs(docs: DocPage[]) {
     if (a.category !== b.category) {
       const order: DocCategory[] = [
         "core",
+        "formation-docs",
         "memos",
         "proposals",
         "process",
@@ -296,6 +308,20 @@ function sortDocs(docs: DocPage[]) {
     if (a.category === "exchanges" && b.category === "exchanges") {
       const aIndex = EXCHANGES_ORDER.indexOf(a.slug.join("/"));
       const bIndex = EXCHANGES_ORDER.indexOf(b.slug.join("/"));
+      if (aIndex !== -1 || bIndex !== -1) {
+        return (
+          (aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex) -
+          (bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex)
+        );
+      }
+    }
+
+    if (
+      a.category === "formation-docs" &&
+      b.category === "formation-docs"
+    ) {
+      const aIndex = FORMATION_DOCS_ORDER.indexOf(a.slug.join("/"));
+      const bIndex = FORMATION_DOCS_ORDER.indexOf(b.slug.join("/"));
       if (aIndex !== -1 || bIndex !== -1) {
         return (
           (aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex) -
@@ -441,6 +467,7 @@ export async function getDocsNavigation() {
 
   return {
     core: docs.filter((doc) => doc.category === "core"),
+    formationDocs: docs.filter((doc) => doc.category === "formation-docs"),
     memos: docs.filter((doc) => doc.category === "memos"),
     proposals: docs.filter((doc) => doc.category === "proposals"),
     exchanges: docs.filter((doc) => doc.category === "exchanges"),

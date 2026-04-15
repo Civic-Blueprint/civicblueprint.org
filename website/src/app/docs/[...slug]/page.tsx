@@ -47,33 +47,33 @@ function buildSocialTitle(title: string, description: string): string {
   return branded;
 }
 
-function getPhaseTwoFraming(slug: string[]): FramingCard | null {
+function getDocFraming(slug: string[]): FramingCard | null {
   const joinedSlug = slug.join("/");
 
   if (joinedSlug === "principles") {
     return {
-      eyebrow: "How to read this document",
-      title: "Principles as shared outcome targets",
+      eyebrow: "Reading context",
+      title: "How to use the Principles",
       description:
-        "In Phase 2, the principles are framed as shared outcome commitments that the formation-document corpus helps surface and test, not merely as Civic Blueprint's internal values list.",
+        "Read this as an outcome-level baseline, not as a policy blueprint. These principles define what a better system should deliver; the evidence corpus is used to test whether these commitments are broadly shared or merely project-specific.",
     };
   }
 
   if (joinedSlug === "problem-map") {
     return {
-      eyebrow: "How to read this document",
-      title: "Problem Map as drift diagnostic",
+      eyebrow: "Reading context",
+      title: "How to use the Problem Map",
       description:
-        "This document shows where systems move away from commitments societies already say they share: dignity, accountable power, broad access, and durable public legitimacy.",
+        "Read this as a drift diagnostic. Each section identifies where systems fail to meet stated commitments, what reinforces that failure, and which feedback loops keep the problem in place.",
     };
   }
 
   if (joinedSlug === "systems-framework") {
     return {
-      eyebrow: "How to read this document",
-      title: "Systems Framework as realignment analysis",
+      eyebrow: "Reading context",
+      title: "How to use the Systems Framework",
       description:
-        "This document translates the diagnosis into domain-by-domain analysis of leverage, bottlenecks, dependencies, and sequence for closing the gap between shared commitments and lived system outcomes.",
+        "Read this after the Problem Map. It translates diagnosis into domain-by-domain analysis focused on leverage, dependencies, bottlenecks, and sequence for realignment.",
     };
   }
 
@@ -136,8 +136,11 @@ export async function generateMetadata({
 export default async function DocPage({ params }: DocPageProps) {
   const { slug } = await params;
   const doc = await getDocBySlug(slug);
-  const isProblemMap = slug.join("/") === "problem-map";
-  const phaseTwoFraming = getPhaseTwoFraming(slug);
+  const joinedSlug = slug.join("/");
+  const isProblemMap = joinedSlug === "problem-map";
+  const isSynthesisDoc = joinedSlug.startsWith("formation-docs/analysis/synthesis/");
+  const isWideDocLayout = isProblemMap || isSynthesisDoc;
+  const docFraming = getDocFraming(slug);
 
   if (!doc) {
     notFound();
@@ -193,8 +196,8 @@ export default async function DocPage({ params }: DocPageProps) {
       />
       <div className="docs-content-grid xl:grid xl:grid-cols-[minmax(0,1fr)_14rem] xl:gap-6">
         <article
-          className="prose prose-blueprint blueprint-card min-w-0 w-full p-6 md:p-8"
-          style={isProblemMap ? { maxWidth: "none" } : undefined}
+          className={`prose prose-blueprint blueprint-card min-w-0 w-full p-6 md:p-8 ${isSynthesisDoc ? "docs-wide-content" : ""}`}
+          style={isWideDocLayout ? { maxWidth: "none" } : undefined}
         >
           <p className="doc-source-link">
             <a href={doc.githubUrl} target="_blank" rel="noreferrer">
@@ -215,14 +218,14 @@ export default async function DocPage({ params }: DocPageProps) {
               .
             </p>
           ) : null}
-          {phaseTwoFraming ? (
+          {docFraming ? (
             <section className="mb-6 rounded-xl border border-blueprint-line bg-blueprint-technical/10 p-5">
-              <p className="section-eyebrow mb-2">{phaseTwoFraming.eyebrow}</p>
+              <p className="section-eyebrow mb-2">{docFraming.eyebrow}</p>
               <h2 className="mb-2 font-display text-2xl text-ink">
-                {phaseTwoFraming.title}
+                {docFraming.title}
               </h2>
               <p className="m-0 text-[var(--step--1)] leading-relaxed text-slate">
-                {phaseTwoFraming.description}
+                {docFraming.description}
               </p>
             </section>
           ) : null}

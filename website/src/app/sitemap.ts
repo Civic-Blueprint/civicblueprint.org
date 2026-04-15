@@ -39,6 +39,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const priorityByCategory: Record<(typeof docs)[number]["category"], number> =
     {
       core: 0.8,
+      "formation-docs": 0.7,
       memos: 0.8,
       proposals: 0.75,
       process: 0.6,

@@ -67,7 +67,7 @@ const orientationCards = [
 export const metadata: Metadata = {
   title: "Start Here | Civic Blueprint",
   description:
-    "Get oriented to Civic Blueprint's Phase 2 narrative: start with the evidence, then move into the principles, problem map, systems framework, and the first memo.",
+    "Get oriented to Civic Blueprint: start with the evidence, then move into the principles, problem map, systems framework, and the first memo.",
   alternates: {
     canonical: "/start-here",
   },
@@ -106,7 +106,7 @@ export default function StartHerePage() {
             <header className="max-w-4xl">
               <p className="section-eyebrow mb-3">Start here</p>
               <h1 className="section-title mb-5 text-ink">
-                The Phase 2 reading path starts with the evidence.
+                Start with the evidence, then test the framework.
               </h1>
               <p className="section-lead mb-5">
                 Civic Blueprint is no longer introducing itself only as a reform
@@ -183,9 +183,10 @@ export default function StartHerePage() {
             <p className="reading-width text-[var(--step-0)] leading-relaxed text-slate">
               This site exists to make the work legible enough for serious
               outsiders to challenge it without first learning a repository
-              structure. If you want the deepest source context, use the docs
-              archive. If you want the shortest path to the current thesis,
-              start with the evidence page and the first memo.
+              structure. If you want the deepest source context, use the full
+              `/docs` library on this site. If you want the shortest path to
+              the current thesis, start with the evidence page and the first
+              memo.
             </p>
           </div>
         </section>

@@ -301,6 +301,10 @@ a {
   width: 100%;
 }
 
+.docs-wide-content.prose-blueprint table {
+  min-width: 72rem;
+}
+
 .prose-blueprint th,
 .prose-blueprint td {
   border: 1px solid #c7d2e3;
@@ -312,6 +316,7 @@ a {
 .prose-blueprint th {
   background: rgba(199, 210, 227, 0.2);
   color: #111827;
+  white-space: nowrap;
 }
 
 .prose-blueprint pre {
@@ -449,6 +454,10 @@ a {
   .prose-blueprint th,
   .prose-blueprint td {
     min-width: 8rem;
+  }
+
+  .docs-wide-content.prose-blueprint table {
+    min-width: 56rem;
   }
 
   .corner-marks::before,

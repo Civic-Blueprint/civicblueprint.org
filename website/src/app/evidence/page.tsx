@@ -148,10 +148,11 @@ export default function EvidencePage() {
                 The convergence claim needs to be inspectable, not just stated.
               </h1>
               <p className="section-lead mb-5">
-                This page summarizes the formation-document corpus behind the
-                Phase 2 narrative. It shows what was compared, what patterns
-                recur, where the evidence is strongest, and where the corpus
-                complicates Civic Blueprint&apos;s current principles.
+                This page summarizes the formation-document corpus behind Civic
+                Blueprint&apos;s current convergence claim. It shows what was
+                compared, what patterns recur, where the evidence is strongest,
+                and where the corpus complicates Civic Blueprint&apos;s current
+                principles.
               </p>
               <p className="reading-width text-[var(--step-0)] leading-relaxed text-slate">
                 The point is not to pretend every source says the same thing. It
@@ -265,17 +266,17 @@ export default function EvidencePage() {
               ))}
             </div>
             <p className="mt-6 reading-width text-[var(--step-0)] leading-relaxed text-slate">
-              The full source corpus lives in{" "}
+              The full source-text corpus lives in the public source repository{" "}
               <a
                 href="https://github.com/Civic-Blueprint/external-formation-docs"
                 className="text-link"
                 target="_blank"
                 rel="noreferrer"
               >
-                external-formation-docs
+                External Formation Docs
               </a>
-              . The analysis and synthesis layer lives here in the public site
-              and in the Project 2028 repository.
+              . The analysis and synthesis layer is published here on this site
+              and maintained in the project&apos;s open working repository.
             </p>
           </div>
         </section>

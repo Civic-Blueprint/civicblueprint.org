@@ -9,6 +9,7 @@ type SubmissionType =
   | "challenge"
   | "domain-expertise"
   | "historical-case"
+  | "missing-formation-document"
   | "missing-perspective";
 
 type SubmissionPayload = {
@@ -66,6 +67,10 @@ const submissionTypeConfig: Record<
   "historical-case": {
     label: "historical-case",
     titlePrefix: "Historical case",
+  },
+  "missing-formation-document": {
+    label: "missing-formation-document",
+    titlePrefix: "Missing formation document",
   },
   "missing-perspective": {
     label: "missing-perspective",
@@ -139,6 +144,7 @@ function validatePayload(
     "challenge",
     "domain-expertise",
     "historical-case",
+    "missing-formation-document",
     "missing-perspective",
   ];
 
