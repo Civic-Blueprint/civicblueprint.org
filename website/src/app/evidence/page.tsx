@@ -215,7 +215,7 @@ export default function EvidencePage() {
         <section className="section-shell">
           <div className="container-shell grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)]">
             <div>
-              <p className="section-eyebrow mb-4">What the evidence does not say</p>
+              <p className="section-eyebrow mb-4">Evidence boundaries</p>
               <h2 className="section-title mb-5 text-ink">
                 Convergence is real. Uniformity is not.
               </h2>
