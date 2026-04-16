@@ -69,6 +69,7 @@ const CORE_ORDER = [
   "contributing",
 ];
 const EXCHANGES_ORDER = ["exchanges/-exchange-index"];
+const SOURCES_ORDER = ["sources/readme"];
 const FORMATION_DOCS_ORDER = [
   "formation-docs/analysis/synthesis/alignment-matrix",
   "formation-docs/analysis/synthesis/gap-analysis",
@@ -354,6 +355,17 @@ function sortDocs(docs: DocPage[]) {
     if (a.category === "formation-docs" && b.category === "formation-docs") {
       const aIndex = FORMATION_DOCS_ORDER.indexOf(a.slug.join("/"));
       const bIndex = FORMATION_DOCS_ORDER.indexOf(b.slug.join("/"));
+      if (aIndex !== -1 || bIndex !== -1) {
+        return (
+          (aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex) -
+          (bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex)
+        );
+      }
+    }
+
+    if (a.category === "sources" && b.category === "sources") {
+      const aIndex = SOURCES_ORDER.indexOf(a.slug.join("/"));
+      const bIndex = SOURCES_ORDER.indexOf(b.slug.join("/"));
       if (aIndex !== -1 || bIndex !== -1) {
         return (
           (aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex) -
