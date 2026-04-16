@@ -48,6 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "formation-docs": 0.7,
       memos: 0.8,
       proposals: 0.75,
+      sources: 0.65,
       process: 0.6,
       exchanges: 0.5,
       other: 0.5,

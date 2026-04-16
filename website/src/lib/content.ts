@@ -21,6 +21,7 @@ export type DocCategory =
   | "formation-docs"
   | "memos"
   | "proposals"
+  | "sources"
   | "exchanges"
   | "process"
   | "other";
@@ -136,6 +137,10 @@ function toCategory(relativePath: string): DocCategory {
 
   if (relativePath.startsWith("proposals/")) {
     return "proposals";
+  }
+
+  if (relativePath.startsWith("sources/")) {
+    return "sources";
   }
 
   if (relativePath.startsWith("agent/exchanges/")) {
@@ -316,6 +321,7 @@ function sortDocs(docs: DocPage[]) {
         "formation-docs",
         "memos",
         "proposals",
+        "sources",
         "process",
         "exchanges",
         "other",
@@ -505,6 +511,7 @@ export async function getDocsNavigation() {
     ),
     memos: docs.filter((doc) => doc.category === "memos"),
     proposals: docs.filter((doc) => doc.category === "proposals"),
+    sources: docs.filter((doc) => doc.category === "sources"),
     exchanges: docs.filter((doc) => doc.category === "exchanges"),
     other: docs.filter((doc) => doc.category === "other"),
     process: docs.filter((doc) => doc.category === "process"),

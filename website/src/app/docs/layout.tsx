@@ -38,6 +38,7 @@ export default async function DocsLayout({ children }: DocsLayoutProps) {
       />
       <CollapsibleNavGroup docs={navigation.memos} title="Memos" />
       <CollapsibleNavGroup docs={navigation.proposals} title="Proposals" />
+      <CollapsibleNavGroup docs={navigation.sources} title="Sources" />
       <CollapsibleNavGroup docs={navigation.process} title="Process" />
       <CollapsibleNavGroup docs={navigation.exchanges} title="Exchanges" />
     </nav>
@@ -81,6 +82,10 @@ export default async function DocsLayout({ children }: DocsLayoutProps) {
                 <CollapsibleNavGroup
                   docs={navigation.proposals}
                   title="Proposals"
+                />
+                <CollapsibleNavGroup
+                  docs={navigation.sources}
+                  title="Sources"
                 />
                 <CollapsibleNavGroup
                   docs={navigation.process}

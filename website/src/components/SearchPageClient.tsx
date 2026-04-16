@@ -9,6 +9,7 @@ type DocCategory =
   | "formation-docs"
   | "memos"
   | "proposals"
+  | "sources"
   | "process"
   | "exchanges";
 
@@ -58,6 +59,7 @@ const categoryOptions: CategoryOption[] = [
   { label: "Formation Docs", value: "formation-docs" },
   { label: "Memos", value: "memos" },
   { label: "Proposals", value: "proposals" },
+  { label: "Sources", value: "sources" },
   { label: "Process", value: "process" },
   { label: "Exchanges", value: "exchanges" },
 ];
@@ -245,7 +247,7 @@ export function SearchPageClient() {
 
     const trimmedQuery = query.trim();
     if (trimmedQuery.length === 0) {
-      return "Search across core docs, formation analysis, memos, proposals, process notes, and exchanges.";
+      return "Search across core docs, formation analysis, memos, proposals, sources, process notes, and exchanges.";
     }
 
     if (isLoading === true) {
