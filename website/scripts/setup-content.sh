@@ -39,6 +39,7 @@ rsync -a --delete --delete-excluded \
   --exclude=".prettierignore" \
   --exclude=".gitignore" \
   --exclude="docs/PRACTITIONER_OUTREACH_TEMPLATE.md" \
+  --exclude="feedback/" \
   "${source_repo}/" \
   "${target_dir}/"
 echo "Synced markdown content into ${target_dir}"
