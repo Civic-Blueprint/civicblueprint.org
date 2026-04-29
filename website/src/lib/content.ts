@@ -69,7 +69,7 @@ const CORE_ORDER = [
   "contributing",
 ];
 const EXCHANGES_ORDER = ["exchanges/-exchange-index"];
-const SOURCES_ORDER = ["sources/readme"];
+const SOURCES_ORDER = ["sources/readme", "sources/source-index"];
 const FORMATION_DOCS_ORDER = [
   "formation-docs/analysis/synthesis/alignment-matrix",
   "formation-docs/analysis/synthesis/gap-analysis",
