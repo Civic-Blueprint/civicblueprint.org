@@ -199,6 +199,7 @@ Docs pages now include a mobile-first navigation and readability pass:
 - `docs/HOMEPAGE_UX_FIRST_PASS.md` - UX structure, information architecture, and conversion flow
 - `docs/PROOF_OF_USEFULNESS_MEMO_01.md` - first proof-of-usefulness memo (comparative: housing permitting + AI governance)
 - `docs/PROOF_OF_USEFULNESS_MEMO_01_HOUSING_PERMITTING.md` - archival housing-only draft, superseded by the comparative memo above
+- `docs/website-design-method/` - reusable, project-agnostic website design method extracted from this build (the question-driven "anti-CMS" process: brief → UX → design system → copy → build → reposition). Start at `docs/website-design-method/README.md` or fill out `docs/website-design-method/WORKBOOK.md`.
 
 ## Relationship to project-2028
 
